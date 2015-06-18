@@ -1,3 +1,4 @@
+JSON AJAX format
 // POST path/signup
 {
   "username": "austin",
