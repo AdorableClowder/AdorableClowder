@@ -1,4 +1,4 @@
-JSON AJAX format for communicating between client and server sides
+JSON AJAX format
 // POST path/signup
 {
   "username": "austin",
