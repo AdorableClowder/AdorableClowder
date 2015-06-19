@@ -40,12 +40,16 @@ module.exports = {
 
   },
 
-  createUser: function () {
-    res.send('User created', 201);
+  createUser: function (req, res, next) {
+    res.status(201).send('User created');
   },
 
-  logoutUser: function () {
-    res.send('User logged out');
+  logoutUser: function (req, res, next) {
+    res.status(200).send('User logged out');
+  },
+
+  sendToken: function (req, res, next) {
+    res.json({ "token": "sdklfh8a9ewrnaslkfmp894nfasdkhfas89joklsjdoif" });
   }
 
 

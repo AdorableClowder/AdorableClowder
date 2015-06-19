@@ -4,13 +4,14 @@ var controller = require('./controller.js'); // all actual route handling logic 
 
 var app = express();
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/../client'));
+console.log( __dirname + '/../client');
 
 // Router
 // TODO: make sure to bounce users to signup if they're not logged in
 app.get('/explore', controller.getMatchingUsers);
 app.post('/signup', controller.createUser);
-// app.post('/login', send token and user info); 
+app.post('/login', controller.sendToken); 
 app.post('/logout', controller.logoutUser);
 
 
