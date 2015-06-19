@@ -1,0 +1,24 @@
+{
+  "name": "adorableclowder",
+  "version": "0.0.0",
+  "description": "skill sharing platform",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdorableClowder/AdorableClowder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdorableClowder/AdorableClowder/issues"
+  },
+  "homepage": "https://github.com/AdorableClowder/AdorableClowder#readme",
+  "dependencies": {
+    "bookshelf": "^0.8.1",
+    "express": "^4.12.4",
+    "mysql": "^2.7.0"
+  }
+}
