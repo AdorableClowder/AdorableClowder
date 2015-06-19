@@ -19,6 +19,7 @@
   "dependencies": {
     "bookshelf": "^0.8.1",
     "express": "^4.12.4",
+    "jwt-simple": "^0.3.0",
     "mysql": "^2.7.0"
   }
 }
