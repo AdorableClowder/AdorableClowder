@@ -1,5 +1,4 @@
-JSON AJAX format
-// POST path/signup
+// POST '/signup'
 {
   "username": "austin",
   "password": 1234,
@@ -8,43 +7,28 @@ JSON AJAX format
   "email": "austin@gmail.com"
 }
 
-//RESPONSE from above:
-//reroute to /explore and...
-//return jwt token +
-{
-  "id": 1,
-  "username": "austin",
-  "offer": ["yoga", "cooking"],
-  "want": ["angular"],
-  "email": "austin@gmail.com"
-}
+//RESPONSE from POST '/signup'
+// 201
 
-// POST path/login
+// POST to '/login'
 {
   "username": "austin",
   "password": 1234
 }
 
-//RESPONSE from above:
-//if login success:
-  //return jwt token +
-  {
-    "id": 1,
-    "username": "austin",
-    "offer": ["yoga", "cooking"],
-    "want": ["angular"],
-    "email": "austin@gmail.com"
-  }
-  //then reroute to /explore
+//RESPONSE from POST to '/login':
+{
+  "token": "sdklfh8a9ewrnaslkfmp894nfasdkhfas89joklsjdoif"
+}
 //if login fail:
   //return error
   //reroute to signin again
 
-//GET path/logout:
-//destroy token
-//reroute to signin
+//GET '/logout'
+  //destroy token
+  //reroute to signin
 
-// json response for GET path/explore
+// RESPONSE from GET '/explore'
 [{
     "id": 1,
     "username": "austin",
