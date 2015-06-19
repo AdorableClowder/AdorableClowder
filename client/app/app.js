@@ -1,7 +1,7 @@
 // using angular-ui router
 // setting up karmaApp angular
 console.log('app.js');
-var karmaApp = angular.module('karmaApp', ['ui.router']);
+var karmaApp = angular.module('karmaApp', ['ui.router', ]);
 
 karmaApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -19,17 +19,17 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
 
   .state('signup', {
     url: '/signup',
-    templateUrl: 'views/view-signup.html'
+    templateUrl: 'app/views/view-signup.html'
   })
 
   .state('login', {
     url: '/login',
-    templateUrl: 'views/view-login.html'
+    templateUrl: 'app/views/view-login.html'
   })
 
   .state('explore', {
     url: '/explore',
-    template: 'views/view-explore.html'
+    template: 'app/views/view-explore.html'
   })
   // user profile page later
 })

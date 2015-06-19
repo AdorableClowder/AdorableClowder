@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <h2>Sign up</h2>
+
+  <div>
+    <form ng-submit="">
+      Username: <input type="text" ng-model="user.username" />
+      Password: <input type="password" ng-model="user.passwprd" />
+      Email: <input type="email" ng-model="user.email" /><br>
+      I'm good at: <input type="text" ng-model="user.offer" />
+      I want help with: <input type="text" ng-model="user.want" /><br>
+      <input type="submit" ng-click="submit(user)" />
+    </form>
+  </div>
+</div>
