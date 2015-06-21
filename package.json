@@ -21,6 +21,7 @@
     "bookshelf": "^0.8.1",
     "express": "^4.12.4",
     "jwt-simple": "^0.3.0",
+    "knex": "^0.8.6",
     "mysql": "^2.7.0"
   }
 }
