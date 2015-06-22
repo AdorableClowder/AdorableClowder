@@ -1,11 +1,11 @@
 <div class="jumbotron text-center">
   <h2>Log in</h2>
 
-  <div>
-    <form ng-submit="">
-      Username: <input type="text" ng-model="user.username" />
-      Password: <input type="password" ng-model="user.password" /><br>
-      <input type="submit" class="btn btn-primary" ng-click="login(user)" />
+  <div ng-controller='loginController as login'>
+    <form>
+      Username: <input type="text" ng-model="login.user.username" />
+      Password: <input type="password" ng-model="login.user.password" /><br>
+      <input type="submit" class="btn btn-primary" ng-click="login.doLogin()" />
     </form>
   </div>
 </div>
