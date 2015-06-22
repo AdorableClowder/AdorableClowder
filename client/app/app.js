@@ -1,6 +1,5 @@
 // using angular-ui router
 // setting up karmaApp angular
-console.log('app.js');
 var karmaApp = angular.module('karmaApp', ['ui.router', ]);
 
 karmaApp.config(function($stateProvider, $urlRouterProvider) {
