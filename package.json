@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/AdorableClowder/AdorableClowder#readme",
   "dependencies": {
+    "bluebird": "^2.9.30",
     "bookshelf": "^0.8.1",
     "express": "^4.12.4",
     "jwt-simple": "^0.3.0",
