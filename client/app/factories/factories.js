@@ -1,10 +1,20 @@
-// angular.module('karmaFactories', [])
+angular.module('karmaFactories', [])
 
-// .factory('Auth', function ($http, $location, $window) {
+// factory used for user authentication login/ signup
+.factory('Auth', function ($http, $location, $window) {
 
-//   var authFactory = {};
+  var authFactory = {};
 
-//   authFactory.login = function (username, password) {
+  authFactory.login = function (user) {
+    return $http({
+      method: 'POST',
+      url: '/login',
+      data: user
+    })
+    .then(function (resp) {
+      return resp.data.token;
+    });
+  };
 
-//   }
-// })
+  return authFactory;
+})
