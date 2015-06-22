@@ -1,14 +1,22 @@
 <div class="jumbotron text-center">
   <h2>Sign up</h2>
 
-  <div>
-    <form ng-submit="">
-      Username: <input type="text" ng-model="user.username" />
-      Password: <input type="password" ng-model="user.password" />
-      Email: <input type="email" ng-model="user.email" /><br>
-      I'm good at: <input type="text" ng-model="user.offer" />
-      I want help with: <input type="text" ng-model="user.want" /><br>
-      <input type="submit" class="btn btn-primary" ng-click="submit(user)" />
+  <div ng-controller="signupController as signup">
+    <form>
+      Username: <input type="text" ng-model="signup.user.username" />
+      Password: <input type="password" ng-model="signup.user.password" />
+      Email: <input type="email" ng-model="signup.user.email" /><br>
+      I'm good at: <input type="text" ng-model="signup.offer1" /><br>
+      I'm good at: <input type="text" ng-model="signup.offer2" /><br>
+      I'm good at: <input type="text" ng-model="signup.offer3" /><br>
+      I'm good at: <input type="text" ng-model="signup.offer4" /><br>
+      I'm good at: <input type="text" ng-model="signup.offer5" /><br>
+      I want help with: <input type="text" ng-model="signup.want1" /><br>
+      I want help with: <input type="text" ng-model="signup.want2" /><br>
+      I want help with: <input type="text" ng-model="signup.want3" /><br>
+      I want help with: <input type="text" ng-model="signup.want4" /><br>
+      I want help with: <input type="text" ng-model="signup.want5" /><br>
+      <input type="submit" class="btn btn-primary" ng-click="signup.doSignup()" />
     </form>
   </div>
 </div>
