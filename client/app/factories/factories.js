@@ -16,5 +16,16 @@ angular.module('karmaFactories', [])
     });
   };
 
+  authFactory.signup = function (user) {
+    return $http({
+      method: 'POST',
+      url: '/signup',
+      data: user
+    })
+    .then(function (resp) {
+      return resp.status;
+    });
+  };
+
   return authFactory;
 })
