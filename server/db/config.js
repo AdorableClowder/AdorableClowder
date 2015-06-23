@@ -15,7 +15,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (table) {
       table.increments('id').primary();
-      table.string('username', 100);
+      table.string('username', 100).unique();
       table.string('password', 100);
       table.timestamps();
     }).then(function (table) {
@@ -28,7 +28,7 @@ db.knex.schema.hasTable('offers').then(function(exists) {
   if(!exists) {
     db.knex.schema.createTable('offers', function (table) {
       table.increments('id').primary();
-      table.string('skillname', 255);
+      table.string('skill', 255);
       table.timestamps();
     }).then(function (table) {
       console.log('Created OFFERS table', table);
@@ -40,7 +40,7 @@ db.knex.schema.hasTable('wants').then(function(exists) {
   if(!exists) {
     db.knex.schema.createTable('wants', function (table) {
       table.increments('id').primary();
-      table.string('name', 255);
+      table.string('skill', 255);
       table.timestamps();
     }).then(function (table) {
       console.log('Created WANTS SKILLS table', table);

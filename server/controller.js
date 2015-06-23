@@ -9,6 +9,8 @@ module.exports = {
       password = req.body.password;
 
     //needs correct method name for SQL query
+
+    // see test.js on how to find a user based on matching user names
     var findUser = Promise.promisify(User.findUser, User);
     findUser({
       username: username
