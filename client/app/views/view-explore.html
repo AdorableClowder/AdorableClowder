@@ -1,0 +1,26 @@
+<div class="jumbotron text-center">
+  <h2>Learn new skills</h2>
+  
+  <div ng-controller="exploreController as explore">
+  <label>Search:<input ng-model="searchSkills"></label>
+    <ul ng-show="explore.shouldShow">
+      <li class="list-unstyled" ng-repeat="skill in explore.userSkills | filter:searchSkills"><a ng-click="explore.showUsers(skill)" class="lead">{{skill}}</a></li>
+    </ul>
+    <div ng-hide="explore.shouldShow">
+    <h3 class="btn btn-default" ng-click="explore.toggleView()">See all skills</h3>
+    <ul class="list-unstyled">
+      <li ng-repeat="user in explore.usersWithSkill | filter:searchSkills">
+        <h4>{{user.username}}</h4>
+        <ul class="list-unstyled">
+          <h5>Skills offered</h5>
+          <li ng-repeat="offer in user.offer">{{offer}}</li>
+          <h5>Skills wanted</h5>
+          <li ng-repeat="want in user.want">{{want}}</li>
+          <h5>Email address</h5>
+          <li>{{user.email}}</li>
+        </ul>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>

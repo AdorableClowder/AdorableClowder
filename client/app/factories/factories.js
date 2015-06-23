@@ -29,3 +29,16 @@ angular.module('karmaFactories', [])
 
   return authFactory;
 })
+.factory('Users', function ($http, $location, $window){
+  var userFactory = {};
+  userFactory.getOtherUsers = function(){
+    return $http({
+          method: 'GET',
+          url: '/explore'
+        })
+        .then(function (resp) {
+          return resp.data;
+        });
+  };
+  return userFactory;
+});
