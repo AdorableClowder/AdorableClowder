@@ -1,6 +1,9 @@
 <div class="jumbotron text-center">
   <h2>Learn new skills</h2>
   
-  <div ng-controller='exploreController as explore'>
+  <div ng-controller="exploreController as explore">
+    <ul>
+      <li class="list-unstyled" ng-repeat="skill in explore.userSkills"><a ui-sref="{{skill}}" class="lead">{{skill}}</a></li>
+    </ul>
   </div>
 </div>

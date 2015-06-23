@@ -29,7 +29,7 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
   .state('explore', {
     url: '/explore',
     templateUrl: 'app/views/view-explore.html'
-  })
+  });
   // user profile page later
-})
+});
 
