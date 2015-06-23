@@ -7,7 +7,6 @@ angular.module('loginCtrl', [])
   vm.user = {};
 
   vm.doLogin = function () {
-    console.log(vm.user);
 
     // using Auth factory from factories.js to do POST
     Auth.login(vm.user)
@@ -23,4 +22,4 @@ angular.module('loginCtrl', [])
       });
   };
 
-})
+});
