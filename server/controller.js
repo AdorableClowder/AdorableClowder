@@ -58,9 +58,8 @@ module.exports = {
     // check to see if user already exists
     User.forge({
       username: username
-    }).fetch({ // fetch from db
-      require: true // triggers err if user not found
-    }).then(function (user) {
+    }).fetch().then(function (user) {
+      console.log('in then after fetch.')
       if (user) {
         next(new Error('User already exists!'));
       } else {
@@ -69,25 +68,28 @@ module.exports = {
           username: username,
           password: password
         });
-        console.log('new user created: ', newUser);
-        return newUser; //TODO: send this to db
+        newUser.save().then(function (user) {
+          if (!user) {
+            next(new Error('Write to DB failed!'));
+          } else {
+            // create token to send back for auth
+            console.log("about to create jwt with user: ", user);
+            var token = jwt.encode(user, secret);
+            res.json({
+              token: token
+            });
+            console.log("finished creating jwt");
+          }
+        }).catch(function (error) {
+          next(error);
+        });
       }
     })
-      .then(function (user) {
-        // create token to send back for auth
-        var token = jwt.encode(user, secret);
-        res.json({
-          token: token
-        });
-      })
-      .catch(function (error) {
-        next(error);
-      });
   },
 
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
-    // grab the token in the header is any
+    // grab the token in the header if any
     var token = req.headers['x-access-token'];
     if (!token) {
       next(new Error('No token'));
