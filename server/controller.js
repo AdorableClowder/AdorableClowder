@@ -20,17 +20,16 @@ module.exports = {
 
     // TODO: factor the find user stuff into a separate function for DRY purposes
     // create new user
-    newUser.fetch({ // fetch from db
-      require: true // triggers err if user not found
-    }).then(function (user) {
+    newUser.fetch().then(function (user) {
       console.log("fetched user: ", user);
       if (!user) {
-        next(new Error('User does not exist')); //not sure if need this and 'require: true' above.
+        next(new Error('User does not exist'));
       } else {
         console.log('found user: ', user);
-        return user.comparePasswords(password) //promisified on User model
-          .then(function (foundUser) {
-            console.log('password compared, here is user: ', user);
+        console.log('password to compare is: ', password);
+        user.comparePasswords(password)
+          .then(function (foundUser) { //compare currently returns true or false
+            console.log('result of comparePasswords: ', foundUser);
             if (foundUser) {
               var token = jwt.encode(user, secret);
               console.log('jwt encoded, here is token: ', token);
@@ -38,53 +37,49 @@ module.exports = {
                 token: token
               });
             } else {
-              return next(new Error('No user'));
+              next(new Error('No user'));
             }
           });
       }
-    })
-      .catch(function (error) {
-        next(error);
-      });
+    }).catch(function (error) {
+      next(error);
+    });
   },
 
   signup: function (req, res, next) {
     console.log('request body: ', req.body);
 
-    var username = req.body.username;
-    var password = req.body.password;
-    var newUser;
+    var newUser = User.forge({
+      username: req.body.username
+    })
 
     // check to see if user already exists
-    User.forge({
-      username: username
-    }).fetch().then(function (user) {
-      console.log('in then after fetch.')
-      if (user) {
-        next(new Error('User already exists!'));
-      } else {
-        // make a new user if not one
-        newUser = User.forge({
-          username: username,
-          password: password
-        });
-        newUser.save().then(function (user) {
-          if (!user) {
-            next(new Error('Write to DB failed!'));
-          } else {
-            // create token to send back for auth
-            console.log("about to create jwt with user: ", user);
-            var token = jwt.encode(user, secret);
-            res.json({
-              token: token
+    newUser.fetch()
+      .then(function (user) {
+        console.log('after fetch.')
+        if (user) {
+          next(new Error('User already exists!'));
+        } else {
+          // make a new user if not one
+          newUser.hashPassword(req.body.password)
+            .then(function (user) {
+              console.log("hash promise result: ", user);
+              if (!user) {
+                next(new Error('Write to DB failed!'));
+              } else {
+                // create token to send back for auth
+                console.log("about to create jwt with user: ", user);
+                var token = jwt.encode(user, secret);
+                res.json({
+                  token: token
+                });
+                console.log("finished creating jwt");
+              }
+            }).catch(function (error) {
+              next(error);
             });
-            console.log("finished creating jwt");
-          }
-        }).catch(function (error) {
-          next(error);
-        });
-      }
-    })
+        }
+      })
   },
 
   checkAuth: function (req, res, next) {

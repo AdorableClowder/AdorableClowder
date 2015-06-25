@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 // TODO: make sure to bounce users to signup if they're not logged in
 app.get('/explore', controller.getMatchingUsers);
 app.post('/signup', controller.signup);
-app.post('/login', controller.sendToken); //controller.login,
+app.post('/login', controller.login);
 app.post('/logout', controller.logout);
 app.get('/profile', controller.getCurrentUser);
 
