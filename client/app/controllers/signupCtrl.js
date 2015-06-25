@@ -11,7 +11,6 @@ angular.module('signupCtrl', [])
     // storing offers and wants in an array form before sending POST
     vm.user.offer = [vm.offer1, vm.offer2, vm.offer3, vm.offer4, vm.offer5];
     vm.user.want = [vm.want1, vm.want2, vm.want3, vm.want4, vm.want5];
-    console.log(vm.user);
 
     // using Auth factory from factories.js to do POST
     Auth.signup(vm.user)

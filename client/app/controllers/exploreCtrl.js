@@ -14,6 +14,7 @@ angular.module('exploreCtrl', [])
       })
       .catch(function (err) {
         console.log(err);
+        $location.path('/login');
       });
   };
   // get skills from all users, make one big array and remove 
@@ -35,9 +36,7 @@ angular.module('exploreCtrl', [])
   //filters users into array if they have the skill user is looking for
   vm.showUsers = function(skill){
     vm.toggleView();
-    console.log(skill);
     vm.usersWithSkill = filterFilter(vm.userArray, {offer: skill});
-    console.log(vm.usersWithSkill);
   };
   vm.getSkills();
 });
