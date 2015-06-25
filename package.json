@@ -19,6 +19,7 @@
   "dependencies": {
     "bcrypt": "^0.8.3",
     "bluebird": "^2.9.30",
+    "body-parser": "^1.13.1",
     "bookshelf": "^0.8.1",
     "express": "^4.12.4",
     "jwt-simple": "^0.3.0",

@@ -120,13 +120,13 @@ module.exports = {
       "id": 1,
       "username": "austin",
       "offer": ["yoga", "cooking"],
-      "want": ["angular"],
+      "want": ["angular", "scootering"],
       "email": "austin@gmail.com"
     }, {
       "id": 2,
       "username": "sarah",
-      "offer": ["brewing tea", "angular"],
-      "want": ["yoga"],
+      "offer": ["brewing tea", "angular", "making lemonade"],
+      "want": ["yoga", "scootering"],
       "email": "sarah@me.com"
     }, {
       "id": 3,
@@ -137,12 +137,27 @@ module.exports = {
     }, {
       "id": 4,
       "username": "michael",
-      "offer": ["video games", "drinking scotch"],
+      "offer": ["video games", "drinking scotch", "cooking"],
       "want": ["how to do things good", "how to not do things bad"],
-      "email": "justin@gmail.com"
-    }]
+      "email": "michael@gmail.com"
+    }];
 
     res.json(fabricatedUsers);
+
+  },
+
+  getCurrentUser: function (req, res, next) {
+
+    var loggedInUser = {
+      "id": 4,
+      "username": "michael",
+      "offer": ["video games", "drinking scotch", "cooking"],
+      "want": ["how to do things good", "how to not do things bad"],
+      "email": "michael@gmail.com"
+    };
+
+    res.json(loggedInUser);
+
 
   },
 

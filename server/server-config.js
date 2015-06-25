@@ -10,7 +10,7 @@ var logger = function (req, res, next) {
   console.log("GOT REQUEST: ");
   console.log(req.body);
   next(); // Passing the request to the next handler in the stack.
-}
+};
 
 //parse req.body and serve static assets
 app.use(bodyParser.json())
@@ -22,6 +22,7 @@ app.get('/explore', controller.getMatchingUsers);
 app.post('/signup', controller.signup);
 app.post('/login', controller.sendToken); //controller.login,
 app.post('/logout', controller.logout);
+app.get('/profile', controller.getCurrentUser);
 
 
 module.exports = app;
