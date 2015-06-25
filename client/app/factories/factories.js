@@ -40,5 +40,15 @@ angular.module('karmaFactories', [])
           return resp.data;
         });
   };
+
+  userFactory.getUser = function(){
+    return $http({
+      method: 'GET',
+      url:'/profile'
+    })
+    .then(function(resp){
+      return resp.data;
+    });
+  };
   return userFactory;
 });

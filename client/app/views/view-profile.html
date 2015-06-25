@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <h2>Your Profile</h2>
+  <div ng-controller="profileController as profile">
+  <h3>{{profile.user.username}}</h3>
+  <ul class="list-unstyled">
+    <h5>Skills offered</h5>
+    <li ng-repeat="offer in profile.user.offer">{{offer}}</li>
+    <h5>Skills wanted</h5>
+    <li ng-repeat="want in profile.user.want">{{want}}</li>
+    <h5>Email address</h5>
+    <li>{{profile.user.email}}</li>
+  </ul>
+  </div>
+</div>
