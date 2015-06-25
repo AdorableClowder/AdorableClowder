@@ -16,6 +16,7 @@ angular.module('signupCtrl', [])
     Auth.signup(vm.user)
       .then(function (token) {
         console.log('signup success');
+        $window.localStorage.setItem('karmakonnect', token);
         // redirect if succesful
         $location.path('/explore');
       })
