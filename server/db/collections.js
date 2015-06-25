@@ -1,14 +1,16 @@
 var db = require('./config.js');
 var Models = require('./models.js');
 
-var Users = db.Collection.extend({
+var Users = exports.Users = db.Collection.extend({
   model: Models.User
 });
 
-var Offers = db.Collection.extend({
+var Offers = exports.Offers = db.Collection.extend({
   model: Models.Offer
 });
 
-var Wants = db.Collection.extend({
+var Wants = exports.Wants = db.Collection.extend({
   model: Models.Want
 });
+
+var allOffers = exports.allOffers = Offers.forge();

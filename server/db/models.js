@@ -25,14 +25,12 @@ var User = exports.User = db.Model.extend({
 
     return new Promise(function (fulfill, reject) {
       bcrypt.compare(candidatePassword, savedPassword, function (error, content) {
-        if (error) reject(error)
+        if (error) reject(error);
         else fulfill(content);
       });
     });
 
   }
-
-
 
 });
 
