@@ -15,46 +15,23 @@ var User = exports.User = db.Model.extend({
   hashPassword: function (password) {
     var user = this;
 
-    var hash = bcrypt.hashSync(password, 10); //TODO: use async hash, as in commented attempts below
-
-    user.set("password", hash);
-    user.save();
-
-    return new Promise(function (fulfill, reject) { //TODO: switch to promisify-Alled version
-      fulfill(user);
-    });
-
-    //ASYNC ATTEMPT 1, using explicitly created promise
-    // return new Promise(function (fulfill, reject) { //TODO: switch to promisify-Alled version
-    //   bcrypt.hash(password, 10, null, function (error, hash) {
-    //     console.log('hash: ', hash);
-    //     console.log('error: ', error);
-    //     if (error) {
-    //       reject(error);
-    //     } else {
-    //       user.set("password", hash);
-    //       user.save();
-    //       fulfill(user);
-    //     }
-    //   });
-    // });
-
-    //ASYNC ATTEMPT 2, using -Async-appended version of bcrypt.hash created by PromisifyAll at top of file
-    // return bcrypt.hashAsync(password, 10, null)
-    //   .then(function (hash, err) {
-    //     if (err) {
-    //       console.log("ERROR: ", err);
-    //       next(new Error(err));
-    //     } else {
-    //       console.log("password: ", password)
-    //       console.log('generating hashed pass: ', hash);
-    //       this.set('password', hash);
-    //       console.log('user after salt and hash set: ', this);
-    //     }
-    //   }).catch(function (err) {
-    //     console.log("ERROR: ", err);
-    //     next(new Error(err));
-    //   });
+    return bcrypt.hashAsync(password, 10)
+      .then(function (hash, err) {
+        if (err) {
+          console.log("ERROR: ", err);
+          next(new Error(err));
+        } else {
+          console.log("password: ", password)
+          console.log('generating hashed pass: ', hash);
+          user.set('password', hash);
+          console.log('user after salt and hash set: ', user);
+          user.save();
+          return user;
+        }
+      }).catch(function (err) {
+        console.log("ERROR: ", err);
+        next(new Error(err));
+      });
   },
 
   offers: function () {
