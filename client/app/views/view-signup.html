@@ -3,20 +3,21 @@
 
   <div ng-controller="signupController as signup">
     <form>
-      Username: <input type="text" ng-model="signup.user.username" />
-      Password: <input type="password" ng-model="signup.user.password" />
-      Email: <input type="email" ng-model="signup.user.email" /><br>
-      I'm good at: <input type="text" ng-model="signup.offer1" /><br>
+      Username: <input type="text" ng-model="signup.user.username" required />
+      Password: <input type="password" ng-model="signup.user.password" required />
+      Email: <input type="email" ng-model="signup.user.email" required /><br>
+      I'm good at: <input type="text" ng-model="signup.offer1" required /><br>
       I'm good at: <input type="text" ng-model="signup.offer2" /><br>
       I'm good at: <input type="text" ng-model="signup.offer3" /><br>
       I'm good at: <input type="text" ng-model="signup.offer4" /><br>
       I'm good at: <input type="text" ng-model="signup.offer5" /><br>
-      I want help with: <input type="text" ng-model="signup.want1" /><br>
+      I want help with: <input type="text" ng-model="signup.want1" required /><br>
       I want help with: <input type="text" ng-model="signup.want2" /><br>
       I want help with: <input type="text" ng-model="signup.want3" /><br>
       I want help with: <input type="text" ng-model="signup.want4" /><br>
       I want help with: <input type="text" ng-model="signup.want5" /><br>
       <input type="submit" class="btn btn-primary" ng-click="signup.doSignup()" />
     </form>
+    <p class="text-danger">{{signup.err}}</p>
   </div>
 </div>

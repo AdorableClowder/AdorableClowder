@@ -14,6 +14,7 @@ angular.module('exploreCtrl', [])
       })
       .catch(function (err) {
         console.log(err);
+        //redirect to login if unsuccessful
         $location.path('/login');
       });
   };

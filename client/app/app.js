@@ -41,6 +41,15 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
       $location.path('/login');
     }
   });
-  
 });
 
+karmaApp.run(function($rootScope, $window){
+  $rootScope.shouldShow = false;
+  $rootScope.$on('$stateChangeStart', function(){
+    if($window.localStorage.getItem('karmakonnect')){
+      $rootScope.shouldShow = true;
+    } else {
+      $rootScope.shouldShow = false;      
+    }
+  });
+});
