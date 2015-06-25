@@ -37,7 +37,7 @@ module.exports = {
                 token: token
               });
             } else {
-              next(new Error('No user'));
+              next(new Error('No user')); //TODO: fix this firing for incorrect passwords as well
             }
           });
       }
