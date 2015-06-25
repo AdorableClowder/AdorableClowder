@@ -22,6 +22,8 @@ angular.module('signupCtrl', [])
       })
       .catch(function (err) {
         console.log(err);
+        //gets the error without the whole callstack (pretty hacky)
+        vm.err = err.data.split('<br>')[0];
       });
   };
 
