@@ -33,6 +33,13 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
   .state('profile', {
     url: '/profile',
     templateUrl: 'app/views/view-profile.html'
+  })
+  .state('logout', {
+    url:'/logout',
+    controller: function($window, $location){
+      $window.localStorage.removeItem('karmakonnect');
+      $location.path('/login');
+    }
   });
   
 });
