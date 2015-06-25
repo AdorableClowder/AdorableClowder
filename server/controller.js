@@ -16,34 +16,38 @@ module.exports = {
     var newUser = User.forge({
       username: username
     });
+    var userInfo;
     console.log('user to search for: ', newUser);
 
     // TODO: factor the find user stuff into a separate function for DRY purposes
     // create new user
-    newUser.fetch().then(function (user) {
-      console.log("fetched user: ", user);
-      if (!user) {
-        next(new Error('User does not exist'));
-      } else {
+    newUser
+      .fetch()
+      .then(function (user) {
+        console.log("fetched user: ", user);
+        if (!user) {
+          throw new Error('User does not exist');
+        }
         console.log('found user: ', user);
         console.log('password to compare is: ', password);
-        user.comparePasswords(password)
-          .then(function (foundUser) { //compare currently returns true or false
-            console.log('result of comparePasswords: ', foundUser);
-            if (foundUser) {
-              var token = jwt.encode(user, secret);
-              console.log('jwt encoded, here is token: ', token);
-              res.json({
-                token: token
-              });
-            } else {
-              next(new Error('No user')); //TODO: fix this firing for incorrect passwords as well
-            }
+        userInfo = user; //in order to properly chain promises, need to save found user in higher scope
+        return user.comparePasswords(password)
+      })
+      .then(function (passwordsMatch) { //compare currently returns true or false
+        console.log('result of comparePasswords: ', passwordsMatch);
+        if (passwordsMatch) {
+          var token = jwt.encode(userInfo, secret);
+          console.log('jwt encoded, here is token: ', token);
+          res.json({
+            token: token
           });
-      }
-    }).catch(function (error) {
-      next(error);
-    });
+        } else {
+          throw new Error('Incorrect Password!');
+        }
+      })
+      .catch(function (error) {
+        next(error);
+      });
   },
 
   signup: function (req, res, next) {
@@ -51,35 +55,36 @@ module.exports = {
 
     var newUser = User.forge({
       username: req.body.username
-    })
+    });
 
     // check to see if user already exists
-    newUser.fetch()
+    newUser
+      .fetch()
       .then(function (user) {
-        console.log('after fetch.')
         if (user) {
-          next(new Error('User already exists!'));
+          throw new Error('User already exists!');
         } else {
           // make a new user if not one
-          newUser.hashPassword(req.body.password)
-            .then(function (user) {
-              console.log("hash promise result: ", user);
-              if (!user) {
-                next(new Error('Write to DB failed!'));
-              } else {
-                // create token to send back for auth
-                console.log("about to create jwt with user: ", user);
-                var token = jwt.encode(user, secret);
-                res.json({
-                  token: token
-                });
-                console.log("finished creating jwt");
-              }
-            }).catch(function (error) {
-              next(error);
-            });
+          console.log("about to hash")
+          return newUser.hashPassword(req.body.password);
         }
       })
+      .then(function (user) {
+        console.log("hash promise result: ", user);
+        if (!user) {
+          throw new Error('Write to DB failed!');
+        }
+        // create token to send back for auth
+        console.log("about to create jwt with user: ", user);
+        var token = jwt.encode(user, secret);
+        res.json({
+          token: token
+        });
+        console.log("finished creating jwt");
+      })
+      .catch(function (error) {
+        next(error);
+      });
   },
 
   checkAuth: function (req, res, next) {
