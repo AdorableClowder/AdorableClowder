@@ -18,11 +18,11 @@ app.use(bodyParser.json())
 
 // Router
 // TODO: make sure to bounce users to signup if they're not logged in
-app.get('/explore', controller.getMatchingUsers);
+app.get('/explore', controller.checkAuth, controller.getMatchingUsers);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
-app.post('/logout', controller.logout);
-app.get('/profile', controller.getCurrentUser);
+app.get('/logout', controller.checkAuth, controller.logout);
+app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 
 
 module.exports = app;

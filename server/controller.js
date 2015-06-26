@@ -91,23 +91,23 @@ module.exports = {
     // checking to see if the user is authenticated
     // grab the token in the header if any
     var token = req.headers['x-access-token'];
+
     if (!token) {
-      next(new Error('No token'));
+      throw new Error('No token');
     } else {
       // then decode the token, which will end up being the user object
       var user = jwt.decode(token, secret);
       // check to see if that user exists in the database
       User.forge({
         username: user.username
-      }).fetch({ // fetch from db
-        require: true // triggers err if user not found
-      }).then(function (foundUser) {
-        if (foundUser) {
-          res.send(200);
-        } else {
-          res.send(401);
-        }
-      })
+      }).fetch()
+        .then(function (foundUser) {
+          if (foundUser) {
+            next(); //if everything goes well, pass req to next handler (in server config)
+          } else {
+            res.send(401);
+          }
+        })
         .catch(function (error) {
           next(error);
         });
