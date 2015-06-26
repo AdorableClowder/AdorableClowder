@@ -1,7 +1,6 @@
 var db = require('../config.js');
 var Promise = require('bluebird');
 var _ = require('underscore');
-var async = require('async');
 var Models = require('../models.js');
 var User = Models.User;
 var Offer = Models.Offer;

@@ -1,10 +1,10 @@
 var query = require('./queries.js');
 
 var testUser = {
-  "username": "justin5",
+  "username": "justin6",
   "password": 1234,
-  "offer": ["angularr", "mmmeatloaf", "dodgeballl"],
-  "want": ["javascript", "bakingg cookiess", "wheat toastt"],
+  "offer": ["angularrr", "mmmeatloaferitto", "dodgeballlicious"],
+  "want": ["javascripton", "bakingg cookiessrs", "wheat toastterton"],
   "email": "justin.thareja@gmail.com"
 };
 
