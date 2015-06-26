@@ -37,6 +37,7 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
   .state('logout', {
     url:'/logout',
     controller: function($window, $location){
+      // removes token on logout
       $window.localStorage.removeItem('karmakonnect');
       $location.path('/login');
     }
@@ -46,10 +47,12 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
 karmaApp.run(function($rootScope, $window){
   $rootScope.shouldShow = false;
   $rootScope.$on('$stateChangeStart', function(){
+    // if there is token, show profile/logout in nav bar
     if($window.localStorage.getItem('karmakonnect')){
       $rootScope.shouldShow = true;
     } else {
-      $rootScope.shouldShow = false;      
+      // no token shows login/signup
+      $rootScope.shouldShow = false;
     }
   });
 });
