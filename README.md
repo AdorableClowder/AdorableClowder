@@ -1,6 +1,4 @@
-# Project Name
-
-> Pithy project description
+# KarmaKonnect
 
 ## Team
 
@@ -48,9 +46,9 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [https://github.com/AdorableClowder/AdorableClowder/issues](LINK_TO_PROJECT_ISSUES)
+[View the project roadmap](https://github.com/AdorableClowder/AdorableClowder/issues)
 
 
 ## Contributing
 
-See [https://github.com/AdorableClowder/AdorableClowder/blob/master/docs/_CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+[Contribution guidelines](https://github.com/AdorableClowder/AdorableClowder/blob/master/docs/_CONTRIBUTING.md)

@@ -19,7 +19,7 @@ Once the project moves into development, the press release can be used as a touc
 ## KarmaKonnect ##
 
 ## Our customers: ##
-  Social people in an organization who are lookign to share their skills while also learning skills from other people.
+  Social people in an organization who are looking to share their skills while also learning skills from other people.
   Tinder for knowledge.
 
 
@@ -29,7 +29,7 @@ Once the project moves into development, the press release can be used as a touc
 ## Why KarmaKonnect: ##
   There is a gap in the education industry. Learning isn't a one-size-fits-all experience. Learning online can be too generic and lacks feedback. And traditional education can be costly and time-consuming.
 
-  We give you access to individual who are passionate about what you want to learn. By adding a personal touch, you are more likely to be engaged while exchanging skills and passion for free.
+  We give you access to individuals who are passionate about what you want to learn. By adding a personal touch, you are more likely to be engaged while exchanging skills for free.
 
 ## Get matched with awesome people in your organization ##
 
