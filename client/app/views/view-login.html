@@ -3,8 +3,8 @@
 
   <div ng-controller="loginController as login">
     <form>
-      Username: <input type="text" ng-model="login.user.username" />
-      Password: <input type="password" ng-model="login.user.password" /><br>
+      Username: <input type="text" ng-model="login.user.username" required />
+      Password: <input type="password" ng-model="login.user.password" required /><br>
       <input type="submit" class="btn btn-primary" ng-click="login.doLogin()" />
     </form>
     <p class="text-danger">{{login.err}}</p>

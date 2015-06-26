@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Michael Arnold
+  - __Scrum Master__: Justin Thareja
+  - __Development Team Members__: Sarah Yu, Austin Worachet
 
 ## Table of Contents
 
@@ -20,15 +20,19 @@
 
 ## Usage
 
-> Some usage instructions
+- Fork the repo to your github
+- Clone the repo to your computer
+- Run mySQL and create a database called 'clowderdb'
+- Install dependencies (see below)
+- Run server.js with node or nodemon
+- Go to localhost:1337 in your browser
+
 
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MYSQL 5.x
+
 
 ## Development
 
@@ -44,9 +48,9 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [https://github.com/AdorableClowder/AdorableClowder/issues](LINK_TO_PROJECT_ISSUES)
 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [https://github.com/AdorableClowder/AdorableClowder/blob/master/docs/_CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
