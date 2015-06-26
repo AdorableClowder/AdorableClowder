@@ -21,7 +21,6 @@ app.use(bodyParser.json())
 app.get('/explore', controller.checkAuth, controller.getMatchingUsers);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
-app.get('/logout', controller.checkAuth, controller.logout);
 app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 
 

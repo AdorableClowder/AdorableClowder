@@ -165,13 +165,6 @@ module.exports = {
     res.status(201).send('User created');
   },
 
-  logout: function (req, res, next) {
-    //must also send message to frontend to destroy token
-    //or should it? maybe it should just flag it on the serverside?
-    //seems like a frontend token destroy would be vulnerable...
-    res.status(200).send('User logged out');
-  },
-
   sendToken: function (req, res, next) {
     res.json({
       token: "sdklfh8a9ewrnaslkfmp894nfasdkhfas89joklsjdoif"
