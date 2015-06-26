@@ -4,7 +4,9 @@
   "description": "skill sharing platform",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
@@ -24,8 +26,7 @@
     "express": "^4.12.4",
     "jwt-simple": "^0.3.0",
     "knex": "^0.8.6",
-    "mysql": "^2.7.0",
-    "underscore": "^1.8.3"
+    "mysql": "^2.7.0"
   },
   "devDependencies": {
     "jasmine-core": "^2.3.4",
