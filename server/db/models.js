@@ -1,8 +1,8 @@
 var db = require('./config.js');
 var Promise = require('bluebird');
-var bcrypt = Promise.promisifyAll(require('bcrypt'));
-// var bcrypt = require('bcrypt');
 //to allow return of promisified bcrypt callbacks
+var bcrypt = Promise.promisifyAll(require('bcrypt'));
+var compare = Promise.promisify(require('bcrypt').compare);
 
 
 // Need to define all models in the same file or else a deadlock is created when using join tables
@@ -21,14 +21,14 @@ var User = exports.User = db.Model.extend({
           console.log("ERROR: ", err);
           throw new Error(err);
         }
-        console.log("password: ", password)
+        console.log("password: ", password);
         console.log('generating hashed pass: ', hash);
         user.set('password', hash);
         console.log('user after salt and hash set: ', user);
         user.save();
       })
       .then(function () {
-        console.log('about to return user: ', user)
+        console.log('about to return user: ', user);
         return user;
       });
     // .catch(function (err) {
@@ -46,19 +46,8 @@ var User = exports.User = db.Model.extend({
   },
 
   comparePasswords: function (candidatePassword) {
-    var savedPassword = this.get('password');
-
-    return new Promise(function (fulfill, reject) { //TODO: switch to promisify-Alled version
-      bcrypt.compare(candidatePassword, savedPassword, function (error, content) {
-        if (error) {
-          reject(error);
-        } else {
-          fulfill(content);
-        }
-      });
-    });
+    return compare(candidatePassword, this.get('password'));
   }
-
 });
 
 var Offer = exports.Offer = db.Model.extend({
