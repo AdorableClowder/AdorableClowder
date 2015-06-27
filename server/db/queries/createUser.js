@@ -1,15 +1,15 @@
-var db = require('./config.js');
+var db = require('../config.js');
 var Promise = require('bluebird');
 var _ = require('underscore');
-var Models = require('./models.js');
+var Models = require('../models.js');
 var User = Models.User;
 var Offer = Models.Offer;
 var Want = Models.Want;
 
 
-// createUser is a promise that takes a user-obj posted to '/signup' (see docs/interface.json for more info) 
+// exports a promise that takes a user-obj posted to '/signup' (see docs/interface.json for more info) 
 // and a next callback. createUser adds the user to the database and establishes a link between wanted and offered skills
-var createUser = exports.createUser = function (user, next) {
+module.exports = function (user, next) {
   
   return User.forge({
     username: user.username

@@ -4,7 +4,7 @@ var jwt = require('jwt-simple');
 var Models = require('./db/models.js');
 var User = Models.User;
 
-var queries = require('./db/queries.js');
+var createUser = require('./db/queries/createUser.js');
 
 var secret = 'INSERTWITTYSECRETHERE';
 
@@ -33,7 +33,7 @@ module.exports = {
         console.log('found user: ', user);
         console.log('password to compare is: ', password);
         userInfo = user; //in order to properly chain promises, need to save found user in higher scope
-        return user.comparePasswords(password)
+        return user.comparePasswords(password);
       })
       .then(function (passwordsMatch) { //compare currently returns true or false
         console.log('result of comparePasswords: ', passwordsMatch);
@@ -53,7 +53,7 @@ module.exports = {
   },
 
   signup: function (req, res, next) {
-    queries.createUser(req.body, next)
+    createUser(req.body, next)
       .then(function (user) {
         var token = jwt.encode(user, secret);
         res.json({
