@@ -1,10 +1,9 @@
 // All logic interactions taking info from request and responding from db
 var jwt = require('jwt-simple');
-
 var Models = require('./db/models.js');
 var User = Models.User;
-
 var createUser = require('./db/queries/createUser.js');
+var buildUserObj = require('./db/queries/buildUserObj.js');
 
 var secret = 'INSERTWITTYSECRETHERE';
 
@@ -120,20 +119,10 @@ module.exports = {
 
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
-    var currentUser = {};
 
-    // need to figure out how to access an array of the skills based on
-
-    var loggedInUser = {
-      "id": 4,
-      "username": "michael",
-      "offer": ["video games", "drinking scotch", "cooking"],
-      "want": ["how to do things good", "how to not do things bad"],
-      "email": "michael@gmail.com"
-    };
-
-    res.json(loggedInUser);
-
+    buildUserObj(user).spread(function (builtUserObj) {
+      res.json(builtUserObj);
+    })
   }
 
-}
+};
