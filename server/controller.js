@@ -11,7 +11,6 @@ var secret = 'INSERTWITTYSECRETHERE';
 module.exports = {
 
   login: function (req, res, next) {
-    console.log('request body: ', req.body);
     var username = req.body.username;
     var password = req.body.password;
     var userModel;
@@ -24,19 +23,15 @@ module.exports = {
         if (!user) {
           throw new Error('User does not exist');
         }
-        console.log('found user: ', user.get('username'));
-        console.log('password to compare is: ', user.get('password'));
         //in order to take advantage of chain promises, need to save found user in higher scope
         userModel = user;
         return user.comparePasswords(password);
       })
       .then(function (passwordsMatch) { //compare currently returns true or false
-        console.log('result of comparePasswords: ', passwordsMatch);
         if (!passwordsMatch) {
-          throw new Error('Incorrect Password!');
+          throw new Error('Incorrect password');
         }
         var token = jwt.encode(userModel, secret);
-        console.log('jwt encoded, here is token: ', token);
         res.json({
           token: token
         });
@@ -49,12 +44,16 @@ module.exports = {
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
-        // Do we need to send them a token on signup? or only login
+        if (!user) {
+          throw new Error('User creation failed');
+        }
         res.json({
           token: jwt.encode(user, secret)
         });
-        // res.send(201);
-      });
+      })
+      .catch(function (error) {
+        next(error);
+      })
   },
 
   checkAuth: function (req, res, next) {
@@ -64,24 +63,25 @@ module.exports = {
 
     if (!token) {
       throw new Error('No token');
-    } else {
-      // then decode the token, which will end up being the user object
-      var user = jwt.decode(token, secret);
-      // check to see if that user exists in the database
-      User.forge({
-        username: user.username
-      }).fetch()
-        .then(function (foundUser) {
-          if (foundUser) {
-            next(); //if everything goes well, pass req to next handler (in server config)
-          } else {
-            res.send(401);
-          }
-        })
-        .catch(function (error) {
-          next(error);
-        });
     }
+    // then decode the token, which will end up being the user object
+    var user = jwt.decode(token, secret);
+    // check to see if that user exists in the database
+    User.forge({
+      username: user.username
+    })
+      .fetch()
+      .then(function (foundUser) {
+        if (foundUser) {
+          next(); //if everything goes well, pass req to next handler (in server config)
+        } else {
+          res.send(401);
+        }
+      })
+      .catch(function (error) {
+        next(error);
+      });
+
   },
 
   getMatchingUsers: function (req, res, next) {
@@ -133,7 +133,6 @@ module.exports = {
     };
 
     res.json(loggedInUser);
-
 
   }
 

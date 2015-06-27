@@ -7,13 +7,13 @@ var Offer = Models.Offer;
 var Want = Models.Want;
 
 
-// exports a promise that takes a user-obj posted to '/signup' (see docs/interface.json for more info) 
+// exports a promise that takes a user-obj posted to '/signup' (see docs/interface.json for more info)
 // and a next callback. createUser adds the user to the database and establishes a link between wanted and offered skills
 module.exports = function (user, next) {
-  
+
   return User.forge({
-    username: user.username
-  })
+      username: user.username
+    })
     .fetch()
     .then(function (userExists) {
       if (userExists) {
@@ -25,7 +25,7 @@ module.exports = function (user, next) {
       });
     })
     .then(function (newUser) {
-      return newUser.hashPassword(user.password);
+      return newUser.hashPassword(user.password, next);
     })
     .then(function (savedUser) {
       var relationships = [
