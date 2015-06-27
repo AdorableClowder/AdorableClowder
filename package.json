@@ -1,7 +1,11 @@
 {
   "name": "adorableclowder",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "skill sharing platform",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.11.x"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,8 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AdorableClowder/AdorableClowder.git"
+    "url": "git+https://github.com/AdorableClowder/AdorableClowder"
   },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -19,6 +28,7 @@
   },
   "homepage": "https://github.com/AdorableClowder/AdorableClowder#readme",
   "dependencies": {
+    "bower": "^1.4.1",
     "bcrypt": "^0.8.3",
     "bluebird": "^2.9.30",
     "body-parser": "^1.13.1",

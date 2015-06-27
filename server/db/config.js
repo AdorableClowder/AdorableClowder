@@ -1,15 +1,28 @@
-var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: '127.0.0.1',
-    user: 'root',
-    database: 'clowderdb',
-    charset: 'utf8'
-  }
-});
+var knex;
+
+//when working locally, run "$export NODE_ENV=development"
+//in terminal to allow app to connect to local MySQL
+console.log("CURRENT NODE ENVIRONMENT: ", process.env.NODE_ENV);
+
+//set db connection based on environmental variable
+if (process.env.NODE_ENV === 'development') {
+  knex = require('knex')({
+    client: 'mysql',
+    connection: {
+      host: '127.0.0.1',
+      user: 'root',
+      database: 'clowderdb',
+      charset: 'utf8'
+    }
+  });
+} else if (process.env.NODE_ENV === 'production') {
+  knex = require('knex')({
+    client: 'mysql',
+    connection: process.env.DATABASE_URL
+  });
+}
 
 var db = require('bookshelf')(knex);
-
 
 db.knex.schema.hasTable('users').then(function (exists) {
   if (!exists) {
