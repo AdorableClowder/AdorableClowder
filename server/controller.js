@@ -122,7 +122,7 @@ module.exports = {
 
     buildUserObj(user).spread(function (builtUserObj) {
       res.json(builtUserObj);
-    })
+    });
   }
 
 };

@@ -10,11 +10,12 @@ var Want = Models.Want;
 // buildUserObj is a promise that takes a Bookshelf User model and converts it into the JSON format
 // expected by the front end (see interface.json in docs for the expected format)
 var buildUserObj = module.exports = function (user) {
+  console.log(user);
   var props = ['offer', 'want'];
   var userObj = {
-    id: user.get('id'),
-    username: user.get('username'),
-    email: user.get('email')
+    id: user.id,
+    username: user.username,
+    email: user.email
   };
 
   return Promise.all(props.map(function(prop) {
@@ -30,7 +31,7 @@ var buildUserObj = module.exports = function (user) {
 // ex: getSkills('justin', 'wants').tap(console.log) => ['yo-yoging', 'twirling', 'disco']
 var getSkills = function (user, table) {
   return User.forge({
-    username: user.get('username')
+    username: user.username
   })
   .fetch({
     withRelated: [table]

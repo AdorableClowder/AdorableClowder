@@ -1,4 +1,6 @@
-var query = require('../queries.js');
+// var query = require('../queries.js');
+var Models = require('../models.js');
+var User = Models.User;
 
 var testUser = {
   "username": "justin6",
@@ -8,4 +10,11 @@ var testUser = {
   "email": "justin.thareja@gmail.com"
 };
 
-query.createUser(JSON.stringify(testUser));
+// query.createUser(JSON.stringify(testUser));
+
+
+User.forge({
+  username: 'j99'
+}).fetch({withRelated: ['offers', 'wants']}).then(function (user) {
+  console.log(user.toJSON());
+});
