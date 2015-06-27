@@ -9,12 +9,24 @@ var Want = Models.Want;
 
 // getskills will take a user object and a skill table and return an array of skills associated with that user obj
 
+// User.forge({
+//   username: 'justin24',
+//   password: '#!$!*@(#@*#(!@#*!(#!',
+//   email: 'justin22@gmail.com'
+// })
+// .save()
+// .then(function (user) {
+//   user.related('offers').attach([13,9,8]);
+// });
+
+
+
 User.forge({
-  username: 'justin3'
+  username: 'jwok'
 })
 .fetch({
-  withRelated: ['offers']
+  withRelated: ['offers', 'wants']
 })
 .then(function (user) {
-  console.log(user.related('offers').toJSON());
+  console.log(user.toJSON());
 });

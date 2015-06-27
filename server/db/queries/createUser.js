@@ -50,8 +50,12 @@ var attachSkillsToUser = function (user, skills, table) {
   return new Promise(function (resolve, reject) {
     getAllSkillIds(skills, convertToModelName(table)).then(function (ids) {
       // attaches an array of ids from from the table passed into the 'related' method
-      user.related(table).attach(ids);
-      resolve(user);
+      console.log('attaching', ids, 'to table', table);
+      user.related(table).attach(ids)
+      .then(function (something) {
+        console.log(user.toJSON());
+        resolve(user);
+      })
     });
   });
 };
@@ -102,6 +106,7 @@ var getSkillId = function (skill, skillType) {
 var convertToModelName = function (tableName) {
   return tableName.charAt(0).toUpperCase() + tableName.slice(1, tableName.length - 1);
 };
+
 
 
 // TODO:
