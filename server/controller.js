@@ -19,42 +19,42 @@ module.exports = {
     User.forge({
       username: username
     })
-    .fetch()
-    .then(function (user) {
-      if (!user) {
-        throw new Error('User does not exist');
-      }
-      console.log('found user: ', user.get('username'));
-      console.log('password to compare is: ', user.get('password'));
-      //in order to take advantage of chain promises, need to save found user in higher scope
-      userModel = user;
-      return user.comparePasswords(password);
-    })
-    .then(function (passwordsMatch) { //compare currently returns true or false
-      console.log('result of comparePasswords: ', passwordsMatch);
-      if (!passwordsMatch) {
-        throw new Error('Incorrect Password!');
-      }
-      var token = jwt.encode(userModel, secret);
-      console.log('jwt encoded, here is token: ', token);
-      res.json({
-        token: token
+      .fetch()
+      .then(function (user) {
+        if (!user) {
+          throw new Error('User does not exist');
+        }
+        console.log('found user: ', user.get('username'));
+        console.log('password to compare is: ', user.get('password'));
+        //in order to take advantage of chain promises, need to save found user in higher scope
+        userModel = user;
+        return user.comparePasswords(password);
+      })
+      .then(function (passwordsMatch) { //compare currently returns true or false
+        console.log('result of comparePasswords: ', passwordsMatch);
+        if (!passwordsMatch) {
+          throw new Error('Incorrect Password!');
+        }
+        var token = jwt.encode(userModel, secret);
+        console.log('jwt encoded, here is token: ', token);
+        res.json({
+          token: token
+        });
+      })
+      .catch(function (error) {
+        next(error);
       });
-    })
-    .catch(function (error) {
-      next(error);
-    });
   },
 
   signup: function (req, res, next) {
     createUser(req.body, next)
-    .then(function (user) {
-      // Do we need to send them a token on signup? or only login
-      // res.json({
-      //   token: jwt.encode(user, secret)
-      // });
-      res.send(201);
-    });
+      .then(function (user) {
+        // Do we need to send them a token on signup? or only login
+        res.json({
+          token: jwt.encode(user, secret)
+        });
+        // res.send(201);
+      });
   },
 
   checkAuth: function (req, res, next) {
@@ -122,7 +122,7 @@ module.exports = {
     var user = jwt.decode(token, secret);
     var currentUser = {};
 
-    // need to figure out how to access an array of the skills based on 
+    // need to figure out how to access an array of the skills based on
 
     var loggedInUser = {
       "id": 4,

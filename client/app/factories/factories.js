@@ -7,49 +7,55 @@ angular.module('karmaFactories', [])
 
   authFactory.login = function (user) {
     return $http({
-      method: 'POST',
-      url: '/login',
-      data: user
-    })
-    .then(function (resp) {
-      return resp.data.token;
-    });
+        method: 'POST',
+        url: '/login',
+        data: user
+      })
+      .then(function (resp) {
+        return resp.data.token;
+      });
   };
 
   authFactory.signup = function (user) {
     return $http({
-      method: 'POST',
-      url: '/signup',
-      data: user
-    })
-    .then(function (resp) {
-      return resp.data.token;
-      // return resp.status;
-    });
+        method: 'POST',
+        url: '/signup',
+        data: user
+      })
+      .then(function (resp) {
+        return resp.data.token;
+        // return resp.status;
+      });
   };
 
   return authFactory;
 })
-.factory('Users', function ($http, $location, $window){
-  var userFactory = {};
-  userFactory.getOtherUsers = function(){
-    return $http({
+  .factory('Users', function ($http, $location, $window) {
+    var userFactory = {};
+    userFactory.getOtherUsers = function () {
+      return $http({
           method: 'GET',
-          url: '/explore'
+          url: '/explore',
+          headers: {
+            'x-access-token': $window.localStorage.getItem('karmakonnect')
+          }
         })
         .then(function (resp) {
           return resp.data;
         });
-  };
+    };
 
-  userFactory.getUser = function(){
-    return $http({
-      method: 'GET',
-      url:'/profile'
-    })
-    .then(function(resp){
-      return resp.data;
-    });
-  };
-  return userFactory;
-});
+    userFactory.getUser = function () {
+      return $http({
+          method: 'GET',
+          url: '/profile',
+          headers: {
+            'x-access-token': $window.localStorage.getItem('karmakonnect')
+          }
+        })
+        .then(function (resp) {
+          return resp.data;
+        });
+    };
+    return userFactory;
+  });
