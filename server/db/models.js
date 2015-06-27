@@ -68,3 +68,6 @@ var Want = exports.Want = db.Model.extend({
   }
 
 });
+
+
+

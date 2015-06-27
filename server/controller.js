@@ -14,8 +14,7 @@ module.exports = {
     console.log('request body: ', req.body);
     var username = req.body.username;
     var password = req.body.password;
-    // userInfo stores the user data from the db fetch
-    var userInfo;
+    var userModel;
 
     User.forge({
       username: username
@@ -27,7 +26,8 @@ module.exports = {
       }
       console.log('found user: ', user.get('username'));
       console.log('password to compare is: ', user.get('password'));
-      userInfo = user; //in order to properly chain promises, need to save found user in higher scope
+      //in order to take advantage of chain promises, need to save found user in higher scope
+      userModel = user;
       return user.comparePasswords(password);
     })
     .then(function (passwordsMatch) { //compare currently returns true or false
@@ -35,7 +35,7 @@ module.exports = {
       if (!passwordsMatch) {
         throw new Error('Incorrect Password!');
       }
-      var token = jwt.encode(userInfo, secret);
+      var token = jwt.encode(userModel, secret);
       console.log('jwt encoded, here is token: ', token);
       res.json({
         token: token
@@ -118,7 +118,12 @@ module.exports = {
 
   getCurrentUser: function (req, res, next) {
 
-    
+    var token = req.headers['x-access-token'];
+    var user = jwt.decode(token, secret);
+    var currentUser = {};
+
+    // need to figure out how to access an array of the skills based on 
+
     var loggedInUser = {
       "id": 4,
       "username": "michael",
