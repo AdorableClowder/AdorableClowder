@@ -27,15 +27,11 @@ module.exports = function (user, next) {
     .then(function (newUser) {
       return newUser.hashPassword(user.password, next);
     })
-    .then(function (savedUser) {
-      var relationships = [
-        attachSkillsToUser(savedUser, user.offer, 'offers'),
-        attachSkillsToUser(savedUser, user.want, 'wants')
-      ];
-      return Promise.all(relationships);
+    .then(function (newUser) {
+      return attachSkillsToUser(newUser, user.want, 'wants');
     })
-    .spread(function (user) {
-      return user;
+    .then(function (newUser) {
+      return attachSkillsToUser(newUser, user.offer, 'offers');
     })
     .catch(function (error) {
       next(error);
@@ -46,12 +42,15 @@ module.exports = function (user, next) {
 // attachSkillsToUser is a promise that takes a Bookshelf User model, an array of skills (as strings),
 // and the corresponding table the skills belong to (eg: 'offers' or 'wants') and creates the Bookstrap version
 // of a join table between the user and the skills on that table
+// NOTE: Bookshelf creates a new user model and updates the relations when .attach is called. 
+// Since this is the case attachSkillsToUser must chain sequentially
 var attachSkillsToUser = function (user, skills, table) {
   return new Promise(function (resolve, reject) {
     getAllSkillIds(skills, convertToModelName(table)).then(function (ids) {
       // attaches an array of ids from from the table passed into the 'related' method
-      user.related(table).attach(ids);
-      resolve(user);
+      user.related(table).attach(ids).then(function (relation) {
+        resolve(user);
+      });
     });
   });
 };
@@ -75,24 +74,27 @@ var getAllSkillIds = function (skills, skillType) {
 // and gets the skill's id from the table based on skill type. the found is then passed through the resolve function
 // NOTE: if the skill is not already in the db, getSkillId will add it to the db before resolving
 var getSkillId = function (skill, skillType) {
-  // convert 'skillType' to the actual Bookshelf class
-  var Model = Models[skillType];
+  return new Promise(function (resolve, reject) {
+    // convert 'skillType' to the actual Bookshelf class
+    var Model = Models[skillType];
 
-  return Model.forge({
-    skill: skill
-  }).fetch().then(function (skillExists) {
-    if (skillExists) {
-      return skillExists.get('id');
-    }
     Model.forge({
       skill: skill
-    }).save().then(function (savedSkill) {
-      console.log(
-        savedSkill.get('skill'),
-        'saved successfully in ' + skillType + 's table',
-        'with an id of:', savedSkill.get('id')
-      );
-      return savedSkill.get('id');
+    }).fetch().then(function (skillExists) {
+      if (skillExists) {
+        resolve(skillExists.get('id'));
+        return;
+      }
+      Model.forge({
+        skill: skill
+      }).save().then(function (savedSkill) {
+        console.log(
+          savedSkill.get('skill'),
+          'saved successfully in ' + skillType + 's table',
+          'with an id of:', savedSkill.get('id')
+        );
+        resolve(savedSkill.get('id'));
+      });
     });
   });
 };
@@ -102,6 +104,7 @@ var getSkillId = function (skill, skillType) {
 var convertToModelName = function (tableName) {
   return tableName.charAt(0).toUpperCase() + tableName.slice(1, tableName.length - 1);
 };
+
 
 
 // TODO:
