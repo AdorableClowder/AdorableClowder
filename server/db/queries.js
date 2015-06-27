@@ -79,26 +79,21 @@ var getSkillId = function (skill, skillType) {
   // convert 'skillType' to the actual Bookshelf class
   var Model = Models[skillType];
 
-  return new Promise(function (resolve, reject) {
+  return Model.forge({
+    skill: skill
+  }).fetch().then(function (skillExists) {
+    if (skillExists) {
+      return skillExists.get('id');
+    }
     Model.forge({
       skill: skill
-    }).fetch().then(function (skillExists) {
-      if (skillExists) {
-        // pass fetched skill id into then function
-        resolve(skillExists.get('id'));
-        return;
-      }
-      Model.forge({
-        skill: skill
-      }).save().then(function (savedSkill) {
-        console.log(
-          savedSkill.get('skill'),
-          'saved successfully in ' + skillType + 's table',
-          'with an id of:', savedSkill.get('id')
-        );
-        // pass saved skill id into then function
-        resolve(savedSkill.get('id'));
-      });
+    }).save().then(function (savedSkill) {
+      console.log(
+        savedSkill.get('skill'),
+        'saved successfully in ' + skillType + 's table',
+        'with an id of:', savedSkill.get('id')
+      );
+      return savedSkill.get('id');
     });
   });
 };
