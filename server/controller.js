@@ -12,52 +12,48 @@ module.exports = {
 
   login: function (req, res, next) {
     console.log('request body: ', req.body);
-
     var username = req.body.username;
     var password = req.body.password;
-    var newUser = User.forge({
-      username: username
-    });
+    // userInfo stores the user data from the db fetch
     var userInfo;
-    console.log('user to search for: ', newUser);
 
-    // TODO: factor the find user stuff into a separate function for DRY purposes
-    // create new user
-    newUser
-      .fetch()
-      .then(function (user) {
-        console.log("fetched user: ", user);
-        if (!user) {
-          throw new Error('User does not exist');
-        }
-        console.log('found user: ', user);
-        console.log('password to compare is: ', password);
-        userInfo = user; //in order to properly chain promises, need to save found user in higher scope
-        return user.comparePasswords(password);
-      })
-      .then(function (passwordsMatch) { //compare currently returns true or false
-        console.log('result of comparePasswords: ', passwordsMatch);
-        if (passwordsMatch) {
-          var token = jwt.encode(userInfo, secret);
-          console.log('jwt encoded, here is token: ', token);
-          res.json({
-            token: token
-          });
-        } else {
-          throw new Error('Incorrect Password!');
-        }
-      })
-      .catch(function (error) {
-        next(error);
+    User.forge({
+      username: username
+    })
+    .fetch()
+    .then(function (user) {
+      if (!user) {
+        throw new Error('User does not exist');
+      }
+      console.log('found user: ', user.get('username'));
+      console.log('password to compare is: ', user.get('password'));
+      userInfo = user; //in order to properly chain promises, need to save found user in higher scope
+      return user.comparePasswords(password);
+    })
+    .then(function (passwordsMatch) { //compare currently returns true or false
+      console.log('result of comparePasswords: ', passwordsMatch);
+      if (!passwordsMatch) {
+        throw new Error('Incorrect Password!');
+      }
+      var token = jwt.encode(userInfo, secret);
+      console.log('jwt encoded, here is token: ', token);
+      res.json({
+        token: token
       });
+    })
+    .catch(function (error) {
+      next(error);
+    });
   },
-  
+
   signup: function (req, res, next) {
     createUser(req.body, next)
     .then(function (user) {
-      res.json({
-        token: jwt.encode(user, secret)
-      });
+      // Do we need to send them a token on signup? or only login
+      // res.json({
+      //   token: jwt.encode(user, secret)
+      // });
+      res.send(201);
     });
   },
 
@@ -122,6 +118,7 @@ module.exports = {
 
   getCurrentUser: function (req, res, next) {
 
+    
     var loggedInUser = {
       "id": 4,
       "username": "michael",
@@ -133,17 +130,6 @@ module.exports = {
     res.json(loggedInUser);
 
 
-  },
-
-  createUser: function (req, res, next) {
-    res.status(201).send('User created');
-  },
-
-  sendToken: function (req, res, next) {
-    res.json({
-      token: "sdklfh8a9ewrnaslkfmp894nfasdkhfas89joklsjdoif"
-    });
   }
-
 
 }

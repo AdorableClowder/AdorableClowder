@@ -6,7 +6,6 @@ var compare = Promise.promisify(require('bcrypt').compare);
 
 
 // Need to define all models in the same file or else a deadlock is created when using join tables
-// ^^weird shit but it works now!
 
 var User = exports.User = db.Model.extend({
 
