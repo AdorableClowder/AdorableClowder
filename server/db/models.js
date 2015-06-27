@@ -19,19 +19,22 @@ var User = exports.User = db.Model.extend({
       .then(function (hash, err) {
         if (err) {
           console.log("ERROR: ", err);
-          next(new Error(err));
-        } else {
-          console.log("password: ", password)
-          console.log('generating hashed pass: ', hash);
-          user.set('password', hash);
-          console.log('user after salt and hash set: ', user);
-          user.save();
-          return user;
+          throw new Error(err);
         }
-      }).catch(function (err) {
-        console.log("ERROR: ", err);
-        next(new Error(err));
+        console.log("password: ", password)
+        console.log('generating hashed pass: ', hash);
+        user.set('password', hash);
+        console.log('user after salt and hash set: ', user);
+        user.save();
+      })
+      .then(function () {
+        console.log('about to return user: ', user)
+        return user;
       });
+    // .catch(function (err) {
+    //   console.log("ERROR: ", err);
+    //   next(new Error(err));
+    // });
   },
 
   offers: function () {
