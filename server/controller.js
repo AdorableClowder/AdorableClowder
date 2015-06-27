@@ -4,7 +4,7 @@ var jwt = require('jwt-simple');
 var Models = require('./db/models.js');
 var User = Models.User;
 
-var queries = require('./db/queries.js');
+var createUser = require('./db/queries/createUser.js');
 
 var secret = 'INSERTWITTYSECRETHERE';
 
@@ -12,90 +12,49 @@ module.exports = {
 
   login: function (req, res, next) {
     console.log('request body: ', req.body);
-
     var username = req.body.username;
     var password = req.body.password;
-    var newUser = User.forge({
-      username: username
-    });
-    var userInfo;
-    console.log('user to search for: ', newUser);
+    var userModel;
 
-    // TODO: factor the find user stuff into a separate function for DRY purposes
-    // create new user
-    newUser
-      .fetch()
-      .then(function (user) {
-        console.log("fetched user: ", user);
-        if (!user) {
-          throw new Error('User does not exist');
-        }
-        console.log('found user: ', user);
-        console.log('password to compare is: ', password);
-        userInfo = user; //in order to properly chain promises, need to save found user in higher scope
-        return user.comparePasswords(password)
-      })
-      .then(function (passwordsMatch) { //compare currently returns true or false
-        console.log('result of comparePasswords: ', passwordsMatch);
-        if (passwordsMatch) {
-          var token = jwt.encode(userInfo, secret);
-          console.log('jwt encoded, here is token: ', token);
-          res.json({
-            token: token
-          });
-        } else {
-          throw new Error('Incorrect Password!');
-        }
-      })
-      .catch(function (error) {
-        next(error);
+    User.forge({
+      username: username
+    })
+    .fetch()
+    .then(function (user) {
+      if (!user) {
+        throw new Error('User does not exist');
+      }
+      console.log('found user: ', user.get('username'));
+      console.log('password to compare is: ', user.get('password'));
+      //in order to take advantage of chain promises, need to save found user in higher scope
+      userModel = user;
+      return user.comparePasswords(password);
+    })
+    .then(function (passwordsMatch) { //compare currently returns true or false
+      console.log('result of comparePasswords: ', passwordsMatch);
+      if (!passwordsMatch) {
+        throw new Error('Incorrect Password!');
+      }
+      var token = jwt.encode(userModel, secret);
+      console.log('jwt encoded, here is token: ', token);
+      res.json({
+        token: token
       });
+    })
+    .catch(function (error) {
+      next(error);
+    });
   },
 
   signup: function (req, res, next) {
-    queries.createUser(req.body, next)
-      .then(function (user) {
-        var token = jwt.encode(user, secret);
-        res.json({
-          token: token
-        });
-      });
-
-    // console.log('request body: ', req.body);
-
-    // var newUser = User.forge({
-    //   username: req.body.username
-    // });
-
-    // // check to see if user already exists
-    // newUser
-    //   .fetch()
-    //   .then(function (user) {
-    //     if (user) {
-    //       throw new Error('User already exists!');
-    //     } else {
-
-    //       // make a new user if not one
-    //       console.log("about to hash")
-    //       return newUser.hashPassword(req.body.password);
-    //     }
-    //   })
-    //   .then(function (user) {
-    //     console.log("hash promise result: ", user);
-    //     if (!user) {
-    //       throw new Error('Write to DB failed!');
-    //     }
-    //     // create token to send back for auth
-    //     console.log("about to create jwt with user: ", user);
-    //     var token = jwt.encode(user, secret);
-    //     res.json({
-    //       token: token
-    //     });
-    //     console.log("finished creating jwt");
-    //   })
-    //   .catch(function (error) {
-    //     next(error);
-    //   });
+    createUser(req.body, next)
+    .then(function (user) {
+      // Do we need to send them a token on signup? or only login
+      // res.json({
+      //   token: jwt.encode(user, secret)
+      // });
+      res.send(201);
+    });
   },
 
   checkAuth: function (req, res, next) {
@@ -159,6 +118,12 @@ module.exports = {
 
   getCurrentUser: function (req, res, next) {
 
+    var token = req.headers['x-access-token'];
+    var user = jwt.decode(token, secret);
+    var currentUser = {};
+
+    // need to figure out how to access an array of the skills based on 
+
     var loggedInUser = {
       "id": 4,
       "username": "michael",
@@ -170,17 +135,6 @@ module.exports = {
     res.json(loggedInUser);
 
 
-  },
-
-  createUser: function (req, res, next) {
-    res.status(201).send('User created');
-  },
-
-  sendToken: function (req, res, next) {
-    res.json({
-      token: "sdklfh8a9ewrnaslkfmp894nfasdkhfas89joklsjdoif"
-    });
   }
-
 
 }
