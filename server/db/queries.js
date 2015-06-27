@@ -1,7 +1,7 @@
-var db = require('../config.js');
+var db = require('./config.js');
 var Promise = require('bluebird');
 var _ = require('underscore');
-var Models = require('../models.js');
+var Models = require('./models.js');
 var User = Models.User;
 var Offer = Models.Offer;
 var Want = Models.Want;
@@ -9,32 +9,43 @@ var Want = Models.Want;
 
 // a function that takes the agreed-upon json user-obj posted to '/signup' (see docs/interface.json for more info)
 // adds the user to the database and establishes a link between wanted and offered skills
-var createUser = exports.createUser = function (jsonUser) {
-  var user = JSON.parse(jsonUser);
-  return User.forge({ username: user.username }).fetch().then(function (userExists) {
-    if (userExists) {
-      console.log(user.username, 'already exists');
-      return;
-    }
-    User.forge({
-      username: user.username,
-      password: user.password,
-      email: user.email
-    }).save().then(function (savedUser) {
+var createUser = exports.createUser = function (jsonUser, next) {
+  var user = jsonUser;
+
+  var newUser = User.forge({
+    username: user.username
+  });
+
+  return newUser
+    .fetch()
+    .then(function (userExists) {
+      if (userExists) {
+        throw new Error('User already exists!');
+      }
+      console.log("about to hash")
+      newUser.set("email", user.email);
+      console.log('newUser: ', newUser);
+      console.log('user: ', user)
+      return newUser.hashPassword(user.password);
+    })
+    .then(function (savedUser) {
+      console.log('savedUser: ', savedUser)
       var relationships = [
         attachSkillsToUser(savedUser, user.offer, 'offers'),
         attachSkillsToUser(savedUser, user.want, 'wants')
       ];
       return Promise.all(relationships);
     })
-    .then(function (user) {
-      console.log('USER CREATION SUCCESSFULL!!!!!!');
+    .spread(function (user) {
+      return user;
+    })
+    .catch(function (error) {
+      next(error);
     });
-  });
 };
-  
-// attachSkillsToUser is a promise that takes a backbone User model, an array of skills (as strings), 
-// and the corresponding table the skills belong to (eg: 'offers' or 'wants') and creates the Bookstrap version 
+
+// attachSkillsToUser is a promise that takes a backbone User model, an array of skills (as strings),
+// and the corresponding table the skills belong to (eg: 'offers' or 'wants') and creates the Bookstrap version
 // of a join table between the user and the skills on that table
 var attachSkillsToUser = function (user, skills, table) {
   return new Promise(function (resolve, reject) {
@@ -47,8 +58,8 @@ var attachSkillsToUser = function (user, skills, table) {
 };
 
 /*
-getAllSkillIds is a promise that accepts an array of skill strings, and a string representing a 
-Backbone skill type model and adds them to the db if not already there. an array of id's 
+getAllSkillIds is a promise that accepts an array of skill strings, and a string representing a
+Backbone skill type model and adds them to the db if not already there. an array of id's
 associated with the corresponding skill are passed to the resolve function for .then chaining
 
 ex: getAllSkillIds(['skyrim', 'yoga', 'surfing'], 'Want').then(function (ids) {
@@ -93,16 +104,19 @@ var getSkillId = function (skill, skillType) {
   var Model = Models[skillType];
 
   return new Promise(function (resolve, reject) {
-    Model.forge({ skill: skill }).fetch().then(function (skillExists) {
+    Model.forge({
+      skill: skill
+    }).fetch().then(function (skillExists) {
       if (!skillExists) {
-        Model.forge({ skill: skill}).save().then(function (savedSkill) {
+        Model.forge({
+          skill: skill
+        }).save().then(function (savedSkill) {
           console.log(savedSkill.get('skill'), 'saved successfully in ' + skillType + 's table');
           console.log('with an id of:', savedSkill.get('id'));
           // pass saved skill id into then function
           resolve(savedSkill.get('id'));
         });
-      }
-      else {
+      } else {
         console.log(skill, 'already exists in db');
         // pass fetched skill id into then function
         resolve(skillExists.get('id'));
@@ -113,8 +127,8 @@ var getSkillId = function (skill, skillType) {
 
 
 // useful when distinguishing between the MySQL table name VS. the Backbone model name
-var convertToModelName =  function (tableName) {
-  return tableName.charAt(0).toUpperCase() + tableName.slice(1, tableName.length-1);
+var convertToModelName = function (tableName) {
+  return tableName.charAt(0).toUpperCase() + tableName.slice(1, tableName.length - 1);
 };
 
 

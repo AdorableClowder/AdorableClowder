@@ -4,6 +4,8 @@ var jwt = require('jwt-simple');
 var Models = require('./db/models.js');
 var User = Models.User;
 
+var queries = require('./db/queries.js');
+
 var secret = 'INSERTWITTYSECRETHERE';
 
 module.exports = {
@@ -51,40 +53,49 @@ module.exports = {
   },
 
   signup: function (req, res, next) {
-    console.log('request body: ', req.body);
-
-    var newUser = User.forge({
-      username: req.body.username
-    });
-
-    // check to see if user already exists
-    newUser
-      .fetch()
+    queries.createUser(req.body, next)
       .then(function (user) {
-        if (user) {
-          throw new Error('User already exists!');
-        } else {
-          // make a new user if not one
-          console.log("about to hash")
-          return newUser.hashPassword(req.body.password);
-        }
-      })
-      .then(function (user) {
-        console.log("hash promise result: ", user);
-        if (!user) {
-          throw new Error('Write to DB failed!');
-        }
-        // create token to send back for auth
-        console.log("about to create jwt with user: ", user);
         var token = jwt.encode(user, secret);
         res.json({
           token: token
         });
-        console.log("finished creating jwt");
-      })
-      .catch(function (error) {
-        next(error);
       });
+
+    // console.log('request body: ', req.body);
+
+    // var newUser = User.forge({
+    //   username: req.body.username
+    // });
+
+    // // check to see if user already exists
+    // newUser
+    //   .fetch()
+    //   .then(function (user) {
+    //     if (user) {
+    //       throw new Error('User already exists!');
+    //     } else {
+
+    //       // make a new user if not one
+    //       console.log("about to hash")
+    //       return newUser.hashPassword(req.body.password);
+    //     }
+    //   })
+    //   .then(function (user) {
+    //     console.log("hash promise result: ", user);
+    //     if (!user) {
+    //       throw new Error('Write to DB failed!');
+    //     }
+    //     // create token to send back for auth
+    //     console.log("about to create jwt with user: ", user);
+    //     var token = jwt.encode(user, secret);
+    //     res.json({
+    //       token: token
+    //     });
+    //     console.log("finished creating jwt");
+    //   })
+    //   .catch(function (error) {
+    //     next(error);
+    //   });
   },
 
   checkAuth: function (req, res, next) {
