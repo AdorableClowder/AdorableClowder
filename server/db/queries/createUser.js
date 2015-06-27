@@ -27,15 +27,11 @@ module.exports = function (user, next) {
     .then(function (newUser) {
       return newUser.hashPassword(user.password, next);
     })
-    .then(function (savedUser) {
-      var relationships = [
-        attachSkillsToUser(savedUser, user.offer, 'offers'),
-        attachSkillsToUser(savedUser, user.want, 'wants')
-      ];
-      return Promise.all(relationships);
+    .then(function (newUser) {
+      return attachSkillsToUser(newUser, user.want, 'wants');
     })
-    .spread(function (user) {
-      return user;
+    .then(function (newUser) {
+      return attachSkillsToUser(newUser, user.offer, 'offers');
     })
     .catch(function (error) {
       next(error);
@@ -50,12 +46,10 @@ var attachSkillsToUser = function (user, skills, table) {
   return new Promise(function (resolve, reject) {
     getAllSkillIds(skills, convertToModelName(table)).then(function (ids) {
       // attaches an array of ids from from the table passed into the 'related' method
-      console.log('attaching', ids, 'to table', table);
-      user.related(table).attach(ids)
-      .then(function (something) {
-        console.log(user.toJSON());
+      user.related(table).attach(ids).then(function (something) {
+        console.log('attached', skills, 'to user',user.toJSON());
         resolve(user);
-      })
+      });
     });
   });
 };
@@ -79,24 +73,27 @@ var getAllSkillIds = function (skills, skillType) {
 // and gets the skill's id from the table based on skill type. the found is then passed through the resolve function
 // NOTE: if the skill is not already in the db, getSkillId will add it to the db before resolving
 var getSkillId = function (skill, skillType) {
-  // convert 'skillType' to the actual Bookshelf class
-  var Model = Models[skillType];
+  return new Promise(function (resolve, reject) {
+    // convert 'skillType' to the actual Bookshelf class
+    var Model = Models[skillType];
 
-  return Model.forge({
-    skill: skill
-  }).fetch().then(function (skillExists) {
-    if (skillExists) {
-      return skillExists.get('id');
-    }
     Model.forge({
       skill: skill
-    }).save().then(function (savedSkill) {
-      console.log(
-        savedSkill.get('skill'),
-        'saved successfully in ' + skillType + 's table',
-        'with an id of:', savedSkill.get('id')
-      );
-      return savedSkill.get('id');
+    }).fetch().then(function (skillExists) {
+      if (skillExists) {
+        resolve(skillExists.get('id'));
+        return;
+      }
+      Model.forge({
+        skill: skill
+      }).save().then(function (savedSkill) {
+        console.log(
+          savedSkill.get('skill'),
+          'saved successfully in ' + skillType + 's table',
+          'with an id of:', savedSkill.get('id')
+        );
+        resolve(savedSkill.get('id'));
+      });
     });
   });
 };

@@ -22,7 +22,7 @@ var Want = Models.Want;
 
 
 User.forge({
-  username: 'jwok'
+  username: 'j42'
 })
 .fetch({
   withRelated: ['offers', 'wants']
