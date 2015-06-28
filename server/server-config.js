@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser'); //body parser gives us access to req.body
-var helpers = require('./helpers.js'); // any handy utility function
 var controller = require('./controller.js'); // all actual route handling logic will reside here
 
 var app = express();

@@ -3,7 +3,8 @@ var Promise = require('bluebird');
 //to allow return of promisified bcrypt callbacks
 var bcrypt = Promise.promisifyAll(require('bcrypt'));
 
-// Need to define all models in the same file or else a deadlock is created when using join tables
+// Need to define all models in the same file or else a require deadlock is created when using join tables
+// TODO: figure out how to separate models
 
 var User = exports.User = db.Model.extend({
 
@@ -60,3 +61,4 @@ var Want = exports.Want = db.Model.extend({
   }
 
 });
+
