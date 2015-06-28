@@ -19,19 +19,25 @@ angular.module('signupCtrl', [])
         return want !==null && want !== undefined;
       });
     console.log(vm.user);
-    // using Auth factory from factories.js to do POST
-    Auth.signup(vm.user)
-      .then(function (token) {
-        console.log('signup success');
-        $window.localStorage.setItem('karmakonnect', token);
-        // redirect if succesful
-        $location.path('/explore');
-      })
-      .catch(function (err) {
-        console.log(err);
-        //gets the error without the whole callstack (pretty hacky)
-        vm.err = err.data.split('<br>')[0];
-      });
+    //throw error if fields are empty
+    if(vm.user.offer.length === 0 || vm.user.want.length === 0 || 
+      vm.user.username === undefined || vm.user.password === undefined || vm.user.email === undefined){
+      vm.err = 'Please fill out required fields';
+    } else {
+      // using Auth factory from factories.js to do POST
+      Auth.signup(vm.user)
+        .then(function (token) {
+          console.log('signup success');
+          $window.localStorage.setItem('karmakonnect', token);
+          // redirect if succesful
+          $location.path('/explore');
+        })
+        .catch(function (err) {
+          console.log(err);
+          //gets the error without the whole callstack (pretty hacky)
+          vm.err = err.data.split('<br>')[0];
+        });
+    }
   };
 
 });

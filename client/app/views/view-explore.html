@@ -6,6 +6,7 @@
     <ul ng-show="explore.shouldShow">
       <li class="list-unstyled" ng-repeat="skill in explore.userSkills | filter:searchSkills"><a ng-click="explore.showUsers(skill)" class="lead">{{skill}}</a></li>
     </ul>
+    <p class="text-danger">{{explore.err}}</p>
     <div ng-hide="explore.shouldShow">
     <h3 class="btn btn-default" ng-click="explore.toggleView()">See all skills</h3>
     <ul class="list-unstyled">

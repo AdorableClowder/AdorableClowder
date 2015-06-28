@@ -22,6 +22,7 @@
 - Clone the repo to your computer
 - Run mySQL and create a database called 'clowderdb'
 - Install dependencies (see below)
+- Run 'export NODE_ENV=development' in the terminal
 - Run server.js with node or nodemon
 - Go to localhost:1337 in your browser
 

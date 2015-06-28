@@ -15,17 +15,14 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
     url: '/',
     templateUrl: 'app/views/view-home.html',
   })
-
   .state('signup', {
     url: '/signup',
     templateUrl: 'app/views/view-signup.html'
   })
-
   .state('login', {
     url: '/login',
     templateUrl: 'app/views/view-login.html'
   })
-
   .state('explore', {
     url: '/explore',
     templateUrl: 'app/views/view-explore.html'
@@ -44,7 +41,7 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
   });
 });
 
-karmaApp.run(function($rootScope, $window){
+karmaApp.run(function($rootScope, $window, $location){
   $rootScope.shouldShow = false;
   $rootScope.$on('$stateChangeStart', function(){
     // if there is token, show profile/logout in nav bar
