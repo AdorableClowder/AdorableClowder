@@ -5,6 +5,8 @@ var User = Models.User;
 var createUser = require('./db/queries/createUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
 var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
+var Promise = require('bluebird');
+
 
 var secret = 'INSERTWITTYSECRETHERE';
 
