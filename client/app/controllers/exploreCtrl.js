@@ -27,6 +27,10 @@ angular.module('exploreCtrl', [])
     });
     allOffers = _.flatten(allOffers);
     vm.userSkills = _.uniq(allOffers);
+    //if there are no skills available, display error message
+    if(vm.userSkills.length ===0){
+      vm.err = "Sorry, no users are currently looking for your skills.";
+    }
   };
   
   //shows list of skills by default, or people with certain skill when clicked
