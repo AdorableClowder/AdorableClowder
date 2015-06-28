@@ -1,5 +1,6 @@
 var Want = require('../models.js').Want;
 var _ = require('underscore');
+var Promise = require('bluebird');
 
 // exports a promise that takes an array of skill strings and converts them into a unique array of
 // all user IDs who WANT TO LEARN that skill
