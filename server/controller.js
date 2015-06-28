@@ -4,6 +4,7 @@ var Models = require('./db/models.js');
 var User = Models.User;
 var createUser = require('./db/queries/createUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
+var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 
 var secret = 'INSERTWITTYSECRETHERE';
 
@@ -52,7 +53,7 @@ module.exports = {
       })
       .catch(function (error) {
         next(error);
-      })
+      });
   },
 
   checkAuth: function (req, res, next) {
@@ -85,33 +86,43 @@ module.exports = {
 
   getMatchingUsers: function (req, res, next) {
 
-    var fabricatedUsers = [{
-      "id": 1,
-      "username": "austin",
-      "offer": ["yoga", "cooking"],
-      "want": ["angular", "scootering"],
-      "email": "austin@gmail.com"
-    }, {
-      "id": 2,
-      "username": "sarah",
-      "offer": ["brewing tea", "angular", "making lemonade"],
-      "want": ["yoga", "scootering"],
-      "email": "sarah@me.com"
-    }, {
-      "id": 3,
-      "username": "justin",
-      "offer": ["making lemonade", "scootering"],
-      "want": ["angular"],
-      "email": "justin@gmail.com"
-    }, {
-      "id": 4,
-      "username": "michael",
-      "offer": ["video games", "drinking scotch", "cooking"],
-      "want": ["how to do things good", "how to not do things bad"],
-      "email": "michael@gmail.com"
-    }];
+    var token = req.headers['x-access-token'];
+    var user = jwt.decode(token, secret);
 
-    res.json(fabricatedUsers);
+    User.forge({
+      username: user.username
+    })
+    .fetch({withRelated: 'offers'})
+    .then(function (foundUser) {
+      // grab users array of offers
+      return foundUser.related('offers').map(function (offer) {
+        return offer.get('skill');
+      });
+    })
+    // convert array of offers to array of user id's that want to learn what user has to offer
+    .then(function (offers) {
+      console.log('offers=', offers);
+      return getRelatedUserIds(offers);
+    })
+    // convert user_id's into user objects to send
+    .then(function (userIds) {
+      console.log('user IDs received from getRelatedUserIds', userIds);
+      if (!userIds.length) {
+        throw new Error ('No matching users found');
+      }
+      return Promise.all(
+        userIds.map(function (id) {
+          return buildUserObj(id);
+        })
+      );
+    })
+    .then(function (users) {
+      console.log(users);
+      res.json(users);
+    })
+    .catch(function (err) {
+      next(err);
+    });
 
   },
 
@@ -120,7 +131,7 @@ module.exports = {
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
 
-    buildUserObj(user).spread(function (builtUserObj) {
+    buildUserObj(user.id).spread(function (builtUserObj) {
       res.json(builtUserObj);
     });
   }

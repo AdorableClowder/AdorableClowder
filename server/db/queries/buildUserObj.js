@@ -9,21 +9,25 @@ var Want = Models.Want;
 
 // buildUserObj is a promise that takes a Bookshelf User model and converts it into the JSON format
 // expected by the front end (see interface.json in docs for the expected format)
-var buildUserObj = module.exports = function (user) {
-  console.log(user);
-  var props = ['offer', 'want'];
-  var userObj = {
-    id: user.id,
-    username: user.username,
-    email: user.email
-  };
+var buildUserObj = module.exports = function (userId) {
+  console.log('buildUserObj called with user id:', userId);
+  return User.forge({id: userId}).fetch().then(function (user) {
+    var props = ['offer', 'want'];
+    var userObj = {
+      id: user.get('id'),
+      username: user.get('username'),
+      email: user.get('email')
+    };
 
-  return Promise.all(props.map(function(prop) {
-    return getSkills(user, prop + 's').then(function (skills) {
-      userObj[prop] = skills;
-      return userObj;
+    return Promise.all(props.map(function(prop) {
+      return getSkills(user, prop + 's').then(function (skills) {
+        userObj[prop] = skills;
+        return userObj;
+      });
+    })).spread(function (builtUserObj) {
+      return builtUserObj;
     });
-  }));
+  });
 };
 
 // getSkills is a promise that takes a Bookshelf User model and a skill table 
@@ -31,7 +35,7 @@ var buildUserObj = module.exports = function (user) {
 // ex: getSkills('justin', 'wants').tap(console.log) => ['yo-yoging', 'twirling', 'disco']
 var getSkills = function (user, table) {
   return User.forge({
-    username: user.username
+    username: user.get('username')
   })
   .fetch({
     withRelated: [table]
@@ -43,4 +47,3 @@ var getSkills = function (user, table) {
     });
   });
 };
-
