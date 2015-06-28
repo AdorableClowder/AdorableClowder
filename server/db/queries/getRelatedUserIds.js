@@ -17,23 +17,26 @@ module.exports = function (skills) {
 // getRelatedUserIds is a promise that takes a skill string and returns and array of user IDs who WANT TO LEARN that skill
 var getRelatedUserIds = function (skill) {
   if (!skill) {
-    throw new Error ('getRelatedUserIds called with no skill');
+    throw new Error('getRelatedUserIds called with no skill');
   }
   console.log('skill=', skill);
   return Want.forge({
-    skill: skill
-  }).fetch({
-    withRelated: 'users'
-  })
-  .then(function (want) {
-    if (!want) {
-      throw new Error ('no want found with offer:', skill);
-    }
-    return want.related('users').map(function(user) {
-      return user.get('id');
+      skill: skill
+    }).fetch({
+      withRelated: 'users'
+    })
+    .then(function (want, err) {
+      if (!want) {
+        return null;
+      }
+      if (err) {
+        throw new Error(err);
+      }
+      return want.related('users').map(function (user) {
+        return user.get('id');
+      });
+    })
+    .catch(function (err) {
+      console.log(err);
     });
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
 };
