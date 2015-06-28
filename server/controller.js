@@ -92,37 +92,36 @@ module.exports = {
     User.forge({
       username: user.username
     })
-    .fetch({withRelated: 'offers'})
-    .then(function (foundUser) {
-      // grab users array of offers
-      return foundUser.related('offers').map(function (offer) {
-        return offer.get('skill');
-      });
-    })
+      .fetch({
+        withRelated: 'offers'
+      })
+      .then(function (foundUser) {
+        // grab users array of offers
+        return foundUser.related('offers').map(function (offer) {
+          return offer.get('skill');
+        });
+      })
     // convert array of offers to array of user id's that want to learn what user has to offer
     .then(function (offers) {
       console.log('offers=', offers);
       return getRelatedUserIds(offers);
     })
-    // convert user_id's into user objects to send
+    // convert user_ids into user objects to send
     .then(function (userIds) {
       console.log('user IDs received from getRelatedUserIds', userIds);
-      if (!userIds.length) {
-        throw new Error ('No matching users found');
-      }
       return Promise.all(
         userIds.map(function (id) {
           return buildUserObj(id);
         })
       );
     })
-    .then(function (users) {
-      console.log(users);
-      res.json(users);
-    })
-    .catch(function (err) {
-      next(err);
-    });
+      .then(function (users) {
+        console.log(users);
+        res.json(users);
+      })
+      .catch(function (err) {
+        next(err);
+      });
 
   },
 
@@ -131,7 +130,7 @@ module.exports = {
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
 
-    buildUserObj(user.id).spread(function (builtUserObj) {
+    buildUserObj(user.id).then(function (builtUserObj) {
       res.json(builtUserObj);
     });
   }
