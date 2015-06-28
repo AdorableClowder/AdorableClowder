@@ -104,10 +104,3 @@ var getSkillId = function (skill, skillType) {
 var convertToModelName = function (tableName) {
   return tableName.charAt(0).toUpperCase() + tableName.slice(1, tableName.length - 1);
 };
-
-
-
-// TODO:
-// Create a "login" massive query that does the following:
-// create a query to find all users who have skills wanted that match the logging in user skills offered
-// figure out a way to package it nicely

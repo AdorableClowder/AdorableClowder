@@ -40,5 +40,5 @@ var testUser = {
 
 
 
-
+buildUserObj(1).tap(console.log)
 

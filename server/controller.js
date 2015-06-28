@@ -116,7 +116,7 @@ module.exports = {
         })
       );
     })
-    .spread(function (users) {
+    .then(function (users) {
       console.log(users);
       res.json(users);
     })

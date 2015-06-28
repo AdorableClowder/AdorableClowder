@@ -24,7 +24,9 @@ var buildUserObj = module.exports = function (userId) {
         userObj[prop] = skills;
         return userObj;
       });
-    }));
+    })).spread(function (builtUserObj) {
+      return builtUserObj;
+    });
   });
 };
 
@@ -45,4 +47,3 @@ var getSkills = function (user, table) {
     });
   });
 };
-
