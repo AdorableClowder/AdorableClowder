@@ -5,7 +5,17 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     githooks: {
       all: {
-        'pre-commit': 'default'
+        'pre-commit': 'checkSyntax'
+      }
+    },
+    jshint: {
+      files: [
+        'Gruntfile.js', 'server.js', 'server/**.js', 'client/**.js', '!client/lib/**.js'
+      ],
+      options: {
+        globals: {
+          jQuery: true
+        }
       }
     },
     ngAnnotate: {
@@ -44,6 +54,23 @@ module.exports = function (grunt) {
         ],
         dest: 'client/build/<%= pkg.name %>.min.js'
       }
+    },
+    nodemon: {
+      dev: {
+        script: 'server.js'
+      }
+    },
+    watch: {
+      files: ['<%= jshint.files %>'],
+      tasks: ['jshint']
+    },
+    concurrent: {
+      dev: {
+        tasks: ['jshint', 'nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
     }
   });
 
@@ -51,8 +78,24 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-githooks');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-concurrent');
 
-  // Default task(s).
-  grunt.registerTask('default', ['ngAnnotate', 'uglify']);
+  //tasks
+  grunt.registerTask('checkSyntax', ['jshint']);
+  grunt.registerTask('build', ['checkSyntax', 'ngAnnotate', 'uglify']);
 
+  grunt.registerTask('magic', '', function () {
+    var taskList = [
+      'concurrent',
+      'jshint',
+      'nodemon',
+      'watch'
+    ];
+    grunt.task.run(taskList);
+  });
+
+  grunt.registerTask('default', ['githooks', 'magic']);
 };
