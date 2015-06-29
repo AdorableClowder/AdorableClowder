@@ -1,6 +1,6 @@
 // using angular-ui router
 // setting up skillitApp angular
-var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'karmaFactories']);
+var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'skillitFactories']);
 
 skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
