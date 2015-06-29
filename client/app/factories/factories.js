@@ -1,4 +1,4 @@
-angular.module('karmaFactories', [])
+angular.module('skillitFactories', [])
 
 // factory used for user authentication login/ signup
 .factory('Auth', function ($http, $location, $window) {
