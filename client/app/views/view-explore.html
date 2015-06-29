@@ -1,6 +1,6 @@
 <div class="jumbotron text-center">
   <h2>Learn new skills</h2>
-  
+
   <div ng-controller="exploreController as explore">
   <label>Search:<input ng-model="searchSkills"></label>
     <ul ng-show="explore.shouldShow">
@@ -13,11 +13,11 @@
       <li ng-repeat="user in explore.usersWithSkill | filter:searchSkills">
         <h4>{{user.username}}</h4>
         <ul class="list-unstyled">
-          <h5>Skills offered</h5>
+          <h5>What {{user.username}} can teach you:</h5>
           <li ng-repeat="offer in user.offer">{{offer}}</li>
-          <h5>Skills wanted</h5>
+          <h5>What {{user.username}} wants to learn:</h5>
           <li ng-repeat="want in user.want">{{want}}</li>
-          <h5>Email address</h5>
+          <h5>Get in touch with {{user.username}}:</h5>
           <li>{{user.email}}</li>
         </ul>
       </li>

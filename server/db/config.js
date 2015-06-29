@@ -1,3 +1,6 @@
+//this file creates connection to SQL db
+//and tables IF they don't exist already
+
 var knex;
 
 //when working locally, run "$export NODE_ENV=development"
@@ -5,7 +8,8 @@ var knex;
 console.log("CURRENT NODE ENVIRONMENT: ", process.env.NODE_ENV);
 
 //set db connection based on environmental variable
-if (process.env.NODE_ENV === 'development') {
+//if no env var, treat as development
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
   knex = require('knex')({
     client: 'mysql',
     connection: {
@@ -62,10 +66,12 @@ db.knex.schema.hasTable('wants').then(function (exists) {
   }
 });
 
+//join tables:
+//users to offers
 db.knex.schema.hasTable('users_offers').then(function (exists) {
   if (!exists) {
     db.knex.schema.createTable('users_offers', function (table) {
-      table.integer('offer_id').unsigned().references('offers.id');
+      table.integer('offer_id').unsigned().references('offers.id'); //must be unsigned because bookshelf :(
       table.integer('user_id').unsigned().references('users.id');
     }).then(function (table) {
       console.log('Created USERS_OFFERS join table');
@@ -73,6 +79,7 @@ db.knex.schema.hasTable('users_offers').then(function (exists) {
   }
 });
 
+//users to wants
 db.knex.schema.hasTable('users_wants').then(function (exists) {
   if (!exists) {
     db.knex.schema.createTable('users_wants', function (table) {

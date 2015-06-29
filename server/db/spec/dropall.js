@@ -1,3 +1,6 @@
+//run this in terminal to drop all local tables for testing purposes.
+//No functionality
+
 db = require('../config.js');
 
 db.knex.schema.dropTable('users_wants').then(function () {

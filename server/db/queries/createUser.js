@@ -42,7 +42,7 @@ module.exports = function (user, next) {
 // attachSkillsToUser is a promise that takes a Bookshelf User model, an array of skills (as strings),
 // and the corresponding table the skills belong to (eg: 'offers' or 'wants') and creates the Bookstrap version
 // of a join table between the user and the skills on that table
-// NOTE: Bookshelf creates a new user model and updates the relations when .attach is called. 
+// NOTE: Bookshelf creates a new user model and updates the relations when .attach is called.
 // Since this is the case attachSkillsToUser must chain sequentially
 var attachSkillsToUser = function (user, skills, table) {
   return new Promise(function (resolve, reject) {
