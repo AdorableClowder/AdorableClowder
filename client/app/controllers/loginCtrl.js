@@ -1,6 +1,6 @@
 angular.module('loginCtrl', [])
 
-.controller('loginController', function(Auth, $location, $window) {
+.controller('loginController', function (Auth, $location, $window) {
 
   var vm = this;
 
@@ -13,7 +13,7 @@ angular.module('loginCtrl', [])
       .then(function (token) {
         console.log('login success');
         // store the token sent back from the server in local storage
-        $window.localStorage.setItem('karmakonnect', token);
+        $window.localStorage.setItem('skillitToken', token);
         // redirect if succesful
         $location.path('/explore');
       })

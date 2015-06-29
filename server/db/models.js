@@ -1,10 +1,10 @@
 var db = require('./config.js');
 var Promise = require('bluebird');
-//to allow return of promisified bcrypt callbacks
+//to allow return of promisified bcrypt callbacks--to use promisified versions of bcrypt native functions,
+//append them with "Async", e.g.: promisified version of bcrypt.hash is bcrypt.hashAsync
 var bcrypt = Promise.promisifyAll(require('bcrypt'));
 
 // Need to define all models in the same file or else a require deadlock is created when using join tables
-// TODO: figure out how to separate models
 
 var User = exports.User = db.Model.extend({
 
@@ -13,6 +13,9 @@ var User = exports.User = db.Model.extend({
   hashPassword: function (password, next) {
     var user = this;
 
+    //hash and salt password
+    //hashAsync created by PromisifyAll,
+    //automagically salts the hash, "10" refers to the computational complexity of resultant salt
     return bcrypt.hashAsync(password, 10)
       .then(function (hash, err) {
         if (err) {
@@ -38,7 +41,8 @@ var User = exports.User = db.Model.extend({
   },
 
   comparePasswords: function (candidatePassword) {
-    return bcrypt.compareAsync(candidatePassword, this.get('password'));
+    //promisified version of brypt.compare--automatically retrieves salt and dehashes passwords before comparing
+    return bcrypt.compareAsync(candidatePassword, this.get('password')); //this.get retrieves pw from bookshelf user model
   }
 });
 
@@ -61,4 +65,3 @@ var Want = exports.Want = db.Model.extend({
   }
 
 });
-
