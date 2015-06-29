@@ -37,20 +37,20 @@ angular.module('karmaFactories', [])
           method: 'GET',
           url: '/explore',
           headers: {
-            'x-access-token': $window.localStorage.getItem('karmakonnect')
+            'x-access-token': $window.localStorage.getItem('skillitToken')
           }
         })
         .then(function (resp) {
           return resp.data;
         });
     };
-
+    // this method is called to get logged in user data on profile, retrieved from token
     userFactory.getUser = function () {
       return $http({
           method: 'GET',
           url: '/profile',
           headers: {
-            'x-access-token': $window.localStorage.getItem('karmakonnect')
+            'x-access-token': $window.localStorage.getItem('skillitToken')
           }
         })
         .then(function (resp) {

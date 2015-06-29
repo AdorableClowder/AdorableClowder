@@ -29,7 +29,7 @@ module.exports = {
         userModel = user;
         return user.comparePasswords(password);
       })
-      .then(function (passwordsMatch) { //compare currently returns true or false
+      .then(function (passwordsMatch) {
         if (!passwordsMatch) {
           throw new Error('Incorrect password');
         }
@@ -69,6 +69,7 @@ module.exports = {
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
     // check to see if that user exists in the database
+    // "User.forge" is syntactic sugar for "new User"
     User.forge({
       username: user.username
     })
@@ -91,14 +92,15 @@ module.exports = {
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
 
+    //create new user for search
     User.forge({
       username: user.username
     })
-      .fetch({
+      .fetch({ //find in db with related offers
         withRelated: 'offers'
       })
       .then(function (foundUser) {
-        // grab users array of offers
+        // convert bookshelf found user into array of offer strings
         return foundUser.related('offers').map(function (offer) {
           return offer.get('skill');
         });
@@ -108,9 +110,11 @@ module.exports = {
       console.log('offers=', offers);
       return getRelatedUserIds(offers);
     })
-    // convert user_ids into user objects to send
+    // convert user_ids into user objects to send,
+    // because JSON format for send different than JSON format from Bookshelf objects
+    // TODO: change to send data from bookshelf in the same format it
+    // comes out instead of converting to something else
     .then(function (userIds) {
-      console.log('user IDs received from getRelatedUserIds', userIds);
       return Promise.all(
         userIds.map(function (id) {
           return buildUserObj(id);
@@ -132,6 +136,8 @@ module.exports = {
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
 
+    //convert bookshelf user object to expected JSON format for send
+    //TODO: use bookshelf format for send instead
     buildUserObj(user.id).then(function (builtUserObj) {
       res.json(builtUserObj);
     });

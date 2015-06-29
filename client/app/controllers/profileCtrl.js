@@ -1,6 +1,6 @@
 angular.module('profileCtrl', [])
 
-.controller('profileController', function(Users, $location, $window) {
+.controller('profileController', function (Users, $location, $window) {
 
   var vm = this;
 

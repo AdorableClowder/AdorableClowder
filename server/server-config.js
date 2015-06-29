@@ -8,10 +8,11 @@ var app = express();
 app.use(bodyParser.json())
   .use(express.static(__dirname + '/../client'));
 
-// Router
+// Router (routes to controller)
+// Express method chaining--calls methods in listed order
 app.get('/explore', controller.checkAuth, controller.getMatchingUsers);
+app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
-app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 
 module.exports = app;

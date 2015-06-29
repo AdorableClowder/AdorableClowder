@@ -1,8 +1,8 @@
 // using angular-ui router
-// setting up karmaApp angular
-var karmaApp = angular.module('karmaApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'karmaFactories' ]);
+// setting up skillitApp angular
+var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'karmaFactories']);
 
-karmaApp.config(function($stateProvider, $urlRouterProvider) {
+skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
   // if file path other than listed below, redirect to root page
   // authentication based rerouting later
@@ -15,37 +15,39 @@ karmaApp.config(function($stateProvider, $urlRouterProvider) {
     url: '/',
     templateUrl: 'app/views/view-home.html',
   })
-  .state('signup', {
-    url: '/signup',
-    templateUrl: 'app/views/view-signup.html'
-  })
-  .state('login', {
-    url: '/login',
-    templateUrl: 'app/views/view-login.html'
-  })
-  .state('explore', {
-    url: '/explore',
-    templateUrl: 'app/views/view-explore.html'
-  })
-  .state('profile', {
-    url: '/profile',
-    templateUrl: 'app/views/view-profile.html'
-  })
-  .state('logout', {
-    url:'/logout',
-    controller: function($window, $location){
-      // removes token on logout
-      $window.localStorage.removeItem('karmakonnect');
-      $location.path('/login');
-    }
-  });
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'app/views/view-signup.html'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/views/view-login.html'
+    })
+    .state('explore', {
+      url: '/explore',
+      templateUrl: 'app/views/view-explore.html'
+    })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: 'app/views/view-profile.html'
+    })
+    .state('logout', {
+      url: '/logout',
+      controller: function ($window, $location) {
+        // removes token on logout
+        $window.localStorage.removeItem('skillitToken');
+        $location.path('/login');
+      }
+    });
 });
 
-karmaApp.run(function($rootScope, $window, $location){
+skillitApp.run(function ($rootScope, $window, $location) {
+  //$rootScope give access to angular 'global' scope
+  //shouldShow is in index.html referring to ng-show and ng-hide in nav bar
   $rootScope.shouldShow = false;
-  $rootScope.$on('$stateChangeStart', function(){
+  $rootScope.$on('$stateChangeStart', function () {
     // if there is token, show profile/logout in nav bar
-    if($window.localStorage.getItem('karmakonnect')){
+    if ($window.localStorage.getItem('skillitToken')) {
       $rootScope.shouldShow = true;
     } else {
       // no token shows login/signup

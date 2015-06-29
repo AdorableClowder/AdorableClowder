@@ -1,3 +1,5 @@
+//proto-testing file. No functionality
+
 // var query = require('../queries.js');
 var Models = require('../models.js');
 var buildUserObj = require('../queries/buildUserObj.js');
@@ -41,4 +43,3 @@ var testUser = {
 
 
 buildUserObj(1).tap(console.log)
-
