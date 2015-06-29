@@ -1,0 +1,406 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'socget.io-parser',
+1 verbose cli   'socket.io-client',
+1 verbose cli   'socket.io-adapter',
+1 verbose cli   'has-binary-data',
+1 verbose cli   'debug' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json jasmine-node-karma@1.6.1 homepage field must be a string url. Deleted.
+5 warn package.json karma-qunit@0.1.4 No README data
+6 verbose readDependencies using package.json deps
+7 verbose cache add [ 'socget.io-parser', null ]
+8 verbose cache add name=undefined spec="socget.io-parser" args=["socget.io-parser",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'socget.io-parser',
+9 verbose parsed url   path: 'socget.io-parser',
+9 verbose parsed url   href: 'socget.io-parser' }
+10 verbose cache add [ 'socket.io-client', null ]
+11 verbose cache add name=undefined spec="socket.io-client" args=["socket.io-client",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'socket.io-client',
+12 verbose parsed url   path: 'socket.io-client',
+12 verbose parsed url   href: 'socket.io-client' }
+13 verbose cache add [ 'socket.io-adapter', null ]
+14 verbose cache add name=undefined spec="socket.io-adapter" args=["socket.io-adapter",null]
+15 verbose parsed url { protocol: null,
+15 verbose parsed url   slashes: null,
+15 verbose parsed url   auth: null,
+15 verbose parsed url   host: null,
+15 verbose parsed url   port: null,
+15 verbose parsed url   hostname: null,
+15 verbose parsed url   hash: null,
+15 verbose parsed url   search: null,
+15 verbose parsed url   query: null,
+15 verbose parsed url   pathname: 'socket.io-adapter',
+15 verbose parsed url   path: 'socket.io-adapter',
+15 verbose parsed url   href: 'socket.io-adapter' }
+16 verbose cache add [ 'has-binary-data', null ]
+17 verbose cache add name=undefined spec="has-binary-data" args=["has-binary-data",null]
+18 verbose parsed url { protocol: null,
+18 verbose parsed url   slashes: null,
+18 verbose parsed url   auth: null,
+18 verbose parsed url   host: null,
+18 verbose parsed url   port: null,
+18 verbose parsed url   hostname: null,
+18 verbose parsed url   hash: null,
+18 verbose parsed url   search: null,
+18 verbose parsed url   query: null,
+18 verbose parsed url   pathname: 'has-binary-data',
+18 verbose parsed url   path: 'has-binary-data',
+18 verbose parsed url   href: 'has-binary-data' }
+19 verbose cache add [ 'debug', null ]
+20 verbose cache add name=undefined spec="debug" args=["debug",null]
+21 verbose parsed url { protocol: null,
+21 verbose parsed url   slashes: null,
+21 verbose parsed url   auth: null,
+21 verbose parsed url   host: null,
+21 verbose parsed url   port: null,
+21 verbose parsed url   hostname: null,
+21 verbose parsed url   hash: null,
+21 verbose parsed url   search: null,
+21 verbose parsed url   query: null,
+21 verbose parsed url   pathname: 'debug',
+21 verbose parsed url   path: 'debug',
+21 verbose parsed url   href: 'debug' }
+22 silly lockFile 1e7f0e94-socget-io-parser socget.io-parser
+23 verbose lock socget.io-parser /Users/wworachet/.npm/1e7f0e94-socget-io-parser.lock
+24 silly lockFile 4e0afff2-socket-io-client socket.io-client
+25 verbose lock socket.io-client /Users/wworachet/.npm/4e0afff2-socket-io-client.lock
+26 silly lockFile 21229b36-socket-io-adapter socket.io-adapter
+27 verbose lock socket.io-adapter /Users/wworachet/.npm/21229b36-socket-io-adapter.lock
+28 silly lockFile 3367cc0b-has-binary-data has-binary-data
+29 verbose lock has-binary-data /Users/wworachet/.npm/3367cc0b-has-binary-data.lock
+30 silly lockFile 32faaeca-debug debug
+31 verbose lock debug /Users/wworachet/.npm/32faaeca-debug.lock
+32 silly lockFile 1e7f0e94-socget-io-parser socget.io-parser
+33 silly lockFile 1e7f0e94-socget-io-parser socget.io-parser
+34 silly lockFile 4e0afff2-socket-io-client socket.io-client
+35 silly lockFile 4e0afff2-socket-io-client socket.io-client
+36 verbose addNamed [ 'socget.io-parser', '' ]
+37 verbose addNamed [ null, '*' ]
+38 silly lockFile df82e6ed-socget-io-parser socget.io-parser@
+39 verbose lock socget.io-parser@ /Users/wworachet/.npm/df82e6ed-socget-io-parser.lock
+40 silly lockFile 21229b36-socket-io-adapter socket.io-adapter
+41 silly lockFile 21229b36-socket-io-adapter socket.io-adapter
+42 silly lockFile 3367cc0b-has-binary-data has-binary-data
+43 silly lockFile 3367cc0b-has-binary-data has-binary-data
+44 verbose addNamed [ 'socket.io-client', '' ]
+45 verbose addNamed [ null, '*' ]
+46 silly lockFile 2972a950-socket-io-client socket.io-client@
+47 verbose lock socket.io-client@ /Users/wworachet/.npm/2972a950-socket-io-client.lock
+48 verbose addNamed [ 'socket.io-adapter', '' ]
+49 verbose addNamed [ null, '*' ]
+50 silly lockFile ecf5153b-socket-io-adapter socket.io-adapter@
+51 verbose lock socket.io-adapter@ /Users/wworachet/.npm/ecf5153b-socket-io-adapter.lock
+52 silly lockFile 32faaeca-debug debug
+53 silly lockFile 32faaeca-debug debug
+54 verbose addNamed [ 'has-binary-data', '' ]
+55 verbose addNamed [ null, '*' ]
+56 silly lockFile 72e33e9f-has-binary-data has-binary-data@
+57 verbose lock has-binary-data@ /Users/wworachet/.npm/72e33e9f-has-binary-data.lock
+58 silly addNameRange { name: 'socget.io-parser', range: '*', hasData: false }
+59 verbose addNamed [ 'debug', '' ]
+60 verbose addNamed [ null, '*' ]
+61 silly lockFile a36d5671-debug debug@
+62 verbose lock debug@ /Users/wworachet/.npm/a36d5671-debug.lock
+63 verbose request where is /socget.io-parser
+64 verbose request registry https://registry.npmjs.org/
+65 verbose request id 08475846c2d559f3
+66 verbose url raw /socget.io-parser
+67 verbose url resolving [ 'https://registry.npmjs.org/', './socget.io-parser' ]
+68 verbose url resolved https://registry.npmjs.org/socget.io-parser
+69 verbose request where is https://registry.npmjs.org/socget.io-parser
+70 info trying registry request attempt 1 at 11:59:02
+71 http GET https://registry.npmjs.org/socget.io-parser
+72 silly addNameRange { name: 'socket.io-client', range: '*', hasData: false }
+73 silly addNameRange { name: 'socket.io-adapter', range: '*', hasData: false }
+74 silly addNameRange { name: 'has-binary-data', range: '*', hasData: false }
+75 silly addNameRange { name: 'debug', range: '*', hasData: false }
+76 verbose request where is /socket.io-adapter
+77 verbose request registry https://registry.npmjs.org/
+78 verbose url raw /socket.io-adapter
+79 verbose url resolving [ 'https://registry.npmjs.org/', './socket.io-adapter' ]
+80 verbose url resolved https://registry.npmjs.org/socket.io-adapter
+81 verbose request where is https://registry.npmjs.org/socket.io-adapter
+82 info trying registry request attempt 1 at 11:59:02
+83 verbose etag "4RY3X0GRJJ3C0J2LF48APC0B2"
+84 http GET https://registry.npmjs.org/socket.io-adapter
+85 verbose request where is /socket.io-client
+86 verbose request registry https://registry.npmjs.org/
+87 verbose url raw /socket.io-client
+88 verbose url resolving [ 'https://registry.npmjs.org/', './socket.io-client' ]
+89 verbose url resolved https://registry.npmjs.org/socket.io-client
+90 verbose request where is https://registry.npmjs.org/socket.io-client
+91 info trying registry request attempt 1 at 11:59:02
+92 verbose etag "LK1TM67XSSBFONKBG3Z2XSJF"
+93 http GET https://registry.npmjs.org/socket.io-client
+94 verbose request where is /debug
+95 verbose request registry https://registry.npmjs.org/
+96 verbose url raw /debug
+97 verbose url resolving [ 'https://registry.npmjs.org/', './debug' ]
+98 verbose url resolved https://registry.npmjs.org/debug
+99 verbose request where is https://registry.npmjs.org/debug
+100 info trying registry request attempt 1 at 11:59:02
+101 verbose etag "B4SB2Y9JZOQ84SENBEDU723HX"
+102 http GET https://registry.npmjs.org/debug
+103 verbose request where is /has-binary-data
+104 verbose request registry https://registry.npmjs.org/
+105 verbose url raw /has-binary-data
+106 verbose url resolving [ 'https://registry.npmjs.org/', './has-binary-data' ]
+107 verbose url resolved https://registry.npmjs.org/has-binary-data
+108 verbose request where is https://registry.npmjs.org/has-binary-data
+109 info trying registry request attempt 1 at 11:59:02
+110 verbose etag "CE5JOBAP2Y5B0IFJ6IIYIFS4O"
+111 http GET https://registry.npmjs.org/has-binary-data
+112 http 304 https://registry.npmjs.org/socket.io-adapter
+113 silly registry.get cb [ 304,
+113 silly registry.get   { date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+113 silly registry.get     via: '1.1 varnish',
+113 silly registry.get     'cache-control': 'max-age=60',
+113 silly registry.get     etag: '"4RY3X0GRJJ3C0J2LF48APC0B2"',
+113 silly registry.get     age: '45',
+113 silly registry.get     connection: 'keep-alive',
+113 silly registry.get     'x-served-by': 'cache-sjc3134-SJC',
+113 silly registry.get     'x-cache': 'HIT',
+113 silly registry.get     'x-cache-hits': '1',
+113 silly registry.get     'x-timer': 'S1435604342.743669,VS0,VE0',
+113 silly registry.get     vary: 'Accept' } ]
+114 verbose etag https://registry.npmjs.org/socket.io-adapter from cache
+115 http 304 https://registry.npmjs.org/debug
+116 silly registry.get cb [ 304,
+116 silly registry.get   { date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+116 silly registry.get     via: '1.1 varnish',
+116 silly registry.get     'cache-control': 'max-age=60',
+116 silly registry.get     etag: '"B4SB2Y9JZOQ84SENBEDU723HX"',
+116 silly registry.get     age: '25',
+116 silly registry.get     connection: 'keep-alive',
+116 silly registry.get     'x-served-by': 'cache-sjc3130-SJC',
+116 silly registry.get     'x-cache': 'HIT',
+116 silly registry.get     'x-cache-hits': '2',
+116 silly registry.get     'x-timer': 'S1435604342.745051,VS0,VE0',
+116 silly registry.get     vary: 'Accept' } ]
+117 verbose etag https://registry.npmjs.org/debug from cache
+118 http 304 https://registry.npmjs.org/socket.io-client
+119 silly registry.get cb [ 304,
+119 silly registry.get   { date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+119 silly registry.get     via: '1.1 varnish',
+119 silly registry.get     'cache-control': 'max-age=60',
+119 silly registry.get     etag: '"LK1TM67XSSBFONKBG3Z2XSJF"',
+119 silly registry.get     age: '34',
+119 silly registry.get     connection: 'keep-alive',
+119 silly registry.get     'x-served-by': 'cache-sjc3127-SJC',
+119 silly registry.get     'x-cache': 'HIT',
+119 silly registry.get     'x-cache-hits': '1',
+119 silly registry.get     'x-timer': 'S1435604342.745646,VS0,VE0',
+119 silly registry.get     vary: 'Accept' } ]
+120 verbose etag https://registry.npmjs.org/socket.io-client from cache
+121 http 304 https://registry.npmjs.org/has-binary-data
+122 silly registry.get cb [ 304,
+122 silly registry.get   { date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+122 silly registry.get     via: '1.1 varnish',
+122 silly registry.get     'cache-control': 'max-age=60',
+122 silly registry.get     etag: '"CE5JOBAP2Y5B0IFJ6IIYIFS4O"',
+122 silly registry.get     age: '45',
+122 silly registry.get     connection: 'keep-alive',
+122 silly registry.get     'x-served-by': 'cache-sjc3129-SJC',
+122 silly registry.get     'x-cache': 'HIT',
+122 silly registry.get     'x-cache-hits': '1',
+122 silly registry.get     'x-timer': 'S1435604342.765949,VS0,VE0',
+122 silly registry.get     vary: 'Accept' } ]
+123 verbose etag https://registry.npmjs.org/has-binary-data from cache
+124 silly addNameRange number 2 { name: 'socket.io-adapter', range: '*', hasData: true }
+125 silly addNameRange versions [ 'socket.io-adapter', [ '0.1.0', '0.2.0', '0.3.0', '0.3.1' ] ]
+126 verbose addNamed [ 'socket.io-adapter', '0.3.1' ]
+127 verbose addNamed [ '0.3.1', '0.3.1' ]
+128 silly lockFile 55b0198c-socket-io-adapter-0-3-1 socket.io-adapter@0.3.1
+129 verbose lock socket.io-adapter@0.3.1 /Users/wworachet/.npm/55b0198c-socket-io-adapter-0-3-1.lock
+130 silly addNameRange number 2 { name: 'debug', range: '*', hasData: true }
+131 silly addNameRange versions [ 'debug',
+131 silly addNameRange   [ '0.0.1',
+131 silly addNameRange     '0.1.0',
+131 silly addNameRange     '0.2.0',
+131 silly addNameRange     '0.3.0',
+131 silly addNameRange     '0.4.0',
+131 silly addNameRange     '0.4.1',
+131 silly addNameRange     '0.5.0',
+131 silly addNameRange     '0.6.0',
+131 silly addNameRange     '0.7.0',
+131 silly addNameRange     '0.7.1',
+131 silly addNameRange     '0.7.2',
+131 silly addNameRange     '0.7.3',
+131 silly addNameRange     '0.7.4',
+131 silly addNameRange     '0.8.0',
+131 silly addNameRange     '0.8.1',
+131 silly addNameRange     '1.0.0',
+131 silly addNameRange     '1.0.1',
+131 silly addNameRange     '1.0.2',
+131 silly addNameRange     '1.0.3',
+131 silly addNameRange     '1.0.4',
+131 silly addNameRange     '2.0.0',
+131 silly addNameRange     '2.1.0',
+131 silly addNameRange     '2.1.1',
+131 silly addNameRange     '2.1.2',
+131 silly addNameRange     '2.1.3',
+131 silly addNameRange     '2.2.0' ] ]
+132 verbose addNamed [ 'debug', '2.2.0' ]
+133 verbose addNamed [ '2.2.0', '2.2.0' ]
+134 silly lockFile 82f99b48-debug-2-2-0 debug@2.2.0
+135 verbose lock debug@2.2.0 /Users/wworachet/.npm/82f99b48-debug-2-2-0.lock
+136 silly addNameRange number 2 { name: 'socket.io-client', range: '*', hasData: true }
+137 silly addNameRange versions [ 'socket.io-client',
+137 silly addNameRange   [ '0.7.0',
+137 silly addNameRange     '0.7.1',
+137 silly addNameRange     '0.7.2',
+137 silly addNameRange     '0.7.3',
+137 silly addNameRange     '0.7.4',
+137 silly addNameRange     '0.7.5',
+137 silly addNameRange     '0.7.9',
+137 silly addNameRange     '0.7.10',
+137 silly addNameRange     '0.7.11',
+137 silly addNameRange     '0.8.0',
+137 silly addNameRange     '0.8.1',
+137 silly addNameRange     '0.8.2',
+137 silly addNameRange     '0.8.3',
+137 silly addNameRange     '0.8.4',
+137 silly addNameRange     '0.8.5',
+137 silly addNameRange     '0.8.6',
+137 silly addNameRange     '0.8.7',
+137 silly addNameRange     '0.9.0',
+137 silly addNameRange     '0.9.1',
+137 silly addNameRange     '0.9.1-1',
+137 silly addNameRange     '0.9.2',
+137 silly addNameRange     '0.9.3',
+137 silly addNameRange     '0.9.4',
+137 silly addNameRange     '0.9.5',
+137 silly addNameRange     '0.9.6',
+137 silly addNameRange     '0.9.7',
+137 silly addNameRange     '0.9.8',
+137 silly addNameRange     '0.9.9',
+137 silly addNameRange     '0.9.10',
+137 silly addNameRange     '0.9.11',
+137 silly addNameRange     '0.9.15',
+137 silly addNameRange     '0.9.16',
+137 silly addNameRange     '1.0.0-pre',
+137 silly addNameRange     '1.0.0-pre2',
+137 silly addNameRange     '1.0.0-pre3',
+137 silly addNameRange     '1.0.0-pre4',
+137 silly addNameRange     '1.0.0-pre5',
+137 silly addNameRange     '0.9.17',
+137 silly addNameRange     '1.0.1',
+137 silly addNameRange     '1.0.2',
+137 silly addNameRange     '1.0.3',
+137 silly addNameRange     '1.0.4',
+137 silly addNameRange     '1.0.5',
+137 silly addNameRange     '1.0.6',
+137 silly addNameRange     '1.1.0',
+137 silly addNameRange     '1.2.0',
+137 silly addNameRange     '1.2.1',
+137 silly addNameRange     '1.3.0',
+137 silly addNameRange     '1.3.1',
+137 silly addNameRange     '1.3.2',
+137 silly addNameRange     '1.3.3',
+137 silly addNameRange     '1.3.4',
+137 silly addNameRange     '1.3.5' ] ]
+138 verbose addNamed [ 'socket.io-client', '1.3.5' ]
+139 verbose addNamed [ '1.3.5', '1.3.5' ]
+140 silly lockFile ea29f377-socket-io-client-1-3-5 socket.io-client@1.3.5
+141 verbose lock socket.io-client@1.3.5 /Users/wworachet/.npm/ea29f377-socket-io-client-1-3-5.lock
+142 silly addNameRange number 2 { name: 'has-binary-data', range: '*', hasData: true }
+143 silly addNameRange versions [ 'has-binary-data',
+143 silly addNameRange   [ '0.1.0', '0.1.1', '0.1.3', '0.1.4', '0.1.5' ] ]
+144 verbose addNamed [ 'has-binary-data', '0.1.5' ]
+145 verbose addNamed [ '0.1.5', '0.1.5' ]
+146 silly lockFile 7f85239a-has-binary-data-0-1-5 has-binary-data@0.1.5
+147 verbose lock has-binary-data@0.1.5 /Users/wworachet/.npm/7f85239a-has-binary-data-0-1-5.lock
+148 silly lockFile 55b0198c-socket-io-adapter-0-3-1 socket.io-adapter@0.3.1
+149 silly lockFile 55b0198c-socket-io-adapter-0-3-1 socket.io-adapter@0.3.1
+150 silly lockFile ecf5153b-socket-io-adapter socket.io-adapter@
+151 silly lockFile ecf5153b-socket-io-adapter socket.io-adapter@
+152 silly lockFile 3f9ad849-y-data-has-binary-data-0-1-5-tgz https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+153 verbose lock https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz /Users/wworachet/.npm/3f9ad849-y-data-has-binary-data-0-1-5-tgz.lock
+154 silly lockFile 82f99b48-debug-2-2-0 debug@2.2.0
+155 silly lockFile 82f99b48-debug-2-2-0 debug@2.2.0
+156 silly lockFile a36d5671-debug debug@
+157 silly lockFile a36d5671-debug debug@
+158 verbose addRemoteTarball [ 'https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz',
+158 verbose addRemoteTarball   '0a37a09ac80b091580f07ca7d16c29ad8b14af1a' ]
+159 silly lockFile ea29f377-socket-io-client-1-3-5 socket.io-client@1.3.5
+160 silly lockFile ea29f377-socket-io-client-1-3-5 socket.io-client@1.3.5
+161 silly lockFile 2972a950-socket-io-client socket.io-client@
+162 silly lockFile 2972a950-socket-io-client socket.io-client@
+163 info retry fetch attempt 1 at 11:59:02
+164 verbose fetch to= /tmp/npm-54132-9pLQ95DJ/registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+165 http GET https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+166 http 404 https://registry.npmjs.org/socget.io-parser
+167 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+167 verbose headers   'content-type': 'application/json',
+167 verbose headers   'cache-control': 'max-age=0',
+167 verbose headers   'content-length': '51',
+167 verbose headers   'accept-ranges': 'bytes',
+167 verbose headers   date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+167 verbose headers   via: '1.1 varnish',
+167 verbose headers   age: '0',
+167 verbose headers   connection: 'keep-alive',
+167 verbose headers   'x-served-by': 'cache-sjc3129-SJC',
+167 verbose headers   'x-cache': 'MISS',
+167 verbose headers   'x-cache-hits': '0',
+167 verbose headers   'x-timer': 'S1435604342.764787,VS0,VE39' }
+168 silly registry.get cb [ 404,
+168 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+168 silly registry.get     'content-type': 'application/json',
+168 silly registry.get     'cache-control': 'max-age=0',
+168 silly registry.get     'content-length': '51',
+168 silly registry.get     'accept-ranges': 'bytes',
+168 silly registry.get     date: 'Mon, 29 Jun 2015 18:59:02 GMT',
+168 silly registry.get     via: '1.1 varnish',
+168 silly registry.get     age: '0',
+168 silly registry.get     connection: 'keep-alive',
+168 silly registry.get     'x-served-by': 'cache-sjc3129-SJC',
+168 silly registry.get     'x-cache': 'MISS',
+168 silly registry.get     'x-cache-hits': '0',
+168 silly registry.get     'x-timer': 'S1435604342.764787,VS0,VE39' } ]
+169 silly lockFile df82e6ed-socget-io-parser socget.io-parser@
+170 silly lockFile df82e6ed-socget-io-parser socget.io-parser@
+171 http 200 https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+172 silly lockFile 3f9ad849-y-data-has-binary-data-0-1-5-tgz https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+173 silly lockFile 3f9ad849-y-data-has-binary-data-0-1-5-tgz https://registry.npmjs.org/has-binary-data/-/has-binary-data-0.1.5.tgz
+174 silly lockFile 7f85239a-has-binary-data-0-1-5 has-binary-data@0.1.5
+175 silly lockFile 7f85239a-has-binary-data-0-1-5 has-binary-data@0.1.5
+176 silly lockFile 72e33e9f-has-binary-data has-binary-data@
+177 silly lockFile 72e33e9f-has-binary-data has-binary-data@
+178 error 404 404 Not Found: socget.io-parser
+178 error 404
+178 error 404 'socget.io-parser' is not in the npm registry.
+178 error 404 You should bug the author to publish it
+178 error 404 It was specified as a dependency of 'adorableclowder'
+178 error 404
+178 error 404 Note that you can also install from a
+178 error 404 tarball, folder, or http url, or git url.
+179 error System Darwin 14.3.0
+180 error command "node" "/usr/local/bin/npm" "install" "--save-dev" "socget.io-parser" "socket.io-client" "socket.io-adapter" "has-binary-data" "debug"
+181 error cwd /Users/wworachet/Desktop/austinKarma
+182 error node -v v0.10.33
+183 error npm -v 1.4.28
+184 error code E404
+185 verbose exit [ 1, true ]
