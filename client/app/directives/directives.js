@@ -1,1 +1,1 @@
-angular.module('skillitDirectives', [])
+angular.module('skillitDirectives', []);

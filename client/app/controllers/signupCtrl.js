@@ -17,7 +17,7 @@ angular.module('signupCtrl', [])
     wild: ["Juggling", "Busking", "Moping"],
     business: ["Money Laundering", "Accounting", "Financial Advice"],
     craftAndDesign: ["Woodworking", "Clay Pottery", "Graphic Design"]
-  }
+  };
 
   vm.chooseOffers = false;
 
@@ -28,7 +28,7 @@ angular.module('signupCtrl', [])
     } else {
       vm.initialWants.push(want);
     }
-  }
+  };
 
   vm.toggleOffer = function(offer) {
     var index = vm.initialOffers.indexOf(offer);
@@ -37,7 +37,7 @@ angular.module('signupCtrl', [])
     } else {
       vm.initialOffers.push(offer);
     }
-  }
+  };
 
 
   vm.doSignup = function () {

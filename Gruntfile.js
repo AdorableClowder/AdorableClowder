@@ -10,7 +10,7 @@ module.exports = function (grunt) {
     },
     jshint: {
       files: [
-        'Gruntfile.js', 'server.js', 'server/**.js', 'client/**.js', '!client/lib/**.js'
+        'Gruntfile.js', 'server.js', 'server/**.js', 'client/**.js', '!client/lib/**.js', 'client/app/directives/*.js', 'client/app/factories/*.js', 'client/app/controllers/*.js', 'client/app/app.js'
       ],
       options: {
         globals: {
@@ -28,12 +28,10 @@ module.exports = function (grunt) {
         files: {
           'client/build/<%= pkg.name %>.min.js': [
             'client/app/factories/factories.js',
-            'client/app/controllers/loginCtrl.js',
-            'client/app/controllers/signupCtrl.js',
-            'client/app/controllers/exploreCtrl.js',
-            'client/app/controllers/profileCtrl.js',
+            'client/app/controllers/**/*.js',
+            'client/app/directives/directives.js',
             'client/app/app.js',
-            'client/app/**.js',
+            'client/app/*.js',
             '!client/lib/**'
           ],
         },
@@ -67,7 +65,7 @@ module.exports = function (grunt) {
         },
         scripts: {
           files: '<%= jshint.files %>',
-          tasks: [ 'jshint' ]
+          tasks: [ 'jshint', 'build' ]
         },
       jade: {
         files: 'client/app/**/*.jade',
@@ -132,8 +130,7 @@ module.exports = function (grunt) {
     var taskList = [
       'concurrent',
       'jshint',
-      'nodemon',
-      'watch'
+      'nodemon'
     ];
     grunt.task.run(taskList);
   });
