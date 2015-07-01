@@ -67,5 +67,19 @@ angular.module('skillitFactories', [])
           return resp.data;
         });
     };
+
+    userFactory.saveChanges = function(user){
+      console.log("Factories", user);
+      return $http({
+        method: 'POST',
+        url: '/profile',
+        data: user,
+        headers: {
+          'x-access-token': $window.localStorage.getItem('skillitToken')
+        }
+      }).then(function (resp) {
+        return resp.data.token;
+      });
+    };
     return userFactory;
   });

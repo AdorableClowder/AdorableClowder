@@ -6,17 +6,6 @@ angular.module('signupCtrl', [])
 
   vm.user = {};
 
-  vm.dooAuth = function(){
-    console.log('dooauth called');
-    Auth.oAuth()
-      .then(function(response){
-        console.log(response);
-      })
-      .catch(function(err){
-        console.log('error in sending FE oAuth response', err);
-      })
-  };
-
   vm.doSignup = function () {
     // storing offers and wants in an array form before sending POST
     //filters out form fields that are empty from wants/offers
@@ -52,4 +41,70 @@ angular.module('signupCtrl', [])
     console.log('what');  
   // };
 
-});
+})
+  .controller("subjectsController", function(Users, $location, $window) {
+    var vm = this;
+    vm.user = {};
+    vm.wants = [];
+    vm.offers = [];
+
+    vm.getUser = function () {
+      //using Users factory from factories.js to do GET
+      Users.getUser()
+        .then(function (user) {
+          vm.user = user;
+          vm.wants = vm.user.want;
+          vm.offers = vm.user.offer;
+          console.log(vm.user);
+        })
+        .catch(function (err) {
+          console.log(err);
+          //if can't get user, redirect to login
+          $location.path('/login');
+        });
+    };
+    vm.getUser();
+
+
+    vm.sampleCategories = {
+      language: ['Spanish', 'Chinese', 'Esperanto'],
+      technology: ['IoT', 'Hacking Facebook', 'Bitcoin'],
+      sports: ["Baseball", "Curling", "Cow-tipping"],
+      knowledge: ["Art History", "Art Garfunkel History", "History"],
+      wild: ["Juggling", "Busking", "Moping"],
+      business: ["Money Laundering", "Accounting", "Financial Advice"],
+      craftAndDesign: ["Woodworking", "Clay Pottery", "Graphic Design"]
+    };
+
+    vm.chooseOffers = false;
+
+    vm.toggleWant = function(want) {
+      var index = vm.wants.indexOf(want);
+      if (index > -1) {
+        vm.wants.splice(index, 1);
+      } else {
+        vm.wants.push(want);
+      }
+    };
+
+    vm.toggleOffer = function(offer) {
+      var index = vm.offers.indexOf(offer);
+      if (index > -1) {
+        vm.offers.splice(index, 1);
+      } else {
+        vm.offers.push(offer);
+      }
+    };
+
+    vm.changePreferences = function() {
+      Users.saveChanges(vm.user)
+        .then(function(responseToken) {
+          console.log(responseToken);
+        })
+        .catch(function(err) {
+          console.log(err);
+          $location.path('/login');
+        });
+    };
+
+  });
