@@ -27,15 +27,13 @@ module.exports = {
   /* same as attachSkillsToUser except detaching the skills, for when the user updates
   their profile.
   */
-  // detachSkillsFromUser: function (user, skills, table) {
-  //   return new Promise(function (resolve, reject){
-  //     getAllSkillIds(skills, convertToModelName(table)).then(function (ids) {
-  //       user.related(table).detach(ids).then(function (relation){
-  //         resolve(user);
-  //       });
-  //     });
-  //   });
-  // },
+  detachSkillsFromUser: function (user, table) {
+    return new Promise(function (resolve, reject){
+      user.related(table).detach().then(function (relation){
+        resolve(user);
+      });
+    });
+  },
   /*
   getAllSkillIds is a promise that accepts an array of skill strings and a string representing a
   Bookshelf skill type model, and adds them to the db if not already there. an array of id's

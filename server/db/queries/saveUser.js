@@ -14,9 +14,15 @@ module.exports = saveUser = function (user, next) {
  			throw new Error('User does not exist!');
  		}
  	})
+   .then(function(foundUser) {
+     return utils.detachSkillsFromUser(foundUser, 'wants');
+   })
  	.then(function (foundUser) {
  		return utils.attachSkillsToUser(foundUser, user.want, 'wants');
  	})
+   .then(function(foundUser) {
+     return utils.detachSkillsFromUser(foundUser, 'offers');
+   })
  	.then(function (foundUser){
  		return utils.attachSkillsToUser(foundUser, user.offer, 'offers');
  	})
