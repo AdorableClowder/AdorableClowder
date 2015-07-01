@@ -1,170 +1,170 @@
-div(ng-controller="signupController as signup")
-  .chosen-wants(ng-hide="signup.chooseOffers")
+div(ng-controller="subjectsController as subjects")
+  .chosen-wants.animated.fadeInRight(ng-hide="subjects.chooseOffers")
     .row
       .col-lg-12
         h2 I would like to learn about:
         .all-wantsandoffers
-          a(href="#" ng-repeat="want in signup.initialWants" ng-click="signup.toggleWant(want)") 
+          a.animated.bounceIn(href="#" ng-repeat="want in subjects.wants" ng-click="subjects.toggleWant(want)") 
             span.glyphicon.glyphicon-remove
             | {{want}}
     .row
       .col-md-4
         h4 Language Learning
-        .checkbox(ng-repeat="subject in signup.sampleCategories.language")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.language")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant1)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant1)")
           input.form-control(ng-model="customWant1" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Technology
-        .checkbox(ng-repeat="subject in signup.sampleCategories.technology")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.technology")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant2)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant2)")
           input.form-control(ng-model="customWant2" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Sports
-        .checkbox(ng-repeat="subject in signup.sampleCategories.sports")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.sports")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant3)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant3)")
           input.form-control(ng-model="customWant3" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
     .row
       .col-md-4
         h4 Knowledge
-        .checkbox(ng-repeat="subject in signup.sampleCategories.knowledge")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.knowledge")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant4)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant4)")
           input.form-control(ng-model="customWant4" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Wild 'n Wacky
-        .checkbox(ng-repeat="subject in signup.sampleCategories.wild")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.wild")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant5)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant5)")
           input.form-control(ng-model="customWant5" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Business
-        .checkbox(ng-repeat="subject in signup.sampleCategories.business")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.business")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant6)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant6)")
           input.form-control(ng-model="customWant6" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
     .row
       .col-md-4
         h4 Craft and Design
-        .checkbox(ng-repeat="subject in signup.sampleCategories.craftAndDesign")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.craftAndDesign")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialWants.indexOf(subject) > -1"
-            ng-click="signup.toggleWant(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.wants.indexOf(subject) > -1"
+            ng-click="subjects.toggleWant(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleWant(customWant7)")
+        form.custom-form(ng-submit="subjects.toggleWant(customWant7)")
           input.form-control(ng-model="customWant7" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-8
-        .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="signup.chooseOffers = true") Submit Selections
+        .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="subjects.chooseOffers = true") Submit Selections
 
-  .chosen-offers(ng-show="signup.chooseOffers")
+  .chosen-offers.animated.fadeInRight(ng-show="subjects.chooseOffers")
     .row
-      .btn.btn-sm.btn-default(ng-click="signup.chooseOffers = false") Go Back
+      .btn.btn-sm.btn-default(ng-click="subjects.chooseOffers = false") Go Back
     .row
       .col-lg-12
         h2 I know a lot about:
         .all-wantsandoffers
-          a(href="#" ng-repeat="offer in signup.initialOffers" ng-click="signup.toggleOffer(offer)") 
+          a.animated.bounceIn(href="#" ng-repeat="offer in subjects.offers" ng-click="subjects.toggleOffer(offer)") 
             span.glyphicon.glyphicon-remove
             | {{offer}}
     .row
       .col-md-4
         h4 Language Learning
-        .checkbox(ng-repeat="subject in signup.sampleCategories.language")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.language")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customWant1)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer1)")
           input.form-control(ng-model="customOffer1" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Technology
-        .checkbox(ng-repeat="subject in signup.sampleCategories.technology")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.technology")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer2)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer2)")
           input.form-control(ng-model="customOffer2" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Sports
-        .checkbox(ng-repeat="subject in signup.sampleCategories.sports")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.sports")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer3)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer3)")
           input.form-control(ng-model="customOffer3" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
     .row
       .col-md-4
         h4 Knowledge
-        .checkbox(ng-repeat="subject in signup.sampleCategories.knowledge")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.knowledge")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer4)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer4)")
           input.form-control(ng-model="customOffer4" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Wild 'n Wacky
-        .checkbox(ng-repeat="subject in signup.sampleCategories.wild")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.wild")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer5)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer5)")
           input.form-control(ng-model="customOffer5" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
         h4 Business
-        .checkbox(ng-repeat="subject in signup.sampleCategories.business")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.business")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer6)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer6)")
           input.form-control(ng-model="customOffer6" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
     .row
       .col-md-4
         h4 Craft and Design
-        .checkbox(ng-repeat="subject in signup.sampleCategories.craftAndDesign")
+        .checkbox(ng-repeat="subject in subjects.sampleCategories.craftAndDesign")
           label
-            input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
-            ng-click="signup.toggleOffer(subject)")
+            input(type="checkbox" value="{{subject}}" ng-checked="subjects.offers.indexOf(subject) > -1"
+            ng-click="subjects.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customOffer7)")
+        form.custom-form(ng-submit="subjects.toggleOffer(customOffer7)")
           input.form-control(ng-model="customOffer7" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-8
-        .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="signup.doSignup()") Submit and Get Started
+        .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="subjects.changePreferences()") Submit and Get Started
