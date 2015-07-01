@@ -143,17 +143,12 @@ module.exports = {
     });
   },
 
-  changeUser: function(req, res, next) {
-    var token = req.headers['x-access-token'];
-    var user = jwt.decode(token, secret);
-    console.log(user);
-    console.log(req.body);
-  },
 
 
   saveUserChanges: function (req, res, next) {
     saveUser(req.body, next)
       .then(function (user){
+        console.log('saved user: ', user);
         if(!user){
           throw new Error('save changes failed');
         }
