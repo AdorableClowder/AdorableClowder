@@ -61,8 +61,18 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
+        stylesheets: {
+            files: 'client/app/assets/**/*.less',
+              tasks: [ 'less' ]
+        },
+        scripts: {
+          files: '<%= jshint.files %>',
+          tasks: [ 'jshint' ]
+        },
+      jade: {
+        files: 'client/app/**/*.jade',
+        tasks: [ 'jade' ]
+      }
     },
     concurrent: {
       dev: {
@@ -86,21 +96,19 @@ module.exports = function (grunt) {
           paths: ["client/assets/css"]
         },
         files: {
-          "client/assets/css/styles.css": "client/assets/less/*.less"
+          "client/assets/css/styles.css": "client/assets/less/styles.less"
         }
       }
     },
     jade: {
       compile: {
-        options: {
-          data: {
-            debug: false
-          }
-        },
-        files: {
-          "client/app/templates/*.html": "client/app/templates/*.jade",
-          "client/app/partials/*.html": "client/app/partials/*.jade",
-        }
+        files: [{
+          expand: true,
+          cwd: 'client/app',
+          src: [ '**/*.jade' ],
+          dest: 'client/app',
+          ext: '.html'
+        }]
       }
     }
   });

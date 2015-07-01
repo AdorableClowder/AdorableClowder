@@ -1,7 +1,7 @@
 div(ng-controller="signupController as signup")
   .chosen-wants.row(ng-hide="signup.chooseOffers")
     .row
-      h2 Choose a few categories that you'd like to learn about
+      h2 Choose a few categories that you'd like to learn about!
       div(ng-repeat="want in signup.initialWants" ng-click="signup.toggleWant(want)") {{want}}
     .row
       .col-md-4
