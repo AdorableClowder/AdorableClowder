@@ -141,6 +141,13 @@ module.exports = {
     buildUserObj(user.id).then(function (builtUserObj) {
       res.json(builtUserObj);
     });
+  },
+
+  changeUser: function(req, res, next) {
+    var token = req.headers['x-access-token'];
+    var user = jwt.decode(token, secret);
+    console.log(user);
+    console.log(req.body);
   }
 
 };
