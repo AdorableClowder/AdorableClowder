@@ -60,8 +60,8 @@ module.exports = function (grunt) {
     },
     watch: {
         stylesheets: {
-            files: 'client/app/assets/**/*.less',
-              tasks: [ 'less' ]
+            files: 'client/assets/**/*.less',
+              tasks: [ 'less:production' ]
         },
         scripts: {
           files: '<%= jshint.files %>',

@@ -1,13 +1,59 @@
 .formMargin {
   margin-top: 5px;
-}
+};
 
 .buttonMargin {
   margin-top: 10px;
-}
+};
 
 .skillit-logo {
   max-height: 50px;
   float: left;
   margin-top: -14px;
+};
+
+
+// Signup Choose Subjects Page
+
+.chosen-wants, .chosen-offers {
+  .row {
+    margin: 20px auto;
+    .col-md-4 {
+      @media screen and (max-width: 991px) {
+        padding: 15px;
+        clear: both;
+      }
+    }
+  }
+}
+
+.all-wantsandoffers {
+  a {
+    display: block;
+    float: left;
+    margin: 7px;
+    padding: 5px;
+    background-color: #50A871;
+    color: #FFFFFF;
+    &:hover {
+      background-color: #A8637B;
+      text-decoration: none;
+    }
+  }
+};
+
+.custom-form {
+  input.form-control {
+    width: 55%;
+    float: left;
+    margin-right: 3px;
+  }
+  input.btn {
+    float: left;
+  }
+}
+
+.btn-select-subject {
+  text-align: center;
+  margin-top: 50px
 }
