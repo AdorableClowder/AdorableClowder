@@ -6,6 +6,40 @@ angular.module('signupCtrl', [])
 
   vm.user = {};
 
+  vm.initialWants = [];
+  vm.initialOffers = [];
+
+  vm.sampleCategories = {
+    language: ['Spanish', 'Chinese', 'Esperanto'],
+    technology: ['IoT', 'Hacking Facebook', 'Bitcoin'],
+    sports: ["Baseball", "Curling", "Cow-tipping"],
+    knowledge: ["Art History", "Art Garfunkel History", "History"],
+    wild: ["Juggling", "Busking", "Moping"],
+    business: ["Money Laundering", "Accounting", "Financial Advice"],
+    craftAndDesign: ["Woodworking", "Clay Pottery", "Graphic Design"]
+  };
+
+  vm.chooseOffers = false;
+
+  vm.toggleWant = function(want) {
+    var index = vm.initialWants.indexOf(want);
+    if (index > -1) {
+      vm.initialWants.splice(index, 1);
+    } else {
+      vm.initialWants.push(want);
+    }
+  };
+
+  vm.toggleOffer = function(offer) {
+    var index = vm.initialOffers.indexOf(offer);
+    if (index > -1) {
+      vm.initialOffers.splice(index, 1);
+    } else {
+      vm.initialOffers.push(offer);
+    }
+  };
+
+
   vm.doSignup = function () {
     // storing offers and wants in an array form before sending POST
     //filters out form fields that are empty from wants/offers
