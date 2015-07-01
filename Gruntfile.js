@@ -71,6 +71,37 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+    less: {
+      development: {
+        options: {
+          paths: ["client/assets/css"]
+        },
+        files: {
+          "client/assets/css/styles.css": "client/assets/less/*.less"
+        }
+      },
+      production: {
+        options: {
+          paths: ["client/assets/css"]
+        },
+        files: {
+          "client/assets/css/styles.css": "client/assets/less/*.less"
+        }
+      }
+    },
+    jade: {
+      compile: {
+        options: {
+          data: {
+            debug: false
+          }
+        },
+        files: {
+          "client/app/templates/*.html": "client/app/templates/*.jade",
+          "client/app/partials/*.html": "client/app/partials/*.jade",
+        }
+      }
     }
   });
 
@@ -82,6 +113,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-jade');
 
   //tasks
   grunt.registerTask('checkSyntax', ['jshint']);
