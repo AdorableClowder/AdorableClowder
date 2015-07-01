@@ -44,8 +44,6 @@ passport.use(new LinkedInStrategy({
     process.nextTick(function () {
       //RETURN THE TOKEN TO THE FE
       //SAVE USER TO THE DATABASE USING PROFILE ATTRIBUTES
-      // console.log('in passport');
-      // console.log(token);
       var userid = profile.id;
       User.forge({
             username: userid
@@ -59,8 +57,10 @@ passport.use(new LinkedInStrategy({
               username: userid,
               email: "created@gmail.com"
             });
+          })
+          .then(function (newUser) {
+            return newUser.hashPassword('anything');
           });
-      // controller.linkedinSignup(userid);
       console.log('USER ID ---------------------------', userid);
       console.log('THIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSS ISSSSSSS----------------------------------------', profile);
       // To keep the example simple, the user's LinkedIn profile is returned to
@@ -80,6 +80,7 @@ app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
     console.log('req-------------------------', req.user);
+    res.json(req.user);
     // controller.linkedinSignup(req.user);
     res.redirect('/');
   });

@@ -64,6 +64,7 @@ module.exports = {
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
+        console.log(user);
         if (!user) {
           throw new Error('User creation failed');
         }

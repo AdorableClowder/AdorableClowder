@@ -9,10 +9,10 @@ var Want = Models.Want;
 
 // exports a promise that takes a user-obj posted to '/signup' (see docs/interface.json for more info)
 // and a next callback. createUser adds the user to the database and establishes a link between wanted and offered skills
-module.exports = function (user) {
-  console.log('creating user');
+module.exports = function (user, next) {
+
   return User.forge({
-      username: user
+      username: user.username
     })
     .fetch()
     .then(function (userExists) {
@@ -20,22 +20,22 @@ module.exports = function (user) {
         throw new Error('User already exists!');
       }
       return User.forge({
-        username: user,
-        email: "created@gmail.com"
+        username: user.username,
+        email: user.email
       });
     })
-    // .then(function (newUser) {
-    //   return newUser.hashPassword(user.password, next);
-    // })
+    .then(function (newUser) {
+      return newUser.hashPassword(user.password, next);
+    })
     // .then(function (newUser) {
     //   return attachSkillsToUser(newUser, user.want, 'wants');
     // })
     // .then(function (newUser) {
     //   return attachSkillsToUser(newUser, user.offer, 'offers');
     // })
-    // .catch(function (error) {
-    //   next(error);
-    // });
+    .catch(function (error) {
+      next(error);
+    });
 
 };
 
