@@ -1,10 +1,10 @@
 div(ng-controller="signupController as signup")
-  .chosen-wants(ng-hide="signup.chooseOffers")
+  .chosen-wants.animated.fadeInRight(ng-hide="signup.chooseOffers")
     .row
       .col-lg-12
         h2 I would like to learn about:
         .all-wantsandoffers
-          a(href="#" ng-repeat="want in signup.initialWants" ng-click="signup.toggleWant(want)") 
+          a.animated.bounceIn(href="#" ng-repeat="want in signup.initialWants" ng-click="signup.toggleWant(want)") 
             span.glyphicon.glyphicon-remove
             | {{want}}
     .row
@@ -83,14 +83,14 @@ div(ng-controller="signupController as signup")
       .col-md-8
         .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="signup.chooseOffers = true") Submit Selections
 
-  .chosen-offers(ng-show="signup.chooseOffers")
+  .chosen-offers.animated.fadeInRight(ng-show="signup.chooseOffers")
     .row
       .btn.btn-sm.btn-default(ng-click="signup.chooseOffers = false") Go Back
     .row
       .col-lg-12
         h2 I know a lot about:
         .all-wantsandoffers
-          a(href="#" ng-repeat="offer in signup.initialOffers" ng-click="signup.toggleOffer(offer)") 
+          a.animated.bounceIn(href="#" ng-repeat="offer in signup.initialOffers" ng-click="signup.toggleOffer(offer)") 
             span.glyphicon.glyphicon-remove
             | {{offer}}
     .row
@@ -101,7 +101,7 @@ div(ng-controller="signupController as signup")
             input(type="checkbox" value="{{subject}}" ng-checked="signup.initialOffers.indexOf(subject) > -1"
             ng-click="signup.toggleOffer(subject)")
             | {{subject}}
-        form.custom-form(ng-submit="signup.toggleOffer(customWant1)")
+        form.custom-form(ng-submit="signup.toggleOffer(customOffer1)")
           input.form-control(ng-model="customOffer1" type="text" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-4
