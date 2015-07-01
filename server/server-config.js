@@ -7,6 +7,9 @@ var session = require('express-session');
 var cookie = require('cookie-parser');
 var cors = require('cors');
 
+var Models = require('./db/models.js');
+var User = Models.User;
+
 var app = express();
 app.use(cors());
 app.use(cookie());
@@ -34,7 +37,7 @@ passport.use(new LinkedInStrategy({
   consumerKey: "75aj0rlf87gsvn",
   consumerSecret: "xuoU3OlOk7IgMPrs",
   callbackURL: "http://localhost:1337/auth/linkedin/callback",
-  profileFields: ['id', 'first-name', 'last-name', 'email-address','api-standard-profile-request', 'headline']
+  profileFields: ['id', 'first-name', 'last-name', 'email-address','public-profile-url', 'headline']
   },
 
   function(token, tokenSecret, profile, done){
@@ -43,6 +46,22 @@ passport.use(new LinkedInStrategy({
       //SAVE USER TO THE DATABASE USING PROFILE ATTRIBUTES
       // console.log('in passport');
       // console.log(token);
+      var userid = profile.id;
+      User.forge({
+            username: userid
+          })
+          .fetch()
+          .then(function (userExists) {
+            if (userExists) {
+              throw new Error('User already exists!');
+            }
+            return User.forge({
+              username: userid,
+              email: "created@gmail.com"
+            });
+          });
+      // controller.linkedinSignup(userid);
+      console.log('USER ID ---------------------------', userid);
       console.log('THIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSS ISSSSSSS----------------------------------------', profile);
       // To keep the example simple, the user's LinkedIn profile is returned to
       // represent the logged-in user.  In a typical application, you would want
@@ -55,16 +74,13 @@ passport.use(new LinkedInStrategy({
 
 //router (routes for passport authentication)
 app.get('/auth/linkedin',
-  passport.authenticate('linkedin'),
-  function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-  });
+  passport.authenticate('linkedin', { scope: ['r_basicprofile', 'r_emailaddress']}));
 
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
     console.log('req-------------------------', req.user);
+    // controller.linkedinSignup(req.user);
     res.redirect('/');
   });
 

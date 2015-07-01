@@ -47,6 +47,19 @@ module.exports = {
         next(error);
       });
   },
+  
+  linkedinSignup: function(profile){
+    // console.log('linkedinsignup user--------------', req);
+    createUser(profile);
+      // .then(function (user) {
+      //   if (!user) {
+      //     throw new Error('User creation failed');
+      //   }
+      //   res.json({
+      //     token: jwt.encode(user, secret)
+      //   });
+      // })
+  },
 
   signup: function (req, res, next) {
     createUser(req.body, next)
