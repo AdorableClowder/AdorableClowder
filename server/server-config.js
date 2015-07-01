@@ -14,6 +14,6 @@ app.get('/explore', controller.checkAuth, controller.getMatchingUsers);
 app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
-// app.post('/profile', controller.checkAuth, controller.saveUserChanges);
+app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 
 module.exports = app;
