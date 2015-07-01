@@ -65,7 +65,7 @@ module.exports = function (grunt) {
         },
         scripts: {
           files: '<%= jshint.files %>',
-          tasks: [ 'jshint', 'build' ]
+          tasks: [ 'build' ]
         },
       jade: {
         files: 'client/app/**/*.jade',

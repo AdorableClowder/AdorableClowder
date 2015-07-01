@@ -4,3 +4,8 @@ node_js:
   - "0.11"
 notifications:
   slack: ophs:2cVTSHW0y7t36nvjqQxRmk8P
+install:
+  - npm install
+  - bower install
+script:
+  - grunt build
