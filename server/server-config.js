@@ -3,8 +3,14 @@ var bodyParser = require('body-parser'); //body parser gives us access to req.bo
 var controller = require('./controller.js'); // all actual route handling logic will reside here
 var passport = require('passport');
 var LinkedInStrategy = require('passport-linkedin').Strategy;
+var session = require('express-session');
+var cookie = require('cookie-parser');
+var cors = require('cors');
 
 var app = express();
+app.use(cors());
+app.use(cookie());
+app.use(session({secret: 'anything'}));
 
 //parse req.body and serve static assets
 app.use(bodyParser.json())
@@ -13,19 +19,31 @@ app.use(bodyParser.json())
 
 //set up Passport for LinkedIn oAuth
 app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 
 passport.use(new LinkedInStrategy({
   consumerKey: "75aj0rlf87gsvn",
   consumerSecret: "xuoU3OlOk7IgMPrs",
-  callbackUrl: "http://127.0.0.1:3000/auth/linkedin/callback"},
+  callbackURL: "http://localhost:1337/auth/linkedin/callback",
+  profileFields: ['id', 'first-name', 'last-name', 'email-address','api-standard-profile-request', 'headline']
+  },
 
   function(token, tokenSecret, profile, done){
     process.nextTick(function () {
       //RETURN THE TOKEN TO THE FE
       //SAVE USER TO THE DATABASE USING PROFILE ATTRIBUTES
-      console.log('in passport');
-      console.log(token);
-      console.log(profile);
+      // console.log('in passport');
+      // console.log(token);
+      console.log('THIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSS ISSSSSSS----------------------------------------', profile);
       // To keep the example simple, the user's LinkedIn profile is returned to
       // represent the logged-in user.  In a typical application, you would want
       // to associate the LinkedIn account with a user record in your database,
@@ -44,9 +62,9 @@ app.get('/auth/linkedin',
   });
 
 app.get('/auth/linkedin/callback',
-  passport.authenticate('linkedin', { failureRedirect: '/login' }),
+  passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    console.log('callback response', res);
+    console.log('req-------------------------', req.user);
     res.redirect('/');
   });
 

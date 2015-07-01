@@ -3,13 +3,13 @@
 <!-- Angular 1.3 syntax, signup = $scope -->
   <div ng-controller="signupController as signup">
     <form>
-      Username: <input type="text" ng-model="signup.user.username" required /><br>
-      Password: <input type="password" ng-model="signup.user.password" required /><br>
-      Email: <input type="email" ng-model="signup.user.email" required /><br>
+      Username: <input type="text" ng-model="signup.user.username" /><br>
+      Password: <input type="password" ng-model="signup.user.password" /><br>
+      Email: <input type="email" ng-model="signup.user.email" /><br>
       <div class="col-md-3"></div>
-      <!-- <div class="col-md-3">
+     <!--  <div class="col-md-3">
       <h4>I'm good at:</h4>
-        <input class="formMargin" type="text" ng-model="signup.offer1" required /><br>
+        <input class="formMargin" type="text" ng-model="signup.offer1" /><br>
         <input class="formMargin" type="text" ng-model="signup.offer2" /><br>
         <input class="formMargin" type="text" ng-model="signup.offer3" /><br>
         <input class="formMargin" type="text" ng-model="signup.offer4" /><br>
@@ -17,7 +17,7 @@
       </div>
       <div class="col-md-3">
       <h4>I want help with:</h4>
-        <input class="formMargin" type="text" ng-model="signup.want1" required /><br>
+        <input class="formMargin" type="text" ng-model="signup.want1" /><br>
         <input class="formMargin" type="text" ng-model="signup.want2" /><br>
         <input class="formMargin" type="text" ng-model="signup.want3" /><br>
         <input class="formMargin" type="text" ng-model="signup.want4" /><br>
@@ -27,7 +27,9 @@
       <div class="col-md-12"><input type="submit" class="btn btn-primary buttonMargin" ng-click="signup.doSignup()" /></div>
     </form>
     <div class="col-md-12"><p class="text-danger">{{signup.err}}</p></div>
+  
+    <h2>OR</h2>
+    
+    <a href="http://localhost:1337/auth/linkedin/callback" target="_self"><button class="btn btn-default">Sign up with LinkedIn</button></a>
   </div>
-  <h2>OR</h2>
-  <btn class="btn btn-default" ng-click="signup.dooAuth()">Sign up with LinkedIn</btn>
 </div>

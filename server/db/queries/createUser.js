@@ -24,18 +24,18 @@ module.exports = function (user, next) {
         email: user.email
       });
     })
-    .then(function (newUser) {
-      return newUser.hashPassword(user.password, next);
-    })
-    .then(function (newUser) {
-      return attachSkillsToUser(newUser, user.want, 'wants');
-    })
-    .then(function (newUser) {
-      return attachSkillsToUser(newUser, user.offer, 'offers');
-    })
-    .catch(function (error) {
-      next(error);
-    });
+    // .then(function (newUser) {
+    //   return newUser.hashPassword(user.password, next);
+    // })
+    // .then(function (newUser) {
+    //   return attachSkillsToUser(newUser, user.want, 'wants');
+    // })
+    // .then(function (newUser) {
+    //   return attachSkillsToUser(newUser, user.offer, 'offers');
+    // })
+    // .catch(function (error) {
+    //   next(error);
+    // });
 
 };
 

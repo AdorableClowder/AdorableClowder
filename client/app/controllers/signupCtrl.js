@@ -7,6 +7,7 @@ angular.module('signupCtrl', [])
   vm.user = {};
 
   vm.dooAuth = function(){
+    console.log('dooauth called');
     Auth.oAuth()
       .then(function(response){
         console.log(response);
@@ -33,6 +34,7 @@ angular.module('signupCtrl', [])
     //   vm.err = 'Please fill out required fields';
     // } else {
       // using Auth factory from factories.js to do POST
+      console.log('dosignup called');
       Auth.signup(vm.user)
         .then(function (token) {
           console.log('signup success');
@@ -45,7 +47,9 @@ angular.module('signupCtrl', [])
           //gets the error without the whole callstack (pretty hacky)
           vm.err = err.data.split('<br>')[0];
         });
-    // }
-  };
+    };
+
+    console.log('what');  
+  // };
 
 });
