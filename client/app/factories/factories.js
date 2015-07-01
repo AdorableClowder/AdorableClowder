@@ -57,7 +57,8 @@ angular.module('skillitFactories', [])
           return resp.data;
         });
     };
-    userFactory.changeUser = function(user) {
+
+    userFactory.saveChanges = function(user){
       return $http({
         method: 'POST',
         url: '/profile',

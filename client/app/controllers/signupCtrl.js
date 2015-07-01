@@ -91,7 +91,7 @@ angular.module('signupCtrl', [])
     };
 
     vm.changePreferences = function() {
-      Users.changeUser(vm.user)
+      Users.saveChanges(vm.user)
         .then(function(responseToken) {
           console.log(responseToken);
         })

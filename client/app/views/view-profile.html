@@ -2,13 +2,23 @@
   <h2>Your Profile</h2>
   <div ng-controller="profileController as profile">
   <h3>{{profile.user.username}}</h3>
+  
   <ul class="list-unstyled">
     <h5>What you want to teach:</h5>
-    <li ng-repeat="offer in profile.user.offer">{{offer}}</li>
+    <li ng-show="profile.editOffers" ng-repeat="off in profile.editableOffers"><input type="text" placeholder="{{ off }}"></li>
+
+    <li ng-hide="profile.editOffers" ng-repeat="offer in profile.user.offer">{{offer}}</li>
+
     <h5>What you want to learn:</h5>
-    <li ng-repeat="want in profile.user.want">{{want}}</li>
+    <li ng-show="profile.editWants" ng-repeat="w in profile.editableWants"><input type="text" placeholder="{{ w }}"></li>
+    <li ng-hide="profile.editWants" ng-repeat="want in profile.user.want">{{want}}</li>
+    
     <h5>Your email address:</h5>
     <li>{{profile.user.email}}</li>
   </ul>
+
+  <button ng-hide="profile.editorEnabled" ng-click="profile.editProfile()">Edit Profile</button>
+
+  <button ng-show="profile.editorEnabled" ng-click="profile.save()">Save Changes</button>
   </div>
 </div>

@@ -34,9 +34,7 @@ module.exports = {
           throw new Error('Incorrect password');
         }
         var token = jwt.encode(userModel, secret);
-        res.json({
-          token: token
-        });
+        res.json({ token: token });
       })
       .catch(function (error) {
         next(error);
