@@ -5,6 +5,8 @@ angular.module('profileCtrl', [])
   var vm = this;
 
   vm.user = {};
+  vm.formData = {};
+  vm.formData.user = user;
 
   vm.getProfile = function () {
 
@@ -36,18 +38,21 @@ angular.module('profileCtrl', [])
     vm.editableWants = vm.user.want;
   };
 
-// saves changes from user when button clicked
+// saves changes from user and sends to database when save button clicked
   vm.save = function() {
     vm.user.offer = vm.editableOffers;
+    console.log(vm.editableOffers);
     vm.user.want = vm.editableWants;
     vm.editorEnabled = false;
     vm.editOffers = false;
     vm.editWants = false;
-    // vm.submitChanges(vm.user);
+
+    vm.submitChanges();
   };
 
-  vm.submitChanges = function(user){
-    Users.saveChanges(user);
+  vm.submitChanges = function(){
+    console.log("ProfileCtrl", vm.user);
+    Users.saveChanges(vm.user);
   };
 
 });

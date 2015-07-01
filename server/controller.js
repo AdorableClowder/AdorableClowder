@@ -3,9 +3,11 @@ var jwt = require('jwt-simple');
 var Models = require('./db/models.js');
 var User = Models.User;
 var createUser = require('./db/queries/createUser.js');
+var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
 var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 var Promise = require('bluebird');
+
 
 
 var secret = 'INSERTWITTYSECRETHERE';
@@ -146,6 +148,19 @@ module.exports = {
     var user = jwt.decode(token, secret);
     console.log(user);
     console.log(req.body);
+  },
+
+
+  saveUserChanges: function (req, res, next) {
+    saveUser(req.body, next)
+      .then(function (user){
+        if(!user){
+          throw new Error('save changes failed');
+        }
+      })
+      .catch(function (error) {
+        next(error);
+      });
   }
 
 };
