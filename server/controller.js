@@ -6,11 +6,16 @@ var createUser = require('./db/queries/createUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
 var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 var Promise = require('bluebird');
+var fs = require('fs');
 
 
 var secret = 'INSERTWITTYSECRETHERE';
 
 module.exports = {
+
+  logo: function(req, res, next){
+    res.sendfile('../../client/app/assets/frying.png');
+  },
 
   login: function (req, res, next) {
     var username = req.body.username;
