@@ -47,7 +47,7 @@ module.exports = {
         next(error);
       });
   },
-  
+
   linkedinSignup: function(profile){
     // console.log('linkedinsignup user--------------', req);
     createUser(profile);

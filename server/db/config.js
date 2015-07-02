@@ -49,6 +49,7 @@ db.knex.schema.hasTable('offers').then(function (exists) {
     db.knex.schema.createTable('offers', function (table) {
       table.increments('id').primary();
       table.string('skill', 255);
+      table.string('category', 100);
       table.timestamps();
     }).then(function (table) {
       console.log('Created OFFERS table');
@@ -61,6 +62,7 @@ db.knex.schema.hasTable('wants').then(function (exists) {
     db.knex.schema.createTable('wants', function (table) {
       table.increments('id').primary();
       table.string('skill', 255);
+      table.string('category', 100);
       table.timestamps();
     }).then(function (table) {
       console.log('Created WANTS table');

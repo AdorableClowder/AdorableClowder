@@ -21,7 +21,7 @@ angular.module('signupCtrl', [])
           vm.err = err.data.split('<br>')[0];
         });
     };
-  })
+})
   .controller("subjectsController", function(Users, $location, $window) {
     var vm = this;
     vm.user = {};
@@ -45,34 +45,35 @@ angular.module('signupCtrl', [])
     };
     vm.getUser();
 
+    vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
 
     vm.sampleCategories = {
-      language: ['Spanish', 'Chinese', 'Esperanto'],
-      technology: ['IoT', 'Hacking Facebook', 'Bitcoin'],
-      sports: ["Baseball", "Curling", "Cow-tipping"],
-      knowledge: ["Art History", "Art Garfunkel History", "History"],
-      wild: ["Juggling", "Busking", "Moping"],
-      business: ["Money Laundering", "Accounting", "Financial Advice"],
-      craftAndDesign: ["Woodworking", "Clay Pottery", "Graphic Design"]
+      'Language Learning': ['Spanish', 'Chinese', 'Esperanto'],
+      'Technology': ['IoT', 'Hacking Facebook', 'Bitcoin'],
+      'Sports': ["Baseball", "Curling", "Cow-tipping"],
+      'Knowledge': ["Art History", "Art Garfunkel History", "History"],
+      'Wild n Wacky': ["Juggling", "Busking", "Moping"],
+      'Business': ["Money Laundering", "Accounting", "Financial Advice"],
+      'Craft and Design': ["Woodworking", "Clay Pottery", "Graphic Design"]
     };
 
     vm.chooseOffers = false;
 
-    vm.toggleWant = function(want) {
+    vm.toggleWant = function(want, category) {
       var index = vm.wants.indexOf(want);
       if (index > -1) {
         vm.wants.splice(index, 1);
       } else {
-        vm.wants.push(want);
+        vm.wants.push({skill: want, category: category});
       }
     };
 
-    vm.toggleOffer = function(offer) {
+    vm.toggleOffer = function(offer, category) {
       var index = vm.offers.indexOf(offer);
       if (index > -1) {
         vm.offers.splice(index, 1);
       } else {
-        vm.offers.push(offer);
+        vm.offers.push({skill: offer, category: category});
       }
     };
 
