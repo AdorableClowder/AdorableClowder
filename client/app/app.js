@@ -71,7 +71,7 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
       controller: function ($window, $location) {
         // removes token on logout
         $window.localStorage.removeItem('skillitToken');
-        $location.path('/login');
+        $location.path('/#/login');
       },
       data: {
         requirelogin: true

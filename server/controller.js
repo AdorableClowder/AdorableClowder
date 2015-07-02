@@ -80,7 +80,7 @@ module.exports = {
     }
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
-    console.log('checkauth user-------------', user);
+    // console.log('checkauth user---------', user);
     // check to see if that user exists in the database
     // "User.forge" is syntactic sugar for "new User"
     User.forge({
@@ -95,7 +95,7 @@ module.exports = {
         }
       })
       .catch(function (error) {
-        next(error);
+        console.log(error);
       });
 
   },
@@ -156,15 +156,16 @@ module.exports = {
     });
   },
 
-
-
   saveUserChanges: function (req, res, next) {
+    console.log('save user req----------------', req);
+    console.log('save user req.body----------------', req.body);
     saveUser(req.body, next)
       .then(function (user){
         console.log('saved user: ', user);
         if(!user){
           throw new Error('save changes failed');
         }
+        res.send('user saved');
       })
       .catch(function (error) {
         next(error);
@@ -174,6 +175,7 @@ module.exports = {
   //passes token back to be set in FE
   linkedin: function(req, res){
     var username = req.user.id;
+    console.log(req.user);
     console.log('reached linkedin');
     if(action === 'signup'){
       User.forge({
@@ -187,7 +189,8 @@ module.exports = {
         console.log('---------------saving to database');
         return User.forge({
           username: username,
-          email: req.user.email
+          email: req.user.emails[0].value,
+          linkedin: 'true'
         });
       })
       .then(function (newUser) {

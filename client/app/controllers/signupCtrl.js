@@ -102,6 +102,7 @@ angular.module('signupCtrl', [])
       Users.saveChanges(vm.user)
         .then(function(responseToken) {
           console.log(responseToken);
+          $location.path('/explore');
         })
         .catch(function(err) {
           console.log(err);

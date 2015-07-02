@@ -2,7 +2,7 @@ var utils = require('./userUtils.js');
 var Models = require('../models.js');
 var User = Models.User;
 module.exports = saveUser = function (user, next) {
-
+  console.log('used passed to saveUser------------------------------------', user);
  	return User.forge({
  		username: user.username
  	})
