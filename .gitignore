@@ -11,11 +11,11 @@ Icon
 ._*
 
 # Files that might appear on external disk
+client/build/
 .Spotlight-V100
 .Trashes
 node_modules/
 client/lib
-client/build
 
 # Floobits
 .floo
