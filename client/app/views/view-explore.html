@@ -3,7 +3,8 @@
 
   <div ng-controller="exploreController as explore">
   <label>Search:<input ng-model="searchSkills"></label>
-    <ul ng-show="explore.shouldShow">
+  <!-- first groups stuff -->
+  <!--   <ul ng-show="explore.shouldShow">
       <li class="list-unstyled" ng-repeat="skill in explore.userSkills | filter:searchSkills"><a ng-click="explore.showUsers(skill)" class="lead">{{skill}}</a></li>
     </ul>
     <p class="text-danger">{{explore.err}}</p>
@@ -22,12 +23,24 @@
         </ul>
       </li>
     </ul>
-    </div>
+    </div> -->
+
+   <!-- Jake's stuff -->
     <input type="button" value="most common skills" ng-click="explore.getSkillStats()" />
+  <!--   <div class="graphDiv">
+       <p>graph goes here</p>
+       <canvas height="100" width: "100" id="myChart"></canvas>
+       <script>
+         var chartFunc = function(){
+           var ctx = document.getElementById("myChart").getContext("2d");
+           var myPieChart = new Chart(ctx).Pie(explore.dataSets, explore.pieOptions);
+         }
+       </script>   -->
+      <br />
+     <span ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 20 + 'px'}">  {{ entry[0] }} </span>
+     </div>
 
   </div>
-
-
  <div>
   <div>
       <a ui-sref="explore.chart"></a>

@@ -34,9 +34,9 @@ angular.module('exploreCtrl', [])
       vm.err = "Sorry, no users are currently looking for your skills.";
     }
   };
-  // addition by Jake
-  vm.getSkillStats = function(){
 
+  // addition by Jake S.
+  vm.getSkillStats = function(){
     console.log("getSkillStats firred");
     // get data from users who aren't the current user
     Users.getOtherUsers(vm.user)
@@ -51,14 +51,38 @@ angular.module('exploreCtrl', [])
         _.each(_.flatten(userInfo), function(el){
           tally[el] = tally[el] + 1 || 1;
         });
-        vm.tally = tally;
+        // group into sorted pairs to order by size
+        var pairs = _.pairs(tally);
+        var sortedPairs = _.sortBy(pairs, function(pair){
+          return pair[1];
+        });
+        vm.tally = sortedPairs;
         console.log("tally: ", vm.tally);
+        // populate dataset for Chart
+        vm.populateDatasets(vm.tally);
       })
       .catch(function (err){
         console.log(err);
       });
-
   };
+  // this function formats the (skill) offer data for Chart.js
+  vm.populateDatasets = function(data){
+    console.log("populateDatasets fired");
+    // purge dataSet before populating
+    vm.dataSets.length = 0;
+    _.each(data, function(item){
+      var obj = {};
+      obj.label = item[0];
+      obj.value = item[1];
+      obj.color = _.sample(vm.colors);
+      obj.hightlight = "black";
+
+      vm.dataSets.push(obj);
+    });
+    console.log("vm.dataSets: ", vm.dataSets);
+  };
+
+
   //shows list of skills by default, or people with certain skill when clicked
   vm.shouldShow = true;
   vm.toggleView = function () {
@@ -72,4 +96,17 @@ angular.module('exploreCtrl', [])
     });
   };
   vm.getSkills();
+  //chart related info
+  vm.dataSets = [];
+  //value, color, hightlight, label;
+  vm.pieOptions = {
+    percentageInnerCutout : 50,
+    animationSteps : 100,
+    animateRotate : true,
+    animationEasing : "easeInSine",
+    animateScale : true,
+    segmentStrokeColor : "#fff",
+  };
+  vm.colors = ["blue", "green", "red", "black", "white", "orange"];
 });
+

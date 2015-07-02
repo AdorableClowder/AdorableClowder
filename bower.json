@@ -18,7 +18,8 @@
     "angular-mocks": "~1.4.1",
     "bootstrap": "~3.3.5",
     "animate.css": "~3.3.0",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "angular-chart.js": "~0.7.2"
   },
   "resolutions": {
     "angular": "1.4.1"

@@ -1,4 +1,4 @@
-angular.module('chartCtrl', [])
-.controller('chartController', function(Users, $location, filterFilter){
-  var vm = this;
-});
+angular.module("chartCtrl", [])
+ .controller("chartController", function(Users, $location, filterFilter){
+
+ });
