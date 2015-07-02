@@ -7,12 +7,17 @@ var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
 var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 var Promise = require('bluebird');
+var fs = require('fs');
 
 
 
 var secret = 'INSERTWITTYSECRETHERE';
 
 module.exports = {
+
+  logo: function(req, res, next){
+    res.sendfile('../../client/app/assets/frying.png');
+  },
 
   login: function (req, res, next) {
     var username = req.body.username;
@@ -42,10 +47,24 @@ module.exports = {
         next(error);
       });
   },
+  
+  linkedinSignup: function(profile){
+    // console.log('linkedinsignup user--------------', req);
+    createUser(profile);
+      // .then(function (user) {
+      //   if (!user) {
+      //     throw new Error('User creation failed');
+      //   }
+      //   res.json({
+      //     token: jwt.encode(user, secret)
+      //   });
+      // })
+  },
 
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
+        console.log(user);
         if (!user) {
           throw new Error('User creation failed');
         }

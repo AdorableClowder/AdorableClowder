@@ -23,13 +23,7 @@ module.exports = createUser = function (user, next) {
     .then(function (newUser) {
       return newUser.hashPassword(user.password, next);
     })
-    .then(function (newUser) {
-      return utils.attachSkillsToUser(newUser, user.want, 'wants');
-    })
-    .then(function (newUser) {
-      return utils.attachSkillsToUser(newUser, user.offer, 'offers');
-    })
-    .catch(function (error) {
+   .catch(function (error) {
       next(error);
     });
 

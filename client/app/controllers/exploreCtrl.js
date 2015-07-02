@@ -44,5 +44,5 @@ angular.module('exploreCtrl', [])
       offer: skill
     });
   };
-  vm.getSkills();
+  // vm.getSkills();
 });
