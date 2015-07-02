@@ -16,7 +16,7 @@ Icon
 node_modules/
 client/lib
 
-skillit.min.js
+client/build/skillit.min.js
 
 # Floobits
 .floo
