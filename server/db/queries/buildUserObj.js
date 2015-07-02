@@ -46,8 +46,8 @@ var getSkills = function (user, table) {
     })
     .then(function (user) {
       var skills = user.related(table).toJSON();
-      return skills.map(function (skill) {
-        return skill.skill;
+      return skills.map(function (item) {
+        return {skill: item.skill, category: item.category};
       });
     });
 };
