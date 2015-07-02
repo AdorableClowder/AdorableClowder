@@ -12,8 +12,13 @@ var getRelatedUsernames = require('./db/queries/getRelatedUsernames.js');
 
 
 var secret = 'INSERTWITTYSECRETHERE';
+var action = '';
 
 module.exports = {
+  setAction: function(req, res){
+    action = req.body.action;
+    res.send('action set');
+  },
 
   logo: function(req, res, next){
     res.sendfile('../../client/app/assets/frying.png');
@@ -46,19 +51,6 @@ module.exports = {
       .catch(function (error) {
         next(error);
       });
-  },
-
-  linkedinSignup: function(profile){
-    // console.log('linkedinsignup user--------------', req);
-    createUser(profile);
-      // .then(function (user) {
-      //   if (!user) {
-      //     throw new Error('User creation failed');
-      //   }
-      //   res.json({
-      //     token: jwt.encode(user, secret)
-      //   });
-      // })
   },
 
   signup: function (req, res, next) {
@@ -178,12 +170,53 @@ module.exports = {
         next(error);
       });
   },
-
+  //turns linkedin information into user object
+  //passes token back to be set in FE
   linkedin: function(req, res){
     var username = req.user.id;
-    buildUserObj(username).then(function(builtUserObj){
-      res.json(jwt.encode(builtUserObj, secret));
-    });
+    console.log('reached linkedin');
+    if(action === 'signup'){
+      User.forge({
+        username: username
+      })
+      .fetch()
+      .then(function (userExists) {
+        if (userExists) {
+          throw new Error('User already exists!');
+        }
+        console.log('---------------saving to database');
+        return User.forge({
+          username: username,
+          email: req.user.email
+        });
+      })
+      .then(function (newUser) {
+        return newUser.hashPassword('anything');
+        })
+      .then(function(newUser){
+        buildUserObj(username).then(function(builtUserObj){
+          res.json(jwt.encode(builtUserObj, secret));
+        });
+      });
+    }
+    if(action === 'login'){
+      User.forge({
+        username: username
+      })
+        .fetch()
+        .then(function (user) {
+          if (!user) {
+            throw new Error('User does not exist');
+          }else{
+            buildUserObj(username).then(function(builtUserObj){
+              res.json(jwt.encode(builtUserObj, secret));
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   },
 
   getUsersBySkill: function(req, res, next) {
@@ -209,6 +242,6 @@ module.exports = {
     });
 
 
-},
+  }
 
 };

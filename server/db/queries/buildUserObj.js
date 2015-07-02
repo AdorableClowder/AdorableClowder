@@ -10,7 +10,7 @@ var Want = Models.Want;
 // buildUserObj is a promise that takes a Bookshelf User model and converts it into the JSON format
 // expected by the front end (see interface.json in docs for the expected format)
 var buildUserObj = module.exports = function (username) {
-  console.log('buildUserObj called with user name:', username);
+  console.log('buildUserObj called with username:', username);
   return User.forge({
       username: username
     })
