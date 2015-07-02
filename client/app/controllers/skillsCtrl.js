@@ -21,6 +21,33 @@ angular.module('skillsCtrl', [])
   };
   vm.getUser();
 
+
+// get the list of categories
+  vm.wantCategories = [];
+ 	if(vm.user.want !== null){
+	 for(var i = 0; i < vm.user.want.length; i++){
+	 	vm.wantCategories.push(vm.user.want[i].category);
+	 }
+	}
+
+  vm.offerCategories = [];
+ 	if(vm.user.offer !== null){
+	 for(var j = 0; j < vm.user.offer.length; j++){
+	 	vm.offerCategories.push(vm.user.offer[j].category);
+	 }
+ 	}
+
+ 
+ // populates the categories drop down. 
+ // when a category is selected, the button updates
+ // to the selected category
+ vm.sampleCategories = ["language", "technology", "sports", "knowledge", "wild", "business", "craftanddesign"];
+ vm.selectedCategory = "category";
+ vm.selectCategory = function(category){
+   vm.selectedCategory = category;
+ };
+
+
 // Removes or adds a want
   vm.toggleWant = function(want){
     var index = vm.user.want.indexOf(want);
