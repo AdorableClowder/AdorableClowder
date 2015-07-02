@@ -15,8 +15,7 @@ Icon
 .Trashes
 node_modules/
 client/lib
-
-client/build/skillit.min.js
+client/build
 
 # Floobits
 .floo

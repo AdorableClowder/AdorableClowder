@@ -17,7 +17,8 @@
     "underscore": "~1.8.3",
     "angular-mocks": "~1.4.1",
     "bootstrap": "~3.3.5",
-    "animate.css": "~3.3.0"
+    "animate.css": "~3.3.0",
+    "bootstrap-switch": "~3.3.2"
   },
   "resolutions": {
     "angular": "1.4.1"
