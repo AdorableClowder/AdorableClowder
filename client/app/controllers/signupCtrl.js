@@ -5,6 +5,16 @@ angular.module('signupCtrl', [])
   var vm = this;
 
   vm.user = {};
+
+  vm.setAction = function(){
+    Auth.setAction('signup')
+    .then(function(){
+      console.log('action set');
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  };
   
   vm.setToken = function(){
     Auth.setToken()

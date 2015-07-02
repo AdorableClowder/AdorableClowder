@@ -5,6 +5,10 @@ angular.module('loginCtrl', [])
   var vm = this;
 
   vm.user = {};
+  
+  vm.setAction = function(){
+    Auth.setAction('login');
+  };
 
   vm.doLogin = function () {
 
