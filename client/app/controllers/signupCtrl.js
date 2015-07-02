@@ -37,6 +37,8 @@ angular.module('signupCtrl', [])
     vm.user = {};
     vm.wants = [];
     vm.offers = [];
+    vm.wantsSkills = [];
+    vm.offersSkills = [];
 
     vm.getUser = function () {
       //using Users factory from factories.js to do GET
@@ -44,7 +46,13 @@ angular.module('signupCtrl', [])
         .then(function (user) {
           vm.user = user;
           vm.wants = vm.user.want;
+          vm.wantsSkills = vm.wants.map(function(item) {
+            return item.skill;
+          });
           vm.offers = vm.user.offer;
+          vm.offersSkills = vm.offers.map(function(item) {
+            return item.skill;
+          });
           console.log(vm.user);
         })
         .catch(function (err) {
@@ -69,28 +77,28 @@ angular.module('signupCtrl', [])
     };
 
     vm.chooseOffers = false;
-    vm.wantOfferObject = {};
+
 
     vm.toggleWant = function(want, category) {
-      vm.wantOfferObject.skill = want;
-      vm.wantOfferObject.category = category;
-      var index = vm.wants.indexOf(vm.wantOfferObject);
+      var index = vm.wantsSkills.indexOf(want);
       if (index > -1) {
         console.log('turning off');
         vm.wants.splice(index, 1);
+        vm.wantsSkills.splice(index, 1);
       } else {
-        vm.wants.push(vm.wantOfferObject);
+        vm.wants.push({skill: want, category: category});
+        vm.wantsSkills.push(want);
       }
     };
 
     vm.toggleOffer = function(offer, category) {
-      vm.wantOfferObject.skill = offer;
-      vm.wantOfferObject.category = category;
-      var index = vm.offers.indexOf(vm.wantOfferObject);
+      var index = vm.offersSkills.indexOf(offer);
       if (index > -1) {
         vm.offers.splice(index, 1);
+        vm.offersSkills.splice(index, 1);
       } else {
-        vm.offers.push(vm.wantOfferObject);
+        vm.offers.push({skill: offer, category: category});
+        vm.offersSkills.push(offer);
       }
     };
 
