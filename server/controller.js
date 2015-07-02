@@ -80,6 +80,7 @@ module.exports = {
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header if any
+    console.log('explore checkauth called');
     var token = req.headers['x-access-token'];
 
     if (!token) {
@@ -87,6 +88,7 @@ module.exports = {
     }
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
+    console.log('checkauth user-------------', user);
     // check to see if that user exists in the database
     // "User.forge" is syntactic sugar for "new User"
     User.forge({
@@ -97,7 +99,7 @@ module.exports = {
         if (foundUser) {
           next(); //if everything goes well, pass req to next handler (in server config)
         } else {
-          res.send(401);
+          res.sendStatus(401);
         }
       })
       .catch(function (error) {
@@ -157,7 +159,7 @@ module.exports = {
     console.log('------------------this is the user', user);
     //convert bookshelf user object to expected JSON format for send
     //TODO: use bookshelf format for send instead
-    buildUserObj(user.id).then(function (builtUserObj) {
+    buildUserObj(user.username).then(function (builtUserObj) {
       res.json(builtUserObj);
     });
   },
@@ -175,6 +177,13 @@ module.exports = {
       .catch(function (error) {
         next(error);
       });
+  },
+
+  linkedin: function(req, res){
+    var username = req.user.id;
+    buildUserObj(username).then(function(builtUserObj){
+      res.json(jwt.encode(builtUserObj, secret));
+    });
   }
 
 };
