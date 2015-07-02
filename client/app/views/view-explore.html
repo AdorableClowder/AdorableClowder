@@ -36,15 +36,26 @@
            var myPieChart = new Chart(ctx).Pie(explore.dataSets, explore.pieOptions);
          }
        </script>   -->
-      <br />
-     <span ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 20 + 'px'}">  {{ entry[0] }} </span>
+
+     <div class="grid js-masonry" data-masonry-options='{
+       'itemSelector': '.grid-item',
+       'percentPosition': true,
+       'columnWidth':
+       '.grid-sizer',
+       'isFitWidth': true
+     }'>
+      <!-- uses width of first item for relative responsive sizing -->
+       <div class="grid-sizer">
+       </div>
+        <div class="grid-item" ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 20 + 'px'}">
+        {{ entry[0] }}
+        </div>
      </div>
 
-  </div>
- <div>
+ <!-- <div>
   <div>
       <a ui-sref="explore.chart"></a>
-  </div>
+  </div> -->
 
 </div>
 </div>
