@@ -14,8 +14,9 @@ angular.module('loginCtrl', [])
         console.log('login success!!');
         // store the token sent back from the server in local storage
         $window.localStorage.setItem('skillitToken', token);
+        console.log(token);
         // redirect if succesful
-        $location.path('/choosesubjects');
+        $location.path('/explore');
       })
       .catch(function (err) {
         console.log(err);

@@ -63,6 +63,7 @@ angular.module('signupCtrl', [])
           $location.path('/login');
         });
     };
+    
     vm.getUser();
 
     vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
