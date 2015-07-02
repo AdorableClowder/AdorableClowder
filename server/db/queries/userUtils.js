@@ -14,7 +14,6 @@ var Want = Models.Want;
 // Since this is the case attachSkillsToUser must chain sequentially
 module.exports = {
    attachSkillsToUser: function (user, skills, table) {
-    console.log("user to attach skills: ", user);
     return new Promise(function (resolve, reject) {
       module.exports.getAllSkillIds(skills, module.exports.convertToModelName(table)).then(function (ids) {
         // attaches an array of ids from from the table passed into the 'related' method
@@ -44,14 +43,14 @@ module.exports = {
   }) => [4, 12, 6]
   */
   getAllSkillIds: function (skills, skillType) {
-    return Promise.all(skills.map(function (skill) {
-      return module.exports.getSkillId(skill, skillType);
+    return Promise.all(skills.map(function (item) {
+      return module.exports.getSkillId(item.skill, skillType, item.category);
     }));
   },
   // getSkillId is a promise that accepts a raw skill string (eg: 'cooking') and a string representing a Bookshelf class
   // and gets the skill's id from the table based on skill type. the found is then passed through the resolve function
   // NOTE: if the skill is not already in the db, getSkillId will add it to the db before resolving
-  getSkillId: function (skill, skillType) {
+  getSkillId: function (skill, skillType, category) {
     return new Promise(function (resolve, reject) {
       // convert 'skillType' to the actual Bookshelf class
       var Model = Models[skillType];
@@ -64,11 +63,13 @@ module.exports = {
           return;
         }
         Model.forge({
-          skill: skill
+          skill: skill,
+          category: category
         }).save().then(function (savedSkill) {
           console.log(
             savedSkill.get('skill'),
             'saved successfully in ' + skillType + 's table',
+            'with a category of ' + savedSkill.get('category'),
             'with an id of:', savedSkill.get('id')
           );
           resolve(savedSkill.get('id'));
