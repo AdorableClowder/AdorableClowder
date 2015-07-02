@@ -1,24 +1,52 @@
 <div class="jumbotron text-center">
-  <h2>Your Profile</h2>
   <div ng-controller="profileController as profile">
+    <div>
+      <h5 ng-hide="profile.changesSaved">Profile changes saved.</h5>
+    </div>
+  <h2>Your Profile</h2>
   <h3>{{profile.user.username}}</h3>
   
-  <ul class="list-unstyled">
+<div class="row">
+ <div class="col-md-4">  
     <h5>What you want to teach:</h5>
-    <div>
-      <li ng-model="profile.editableOffers" ng-show="profile.editOffers" ng-repeat="off in profile.editableOffers"><input type="text" placeholder="{{ off }}"></li>
+      <a href="#" ng-repeat="offer in profile.user.offer" ng-click="profile.toggleOffer(offer)">{{ offer }}<span class="glyphicon glyphicon-remove"></span></a>
+  </div>
+</div>
+  <form ng-submit="profile.toggleOffer(customOffer); customerOffer = ''">
+    <input type="text" ng-model="customOffer" placeholder="Add something else">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#" ng-repeat="category in profile.sampleCategories" ng-click="profile.selectCategory(category)">{{ category }}</a></li>
+      </ul>
     </div>
-    <li ng-hide="profile.editOffers" ng-repeat="offer in profile.user.offer">{{offer}}</li>
+    <button type="submit">Add</button>
+  </form>
 
+<div class="row">
+  <div class="col-md-4">
     <h5>What you want to learn:</h5>
-    <li ng-show="profile.editWants" ng-repeat="w in profile.editableWants"><input type="text" placeholder="{{ w }}"></li>
-    <li ng-hide="profile.editWants" ng-repeat="want in profile.user.want">{{want}}</li>
+      <a href="#" ng-repeat="want in profile.user.want" ng-click="profile.toggleWant(want)">{{ want }}<span class="glyphicon glyphicon-remove"></span></a>
+  </div>
+</div>
+<div>
+  <form ng-submit="profile.toggleWant(customWant)">
+    <input type="text" ng-model="customWant" placeholder="Add something else">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#" ng-repeat="category in profile.sampleCategories" ng-click="profile.selectCategory(category)">{{ category }}</a></li>
+      </ul>
+    </div>
+    <button type="submit">Add</button>
+  </form>
+</div>
     
     <h5>Your email address:</h5>
     <li>{{profile.user.email}}</li>
-  </ul>
 
-  <button ng-hide="profile.editorEnabled" ng-click="profile.editProfile()">Edit Profile</button>
-  <button ng-show="profile.editorEnabled" ng-click="profile.save()">Save Changes</button>
+    <div>
+      <button ng-click="profile.submitChanges()">Save Changes</button>
+    </div>
   </div>
 </div>

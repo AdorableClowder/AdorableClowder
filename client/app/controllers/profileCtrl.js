@@ -5,8 +5,6 @@ angular.module('profileCtrl', [])
   var vm = this;
 
   vm.user = {};
-  vm.formData = {};
-  vm.formData.user = user;
 
   vm.getProfile = function () {
 
@@ -23,34 +21,41 @@ angular.module('profileCtrl', [])
   };
   vm.getProfile();
 
-
-  // set ng-show and ng-hide values
-  vm.editorEnabled = false;
-  vm.editOffers = false;
-  vm.editWants = false;
-
- // makes fields editable when Edit Profile button clicked
-  vm.editProfile = function() {
-    vm.editorEnabled = true;
-    vm.editOffers = true;
-    vm.editWants = true;
-    vm.editableOffers = vm.user.offer;
-    vm.editableWants = vm.user.want;
+  // Removes or adds a want
+  vm.toggleWant = function(want){
+    var index = vm.user.want.indexOf(want);
+    if(index > -1){
+      vm.user.want.splice(index, 1);
+    } else {
+      vm.user.want.push(want);
+    }
   };
 
-// saves changes from user and sends to database when save button clicked
-  vm.save = function() {
-    vm.user.offer = vm.editableOffers;
-    console.log(vm.editableOffers);
-    vm.user.want = vm.editableWants;
-    vm.editorEnabled = false;
-    vm.editOffers = false;
-    vm.editWants = false;
+  // Removes or adds an offer
+   vm.toggleOffer = function(offer){
+    console.log("toggleOffer called");
+    var index = vm.user.offer.indexOf(offer);
+    if(index > -1){
+      vm.user.offer.splice(index, 1);
+    } else {
+      vm.user.offer.push(offer);
+    }
 
-    vm.submitChanges();
   };
 
+  // populates the categories drop down. 
+  // when a category is selected, the button updates
+  // to the selected category
+  vm.sampleCategories = ["language", "technology", "sports", "knowledge", "wild", "business", "craftanddesign"];
+  vm.selectedCategory = "category";
+  vm.selectCategory = function(category){
+    vm.selectedCategory = category;
+  };
+  
+  // Send all changes to database
+  vm.changesSaved = true;
   vm.submitChanges = function(){
+    vm.changesSaved = false;
     console.log("ProfileCtrl", vm.user);
     Users.saveChanges(vm.user);
   };
