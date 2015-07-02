@@ -5,7 +5,7 @@ angular.module('signupCtrl', [])
   var vm = this;
 
   vm.user = {};
-  
+
   vm.setToken = function(){
     Auth.setToken()
       .then(function(token){
@@ -15,7 +15,7 @@ angular.module('signupCtrl', [])
         $location.path('/choosesubjects');
       });
   };
-  
+
   vm.doSignup = function () {
      console.log('dosignup called');
       Auth.signup(vm.user)
@@ -53,7 +53,7 @@ angular.module('signupCtrl', [])
           $location.path('/login');
         });
     };
-    
+
     vm.getUser();
 
     vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
@@ -69,22 +69,28 @@ angular.module('signupCtrl', [])
     };
 
     vm.chooseOffers = false;
+    vm.wantOfferObject = {};
 
     vm.toggleWant = function(want, category) {
-      var index = vm.wants.indexOf(want);
+      vm.wantOfferObject.skill = want;
+      vm.wantOfferObject.category = category;
+      var index = vm.wants.indexOf(vm.wantOfferObject);
       if (index > -1) {
+        console.log('turning off');
         vm.wants.splice(index, 1);
       } else {
-        vm.wants.push({skill: want, category: category});
+        vm.wants.push(vm.wantOfferObject);
       }
     };
 
     vm.toggleOffer = function(offer, category) {
-      var index = vm.offers.indexOf(offer);
+      vm.wantOfferObject.skill = offer;
+      vm.wantOfferObject.category = category;
+      var index = vm.offers.indexOf(vm.wantOfferObject);
       if (index > -1) {
         vm.offers.splice(index, 1);
       } else {
-        vm.offers.push({skill: offer, category: category});
+        vm.offers.push(vm.wantOfferObject);
       }
     };
 
