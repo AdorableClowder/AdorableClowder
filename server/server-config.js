@@ -92,5 +92,6 @@ app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
 app.get('/linkedinsuccess', controller.linkedin);
+app.get('/people', controller.checkAuth, controller.getUsersBySkill);
 
 module.exports = app;

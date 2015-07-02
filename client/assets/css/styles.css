@@ -44,3 +44,15 @@
   text-align: center;
   margin-top: 50px;
 }
+.subjects-box {
+  background-color: grey;
+  color: #FFFFFF;
+}
+.all-wants,
+.all-offers {
+  list-style: none;
+}
+.all-wants li.active,
+.all-offers li.active {
+  color: blue;
+}
