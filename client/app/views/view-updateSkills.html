@@ -1,0 +1,17 @@
+<div class="container" ng-controller="skillsController as skills">
+	<div class="row">
+		<div class="wants col-md-6">
+			<h2>I want to learn:</h2>
+			<a href="#" ng-repeat="want in skills.user.want" ng-click="skills.toggleWant(want)">
+				<span class="glyphicon glyphicon-remove">{{want.skill}}</span>
+			</a>
+		</div>
+
+		<div class="offers col-md-6">
+			<h2>I'm offering to teach:</h2>
+			<a href="#" ng-repeat="offer in skills.user.offer" ng-click="skills.toggleWant(offer)">
+				<span class="glyphicon glyphicon-remove">{{offer.skill}}</span>
+			</a>
+		</div>
+	</div>
+</div>
