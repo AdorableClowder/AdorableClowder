@@ -5,26 +5,22 @@
 		
     <div class="wants col-md-6">
 			<h2>I want to learn:</h2>
-        <!-- <div class="categories" ng-repeat="category in subject.categories">
-          <h4>{{ category }}:</h4> -->
-          <div class="all-wantsandoffers">
-            <a href="#" ng-repeat="want in subject.wants" ng-click="subject.toggleWant(want.skill, want.category)">{{ want.skill }}
+        <div class="all-wantsandoffers" ng-repeat="category in subject.categories">
+          <h4>{{ category }}:</h4>
+            <a href="#" ng-repeat="want in subject.wantsObj[category]" ng-click="subject.toggleWant(want)">{{ want.skill }}
               <span class="glyphicon glyphicon-remove"></span>
             </a>
-          </div>
-       <!--  </div> -->
+        </div>
     </div>
 
     <div class="offers col-md-6">
       <h2>I'm offering to teach:</h2>
-        <!-- <div class="categories" ng-repeat="category in subject.categories">
+        <div class="all-wantsandoffers" ng-repeat="category in subject.categories">
           <h4>{{ category }}:</h4>
-        </div> -->
-      <div class="all-wantsandoffers">
-        <a href="#" ng-repeat="offer in subject.offers" ng-click="subject.toggleWant(offer.skill, offer.category)"> {{ offer.skill }}
-          <span class="glyphicon glyphicon-remove"></span>
-        </a>
-      </div>
+            <a href="#" ng-repeat="offer in subject.offersObj[category]" ng-click="subject.toggleWant(offer)"> {{ offer.skill }}
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
     </div>
 
   </div> <!-- row -->
@@ -64,9 +60,9 @@
 
   </div> <!-- row -->
 
-  <div class="row">
-    <div class="col-md-4">
-      <button class="btn btn-primary" ng-click="subject.changePreferences()">Save Updates</button>
+  <div class="row text-center">
+    <div class="col-md-4 col-md-offset-8">
+      <button class="btn btn-primary btn-block" ng-click="subject.changePreferences()">Save Updates</button>
     </div>
   </div>
 
