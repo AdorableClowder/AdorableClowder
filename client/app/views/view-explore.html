@@ -1,10 +1,10 @@
 <div class="jumbotron text-center">
   <h2>Learn new skills</h2>
 
-  <div ng-controller="exploreController as explore">
-  <label>Search:<input ng-model="searchSkills"></label>
   <!-- first groups stuff -->
-  <!--   <ul ng-show="explore.shouldShow">
+  <div ng-controller="exploreController as explore">
+  <!-- <label>Search:<input ng-model="searchSkills"></label>
+     <ul ng-show="explore.shouldShow">
       <li class="list-unstyled" ng-repeat="skill in explore.userSkills | filter:searchSkills"><a ng-click="explore.showUsers(skill)" class="lead">{{skill}}</a></li>
     </ul>
     <p class="text-danger">{{explore.err}}</p>
@@ -23,9 +23,10 @@
         </ul>
       </li>
     </ul>
-    </div> -->
+    </div>  -->
 
    <!-- Jake's stuff -->
+
     <input type="button" value="most common skills" ng-click="explore.getSkillStats()" />
   <!--   <div class="graphDiv">
        <p>graph goes here</p>
@@ -47,7 +48,7 @@
       <!-- uses width of first item for relative responsive sizing -->
        <div class="grid-sizer">
        </div>
-        <div class="grid-item" ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 20 + 'px'}">
+        <div class="grid-item" ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 10 + 'px'}">
         {{ entry[0] }}
         </div>
      </div>
@@ -57,5 +58,5 @@
       <a ui-sref="explore.chart"></a>
   </div> -->
 
-</div>
+<!-- </div> -->
 </div>
