@@ -1,0 +1,9 @@
+div(ng-controller="peopleController as people")
+  .row
+    .col-md-2
+      input(type="checkbox" name="switch-checkbox" data-on-text="wants" data-off-text="offers" data-label-text="view" checked ng-click="showOffers = !showOffers")
+      h3 Filter By Subject      
+      ul.all-wants(ng-hide="showOffers") hello
+      ul.all-offers(ng-show="showOffers") hi
+    .col-md-10
+      
