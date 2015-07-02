@@ -4,6 +4,17 @@ angular.module('skillitFactories', [])
 .factory('Auth', function ($http, $location, $window) {
 
   var authFactory = {};
+  
+  authFactory.setAction = function(action){
+    return $http({
+      method: 'POST',
+      url: '/setaction',
+      data: {action: action}
+    })
+    .then(function(resp){
+      return resp;
+    });
+  };
 
   authFactory.login = function (user) {
     return $http({
@@ -31,7 +42,8 @@ angular.module('skillitFactories', [])
   authFactory.setToken = function(){
     return $http({
       method: 'GET',
-      url: '/linkedinsuccess'
+      url: '/linkedinsuccess',
+      data: authFactory.action
     })
     .then(function(resp){
       return resp.data;
