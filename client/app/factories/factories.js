@@ -4,8 +4,12 @@ angular.module('skillitFactories', [])
 .factory('Auth', function ($http, $location, $window) {
 
   var authFactory = {};
-  
+
+  authFactory.action = '';
+
   authFactory.setAction = function(action){
+    authFactory.action = action;
+    console.log('authfactory action--------', authFactory.action);
     return $http({
       method: 'POST',
       url: '/setaction',

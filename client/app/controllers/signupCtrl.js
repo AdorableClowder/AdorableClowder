@@ -16,6 +16,11 @@ angular.module('signupCtrl', [])
     });
   };
   
+  vm.action = function(){
+    console.log('authaction got called', Auth.action);
+    return Auth.action;
+  };
+  
   vm.setToken = function(){
     Auth.setToken()
       .then(function(token){
