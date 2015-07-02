@@ -28,6 +28,16 @@ angular.module('skillitFactories', [])
       });
   };
 
+  authFactory.setToken = function(){
+    return $http({
+      method: 'GET',
+      url: '/linkedinsuccess'
+    })
+    .then(function(resp){
+      return resp.data;
+    });
+  };
+
   return authFactory;
 })
   .factory('Users', function ($http, $location, $window) {
