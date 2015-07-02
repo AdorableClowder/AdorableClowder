@@ -8,7 +8,6 @@ module.exports = saveUser = function (user, next) {
  	})
  	.fetch()
  	.then(function (foundUser) {
-     console.log('found user: ', foundUser);
      return foundUser;
  		if(!foundUser){
  			throw new Error('User does not exist!');

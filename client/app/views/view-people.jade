@@ -1,0 +1,16 @@
+div(ng-controller="peopleController as people")
+  .row
+    .col-md-3.subjects-box
+      input(type="checkbox" name="switch-checkbox" data-on-text="wants" data-off-text="offers" data-label-text="view" checked ng-click="showOffers = !showOffers")
+      h3 Filter By Subject      
+      ul.all-wants(ng-hide="showOffers")
+        li(ng-repeat="want in people.wants" ng-click="people.selectWant(want)" ng-class="{active: people.isSelected(want)}") {{want.skill}} | {{want.category}}
+      ul.all-offers(ng-show="showOffers")
+        li(ng-repeat="offer in people.offers" ng-click="people.selectOffer(offer)" ng-class="{active: people.isSelected(offer)}") {{offer.skill}} | {{offer.category}}
+    .col-md-9
+      div(ng-hide="showOffers")
+        p people who can offer you help
+        p {{ people.matchedOffers }}
+      div(ng-show="showOffers")
+        p people who want your help
+        p {{ people.matchedWants }}

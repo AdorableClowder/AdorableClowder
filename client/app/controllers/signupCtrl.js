@@ -6,6 +6,7 @@ angular.module('signupCtrl', [])
 
   vm.user = {};
 
+
   vm.setAction = function(){
     Auth.setAction('signup')
     .then(function(){
@@ -25,7 +26,7 @@ angular.module('signupCtrl', [])
         $location.path('/choosesubjects');
       });
   };
-  
+
   vm.doSignup = function () {
      console.log('dosignup called');
       Auth.signup(vm.user)
@@ -47,6 +48,8 @@ angular.module('signupCtrl', [])
     vm.user = {};
     vm.wants = [];
     vm.offers = [];
+    vm.wantsSkills = [];
+    vm.offersSkills = [];
 
     vm.getUser = function () {
       //using Users factory from factories.js to do GET
@@ -54,7 +57,13 @@ angular.module('signupCtrl', [])
         .then(function (user) {
           vm.user = user;
           vm.wants = vm.user.want;
+          vm.wantsSkills = vm.wants.map(function(item) {
+            return item.skill;
+          });
           vm.offers = vm.user.offer;
+          vm.offersSkills = vm.offers.map(function(item) {
+            return item.skill;
+          });
           console.log(vm.user);
         })
         .catch(function (err) {
@@ -63,7 +72,7 @@ angular.module('signupCtrl', [])
           $location.path('/login');
         });
     };
-    
+
     vm.getUser();
 
     vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
@@ -80,21 +89,27 @@ angular.module('signupCtrl', [])
 
     vm.chooseOffers = false;
 
+
     vm.toggleWant = function(want, category) {
-      var index = vm.wants.indexOf(want);
+      var index = vm.wantsSkills.indexOf(want);
       if (index > -1) {
+        console.log('turning off');
         vm.wants.splice(index, 1);
+        vm.wantsSkills.splice(index, 1);
       } else {
         vm.wants.push({skill: want, category: category});
+        vm.wantsSkills.push(want);
       }
     };
 
     vm.toggleOffer = function(offer, category) {
-      var index = vm.offers.indexOf(offer);
+      var index = vm.offersSkills.indexOf(offer);
       if (index > -1) {
         vm.offers.splice(index, 1);
+        vm.offersSkills.splice(index, 1);
       } else {
         vm.offers.push({skill: offer, category: category});
+        vm.offersSkills.push(offer);
       }
     };
 

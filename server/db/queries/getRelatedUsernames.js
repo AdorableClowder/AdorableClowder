@@ -5,19 +5,7 @@ var Promise = require('bluebird');
 
 // exports a promise that takes an array of skill strings and converts them into a unique array of
 // all user IDs who WANT TO LEARN that skill
-module.exports = function (skills, type) {
-  return Promise.all(
-    skills.map(function (skill) {
-      return getRelatedUserIds(skill, type);
-    })
-  ).then(function (array) {
-    // clean up before sending up the chain
-    return _.uniq(_.flatten(array).filter(Number));
-  });
-};
-
-// getRelatedUserIds is a promise that takes a skill string and returns and array of user IDs who WANT TO LEARN that skill
-var getRelatedUserIds = function (skill, type) {
+module.exports = function (skill, type) {
   if (!skill) {
     throw new Error('getRelatedUserIds called with no skill');
   }
@@ -43,7 +31,7 @@ var getRelatedUserIds = function (skill, type) {
         throw new Error(err);
       }
       return skill.related('users').map(function (user) {
-        return user.get('id');
+        return user.get('username');
       });
     })
     .catch(function (err) {

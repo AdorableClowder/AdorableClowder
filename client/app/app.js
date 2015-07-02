@@ -1,6 +1,8 @@
 // using angular-ui router
 // setting up skillitApp angular
-var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'chartCtrl', 'skillitFactories', 'skillitDirectives']);
+
+var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'skillitFactories', 'skillitDirectives', 'peopleCtrl']);
+
 
 skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -58,6 +60,10 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl : 'app/views/view-chart.html'
       // ,
       // controller: 'chartController'
+    })
+    .state('people', {
+      url: '/people',
+      templateUrl: 'app/views/view-people.html'
     })
     .state('profile', {
       url: '/profile',

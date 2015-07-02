@@ -5,9 +5,9 @@ var User = Models.User;
 var createUser = require('./db/queries/createUser.js');
 var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
-var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 var Promise = require('bluebird');
 var fs = require('fs');
+var getRelatedUsernames = require('./db/queries/getRelatedUsernames.js');
 
 
 
@@ -19,7 +19,7 @@ module.exports = {
     action = req.body.action;
     res.send('action set');
   },
-  
+
   logo: function(req, res, next){
     res.sendfile('../../client/app/assets/frying.png');
   },
@@ -56,7 +56,7 @@ module.exports = {
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
-        console.log(user);
+        // console.log(user);
         if (!user) {
           throw new Error('User creation failed');
         }
@@ -80,7 +80,7 @@ module.exports = {
     }
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
-    console.log('checkauth user-------------', user);
+    // console.log('checkauth user-------------', user);
     // check to see if that user exists in the database
     // "User.forge" is syntactic sugar for "new User"
     User.forge({
@@ -121,23 +121,23 @@ module.exports = {
     // convert array of offers to array of user id's that want to learn what user has to offer
     .then(function (offers) {
       console.log('offers=', offers);
-      return getRelatedUserIds(offers);
+      // return getRelatedUserIds(offers);
     })
     // convert user_ids into user objects to send,
     // because JSON format for send different than JSON format from Bookshelf objects
     // TODO: change to send data from bookshelf in the same format it
     // comes out instead of converting to something else
-    .then(function (userIds) {
-      return Promise.all(
-        userIds.map(function (id) {
-          return buildUserObj(id);
-        })
-      );
-    })
-      .then(function (users) {
-        console.log(users);
-        res.json(users);
-      })
+    // .then(function (userIds) {
+    //   return Promise.all(
+    //     userIds.map(function (id) {
+    //       return buildUserObj(id);
+    //     })
+    //   );
+    // })
+    //   .then(function (users) {
+    //     console.log(users);
+    //     res.json(users);
+    //   })
       .catch(function (err) {
         next(err);
       });
@@ -217,6 +217,31 @@ module.exports = {
           console.log(error);
         });
     }
+  },
+
+  getUsersBySkill: function(req, res, next) {
+    //TODO: fix getRelatedUserIds to also accept only one skill instead of an array of skills;
+    var skill = [req.query.skill];
+    var type = req.query.type;
+    if (!type || !skill) {
+      throw new Error('No type or no skill specified');
+    }
+    getRelatedUsernames(skill, type)
+      .then(function (usernames) {
+          return Promise.all(
+            usernames.map(function (name) {
+              return buildUserObj(name);
+            })
+          );
+    })
+    .then(function (users) {
+      res.json(users);
+    })
+    .catch(function (err) {
+      next(err);
+    });
+
+
   }
 
 };
