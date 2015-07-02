@@ -40,6 +40,7 @@ angular.module('profileCtrl', [])
     } else {
       vm.user.offer.push(offer);
     }
+
   };
 
   // populates the categories drop down. 

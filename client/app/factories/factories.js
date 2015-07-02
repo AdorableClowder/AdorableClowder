@@ -65,8 +65,10 @@ angular.module('skillitFactories', [])
         url: '/profile',
         data: user,
         headers: {
-            'x-access-token': $window.localStorage.getItem('skillitToken')
+          'x-access-token': $window.localStorage.getItem('skillitToken')
         }
+      }).then(function (resp) {
+        return resp.data.token;
       });
     };
     return userFactory;

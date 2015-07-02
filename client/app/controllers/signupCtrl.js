@@ -6,51 +6,24 @@ angular.module('signupCtrl', [])
 
   vm.user = {};
 
-  vm.initialWants = [];
-  vm.initialOffers = [];
-
-  vm.sampleCategories = {
-    language: ['Spanish', 'Chinese', 'Esperanto'],
-    technology: ['IoT', 'Hacking Facebook', 'Bitcoin'],
-    sports: ["Baseball", "Curling", "Cow-tipping"],
-    knowledge: ["Art History", "Art Garfunkel History", "History"],
-    wild: ["Juggling", "Busking", "Moping"],
-    business: ["Money Laundering", "Accounting", "Financial Advice"],
-    craftAndDesign: ["Woodworking", "Clay Pottery", "Graphic Design"]
-  };
-
-  vm.chooseOffers = false;
-
-  vm.toggleWant = function(want) {
-    var index = vm.initialWants.indexOf(want);
-    if (index > -1) {
-      vm.initialWants.splice(index, 1);
-    } else {
-      vm.initialWants.push(want);
-    }
-  };
-
-  vm.toggleOffer = function(offer) {
-    var index = vm.initialOffers.indexOf(offer);
-    if (index > -1) {
-      vm.initialOffers.splice(index, 1);
-    } else {
-      vm.initialOffers.push(offer);
-    }
-  };
-
-
   vm.doSignup = function () {
     // storing offers and wants in an array form before sending POST
     //filters out form fields that are empty from wants/offers
-    vm.user.offer = vm.initialOffers;
-    vm.user.want = vm.initialWants;
-    //throw error if fields are empty
-    if (vm.user.offer.length === 0 || vm.user.want.length === 0 ||
-      vm.user.username === undefined || vm.user.password === undefined || vm.user.email === undefined) {
-      vm.err = 'Please fill out required fields';
-    } else {
+    // vm.user.offer = _.filter([vm.offer1, vm.offer2, vm.offer3, vm.offer4, vm.offer5],
+    //   function (offer) {
+    //     return offer !== null && offer !== undefined;
+    //   });
+    // vm.user.want = _.filter([vm.want1, vm.want2, vm.want3, vm.want4, vm.want5],
+    //   function (want) {
+    //     return want !== null && want !== undefined;
+    //   });
+    // //throw error if fields are empty
+    // if (vm.user.offer.length === 0 || vm.user.want.length === 0 ||
+    //   vm.user.username === undefined || vm.user.password === undefined || vm.user.email === undefined) {
+    //   vm.err = 'Please fill out required fields';
+    // } else {
       // using Auth factory from factories.js to do POST
+      console.log('dosignup called');
       Auth.signup(vm.user)
         .then(function (token) {
           console.log('signup success');
@@ -63,7 +36,77 @@ angular.module('signupCtrl', [])
           //gets the error without the whole callstack (pretty hacky)
           vm.err = err.data.split('<br>')[0];
         });
-    }
-  };
+    };
 
-});
+    console.log('what');
+  // };
+
+})
+  .controller("subjectsController", function(Users, $location, $window) {
+    var vm = this;
+    vm.user = {};
+    vm.wants = [];
+    vm.offers = [];
+
+    vm.getUser = function () {
+      //using Users factory from factories.js to do GET
+      Users.getUser()
+        .then(function (user) {
+          vm.user = user;
+          vm.wants = vm.user.want;
+          vm.offers = vm.user.offer;
+          console.log(vm.user);
+        })
+        .catch(function (err) {
+          console.log(err);
+          //if can't get user, redirect to login
+          $location.path('/login');
+        });
+    };
+    
+    vm.getUser();
+
+    vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
+
+    vm.sampleCategories = {
+      'Language Learning': ['Spanish', 'Chinese', 'Esperanto'],
+      'Technology': ['IoT', 'Hacking Facebook', 'Bitcoin'],
+      'Sports': ["Baseball", "Curling", "Cow-tipping"],
+      'Knowledge': ["Art History", "Art Garfunkel History", "History"],
+      'Wild n Wacky': ["Juggling", "Busking", "Moping"],
+      'Business': ["Money Laundering", "Accounting", "Financial Advice"],
+      'Craft and Design': ["Woodworking", "Clay Pottery", "Graphic Design"]
+    };
+
+    vm.chooseOffers = false;
+
+    vm.toggleWant = function(want, category) {
+      var index = vm.wants.indexOf(want);
+      if (index > -1) {
+        vm.wants.splice(index, 1);
+      } else {
+        vm.wants.push({skill: want, category: category});
+      }
+    };
+
+    vm.toggleOffer = function(offer, category) {
+      var index = vm.offers.indexOf(offer);
+      if (index > -1) {
+        vm.offers.splice(index, 1);
+      } else {
+        vm.offers.push({skill: offer, category: category});
+      }
+    };
+
+    vm.changePreferences = function() {
+      Users.saveChanges(vm.user)
+        .then(function(responseToken) {
+          console.log(responseToken);
+        })
+        .catch(function(err) {
+          console.log(err);
+          $location.path('/login');
+        });
+    };
+
+  });
