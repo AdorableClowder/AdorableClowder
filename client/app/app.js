@@ -6,7 +6,7 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
   // if file path other than listed below, redirect to root page
   // authentication based rerouting later
-  // $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
 

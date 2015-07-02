@@ -17,7 +17,8 @@ module.exports = createUser = function (user, next) {
       }
       return User.forge({
         username: user.username,
-        email: user.email
+        email: user.email,
+        linkedin: "false"
       });
     })
     .then(function (newUser) {

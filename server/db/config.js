@@ -35,6 +35,8 @@ db.knex.schema.hasTable('users').then(function (exists) {
       table.string('username', 100).unique();
       table.string('password', 100);
       table.string('email', 100);
+      table.string('token', 100);
+      table.string('linkedin', 100);
       table.timestamps();
     }).then(function (table) {
       console.log('Created USERS table');

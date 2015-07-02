@@ -154,7 +154,7 @@ module.exports = {
 
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
-
+    console.log('------------------this is the user', user);
     //convert bookshelf user object to expected JSON format for send
     //TODO: use bookshelf format for send instead
     buildUserObj(user.id).then(function (builtUserObj) {
