@@ -27,6 +27,10 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
       url: '/login',
       templateUrl: 'app/views/view-login.html'
     })
+    .state('linkedin', {
+      url: '/linkedinsuccess',
+      templateUrl: 'app/views/view-linkedinsuccess.html'
+    })
     .state('explore', {
       url: '/explore',
       templateUrl: 'app/views/view-explore.html'
@@ -48,7 +52,6 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 skillitApp.run(function ($rootScope, $window, $location) {
   //$rootScope give access to angular 'global' scope
   //shouldShow is in index.html referring to ng-show and ng-hide in nav bar
-
   $rootScope.shouldShow = false;
   $rootScope.$on('$stateChangeStart', function () {
     // if there is token, show profile/logout in nav bar
@@ -59,5 +62,4 @@ skillitApp.run(function ($rootScope, $window, $location) {
       $rootScope.shouldShow = false;
     }
   });
-
 });

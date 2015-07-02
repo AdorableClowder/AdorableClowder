@@ -80,7 +80,7 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    res.redirect('/#/choosesubjects');
+    res.redirect('/#/linkedinsuccess');
   });
 
 
@@ -91,5 +91,6 @@ app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
+app.get('/linkedinsuccess', controller.linkedin);
 
 module.exports = app;

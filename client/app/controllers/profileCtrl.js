@@ -11,6 +11,7 @@ angular.module('profileCtrl', [])
     //using Users factory from factories.js to do GET
     Users.getUser()
       .then(function (user) {
+        console.log('user sent back from profile request-------', user);
         vm.user = user;
       })
       .catch(function (err) {
