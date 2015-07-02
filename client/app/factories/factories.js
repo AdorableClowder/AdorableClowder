@@ -5,16 +5,6 @@ angular.module('skillitFactories', [])
 
   var authFactory = {};
 
-  authFactory.oAuth = function(){
-    return $http({
-      method: 'GET',
-      url: '/auth/linkedin'
-    })
-    .then(function(resp){
-      return resp.data;
-    })
-  };
-
   authFactory.login = function (user) {
     return $http({
         method: 'POST',
