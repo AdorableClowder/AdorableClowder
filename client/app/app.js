@@ -1,6 +1,6 @@
 // using angular-ui router
 // setting up skillitApp angular
-var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'skillitFactories', 'skillitDirectives']);
+var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'chartCtrl', 'skillitFactories', 'skillitDirectives']);
 
 skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -52,6 +52,12 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
       data: {
         requirelogin: true
       }
+    })
+    .state('explore.chart', {
+      url: '/chart',
+      templateUrl : 'app/views/view-chart.html'
+      // ,
+      // controller: 'chartController'
     })
     .state('profile', {
       url: '/profile',
