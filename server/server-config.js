@@ -44,9 +44,9 @@ passport.use(new LinkedInStrategy({
     process.nextTick(function () {
       //RETURN THE TOKEN TO THE FE
       //SAVE USER TO THE DATABASE USING PROFILE ATTRIBUTES
-      var userid = profile.id;
+      console.log(token);
       User.forge({
-            username: userid
+            username: profile.id
           })
           .fetch()
           .then(function (userExists) {
@@ -54,14 +54,15 @@ passport.use(new LinkedInStrategy({
               throw new Error('User already exists!');
             }
             return User.forge({
-              username: userid,
-              email: "created@gmail.com"
+              username: profile.id,
+              email: "created@gmail.com",
+              linkedin: "true",
+              token: token
             });
           })
           .then(function (newUser) {
             return newUser.hashPassword('anything');
           });
-      console.log('USER ID ---------------------------', userid);
       console.log('THIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSS ISSSSSSS----------------------------------------', profile);
       // To keep the example simple, the user's LinkedIn profile is returned to
       // represent the logged-in user.  In a typical application, you would want
@@ -79,10 +80,7 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    console.log('req-------------------------', req.user);
-    res.json(req.user);
-    // controller.linkedinSignup(req.user);
-    res.redirect('/');
+    res.redirect('/#/choosesubjects');
   });
 
 
@@ -93,6 +91,5 @@ app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
-app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 
 module.exports = app;
