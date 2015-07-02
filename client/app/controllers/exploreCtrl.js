@@ -97,19 +97,7 @@ angular.module('exploreCtrl', [])
   };
   vm.getSkills();
 
-  //chart related info
-  // vm.dataSets = [];
 
-  // //value, color, hightlight, label;
-
-  // vm.pieOptions = {
-  //   percentageInnerCutout : 50,
-  //   animationSteps : 100,
-  //   animateRotate : true,
-  //   animationEasing : "easeInSine",
-  //   animateScale : true,
-  //   segmentStrokeColor : "#fff",
-  // };
   vm.colors = ["blue", "green", "red", "black", "white", "orange"];
 });
 
