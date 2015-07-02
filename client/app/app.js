@@ -6,7 +6,7 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
   // if file path other than listed below, redirect to root page
   // authentication based rerouting later
-  // $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
 
@@ -21,7 +21,7 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('choose', {
       url: '/choosesubjects',
-      templateUrl: 'app/views/view-updatesubjects.html'
+      templateUrl: 'app/views/view-updateSkills.html'
     })
     .state('login', {
       url: '/login',
