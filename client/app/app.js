@@ -28,6 +28,13 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('choose', {
       url: '/choosesubjects',
+      templateUrl: 'app/views/view-choosecategories.html',
+      data: {
+        requirelogin: true
+      }
+    })
+    .state('update', {
+      url: '/updatesubjects',
       templateUrl: 'app/views/view-updateSkills.html',
       data: {
         requirelogin: true

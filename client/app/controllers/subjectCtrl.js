@@ -19,11 +19,31 @@ angular.module('subjectCtrl', [])
           vm.wantsSkills = vm.wants.map(function(item) {
             return item.skill;
           });
+           vm.wants.forEach(function(item){
+          	console.log("wants", item);
+          	if(vm.wantsObj[item.category]){
+          		vm.wantsObj[item.category].push(item);
+          	} else {
+          		vm.wantsObj[item.category] = [];
+          		vm.wantsObj[item.category].push(item);
+          	}
+          });
           vm.offers = vm.user.offer;
           vm.offersSkills = vm.offers.map(function(item) {
             return item.skill;
           });
+          vm.offers.forEach(function(item){
+          	console.log("offers", item);
+          	if(vm.offersObj[item.category]){
+          		vm.offersObj[item.category].push(item);
+          	} else {
+          		vm.offersObj[item.category] = [];
+          		vm.offersObj[item.category].push(item);
+          	}
+          });
           console.log(vm.user);
+          console.log(vm.wantsObj);
+          console.log(vm.offersObj);
         })
         .catch(function (err) {
           console.log(err);
@@ -59,31 +79,28 @@ angular.module('subjectCtrl', [])
 
     vm.chooseOffers = false;
 
-    vm.toggleWant = function(want, category) {
-    	console.log("want", want);
-    	console.log("category", category);
-      var index = vm.wants.indexOf(want);
-      var idx = vm.wantsObj.category.indexOf(want);
-      if (index > -1 || idx > -1) {
-        vm.wants.splice(index, 1);
-        vm.wantsObj.category.splice(idx, 1);
-      } else {
-        vm.wants.push({skill: want, category: category});
-        vm.WantsObj.category.push({skill: want, category: category});
-      }
-    };
+	 vm.toggleWant = function(want, category) {
+	   var index = vm.wantsSkills.indexOf(want);
+	   if (index > -1) {
+	     console.log('turning off');
+	     vm.wants.splice(index, 1);
+	     vm.wantsSkills.splice(index, 1);
+	   } else {
+	     vm.wants.push({skill: want, category: category});
+	     vm.wantsSkills.push(want);
+	   }
+	 };
 
-    vm.toggleOffer = function(offer, category) {
-      var index = vm.offers.indexOf(offer);
-      var idx = vm.offersObj.category.indexOf(offer);
-      if (index > -1 || idx > -1) {
-        vm.offers.splice(index, 1);
-        vm.offersObj.category.splice(idx, 1);
-      } else {
-        vm.offers.push({skill: offer, category: category});
-        vm.offersObj.category.push({skill: offer, category: category});
-      }
-    };
+	 vm.toggleOffer = function(offer, category) {
+	   var index = vm.offersSkills.indexOf(offer);
+	   if (index > -1) {
+	     vm.offers.splice(index, 1);
+	     vm.offersSkills.splice(index, 1);
+	   } else {
+	     vm.offers.push({skill: offer, category: category});
+	     vm.offersSkills.push(offer);
+	   }
+	 };
 
     vm.changesSaved = true;
     vm.changePreferences = function() {
@@ -101,6 +118,6 @@ angular.module('subjectCtrl', [])
     // Add categories as keys to the wants and offers objects
     for(var i = 0; i < vm.categories.length; i++){
     	vm.wantsObj[vm.categories[i]] = [];
-    	vm.offersObj[vm.categories[j]] = [];
+    	vm.offersObj[vm.categories[i]] = [];
     }
 });
