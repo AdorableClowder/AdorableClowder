@@ -1,3 +1,16 @@
+
+// Bootstrap dependency
+@import "bootstrap/bootstrap.less";
+
+
+@purple: #3F2860;
+@lime: #90C5A9;
+@seafoam: #7A9A95;
+@red: #EF6D3B;
+@orange: #FA8B60;
+
+
+
 .formMargin {
   margin-top: 5px;
 };
@@ -64,22 +77,6 @@
   margin-top: 20px;
 }
 
-// People exploration styles
-
-
-.subjects-box {
-  background-color: grey;
-  color: #FFFFFF;
-}
-
-.all-wants, .all-offers {
-  list-style: none;
-  li {
-    &.active {
-      color: blue;
-    }
-  }
-}
 
 /*masonry grid styling*/
 .grid {
@@ -106,4 +103,20 @@
 //people exploration
   .person-panel {
     padding: 8px;
+  };
+
+  .subjects-box {
+    .bootstrap-switch.bootstrap-switch-wrapper {
+      float: right;
+      margin-top: 29px;
+      @media screen and (max-width: 991px) {
+        margin-top: 0;
+      }
+    }
+  };
+
+  people-box {
+    .panel {
+      margin-top: 25px;
+    }
   }

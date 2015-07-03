@@ -8,7 +8,6 @@
   <!-- <base href='/'> -->
 
   <!-- remove 'http' when viewing with angular -->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="lib/animate.css/animate.min.css">
   <link rel="stylesheet" href="lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css">
   <!-- link to our css file -->
@@ -26,7 +25,7 @@
   <script src="lib/typeahead.js/dist/typeahead.bundle.js"></script>
 
   <!-- minified client code -->
-<!-- 
+<!--
   <script src="build/skillit.min.js"></script>
  -->
 
@@ -55,8 +54,9 @@
         <li><a ui-sref="signup" ng-hide="shouldShow">Signup</a></li>
         <li><a ui-sref="login" ng-hide="shouldShow">Login</a></li>
         <li><a ui-sref="profile" ng-show="shouldShow">Profile</a></li>
-        <li><a ui-sref="explore" ng-show="shouldShow">Explore</a></li>
-        <li><a ui-sref="update" ng-show="shouldShow"> Subjects</a></li>
+        <li><a ui-sref="explore" ng-show="shouldShow">Explore Subject</a></li>
+        <li><a ui-sref="update" ng-show="shouldShow">Choose Subjects</a></li>
+        <li><a ui-sref="people" ng-show="shouldShow">Find Matches</a></li>
         <!-- only show logout if user is logged in -->
         <li><a ui-sref="logout" ng-show="shouldShow">Logout</a></li>
       </ul>

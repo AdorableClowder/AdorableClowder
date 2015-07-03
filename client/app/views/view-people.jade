@@ -24,12 +24,12 @@ div(ng-controller="peopleController as people")
   
   .row
     .col-md-3.subjects-box
-      input(type="checkbox" name="switch-checkbox" data-on-text="wants" data-off-text="offers" data-label-text="view" checked ng-click="showOffers = !showOffers")
-      h3 Filter By Subject      
+      input(type="checkbox" name="switch-checkbox" data-on-text="wants" data-off-text="offers" checked ng-click="showOffers = !showOffers")
+      h3 Choose Subject
       .list-group.all-wants(ng-hide="showOffers")
-        a.list-group-item(href="#" ng-repeat="want in people.wants" ng-click="people.selectWant(want)" ng-class="{active: people.isSelected(want)}") {{want.skill}} | {{want.category}}
+        a.list-group-item(href="#" ng-repeat="want in people.wants" ng-click="people.selectWant(want)" ng-class="{active: want.skill === people.currentWant.skill}") {{want.skill}} | {{want.category}}
       .list-group.all-offers(ng-show="showOffers")
-        a.list-group-item(href="#" ng-repeat="offer in people.offers" ng-click="people.selectOffer(offer)" ng-class="{active: people.isSelected(offer)}") {{offer.skill}} | {{offer.category}}
+        a.list-group-item(href="#" ng-repeat="offer in people.offers" ng-click="people.selectOffer(offer)" ng-class="{active: offer.skill === people.currentOffer.skill}") {{offer.skill}} | {{offer.category}}
     .col-md-9
       .row(ng-hide="showOffers")
         .col-md-12 
