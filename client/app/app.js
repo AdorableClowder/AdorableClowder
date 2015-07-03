@@ -69,7 +69,10 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('people', {
       url: '/people',
-      templateUrl: 'app/views/view-people.html'
+      templateUrl: 'app/views/view-people.html',
+      data: {
+        requirelogin: true
+      }
     })
     .state('profile', {
       url: '/profile',
