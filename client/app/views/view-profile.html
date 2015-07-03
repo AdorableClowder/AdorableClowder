@@ -5,62 +5,19 @@
     </div>
   <h2>Your Profile</h2>
   <h3>{{profile.user.username}}</h3>
-  
-<div class="row">
- <div class="col-md-4">  
-    <h5>Your skills:</h5>
-      <!-- <a href="#" ng-repeat="offer in profile.user.offer" ng-click="profile.toggleOffer(offer)">{{ offer }}<span class="glyphicon glyphicon-remove"></span></a> -->
-  </div>
-</div>
- <!--  <form ng-submit="profile.toggleOffer(customOffer)">
-    <input type="text" ng-model="customOffer" placeholder="Add something else">
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#" ng-repeat="category in profile.sampleCategories" ng-click="profile.selectCategory(category)">{{ category }}</a></li>
-      </ul>
-    </div>
-    <button type="submit">Add</button>
-  </form> -->
 
-<div class="row">
-  <div class="col-md-4">
-    <h5>Skills you want to learn:</h5>
-    <!--   <a href="#" ng-repeat="want in profile.user.want" ng-click="profile.toggleWant(want)">{{ want }}<span class="glyphicon glyphicon-remove"></span></a> -->
-  </div>
-</div>
-<!-- <div>
-  <form ng-submit="profile.toggleWant(customWant)">
-    <input type="text" ng-model="customWant" placeholder="Add something else">
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#" ng-repeat="category in profile.sampleCategories" ng-click="profile.selectCategory(category)">{{ category }}</a></li>
-      </ul>
-    </div>
-    <button type="submit">Add</button>
-  </form>
-</div> -->
-    
-  <!--   <h5>Your email address:</h5>
-    <li>{{profile.user.email}}</li>
+    <form ng-submit="profile.submitChanges()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input ng-model="profile.user.email" type="email" class="form-control" id="exampleInputEmail1" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Upload a photo.</p>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 
-
-    <div>
-      <button ng-click="profile.submitChanges()">Save Changes</button>
-    </div> -->
-
-    <form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input ng-model="profile.user.email" type="email" class="form-control" id="exampleInputEmail1">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input type="file" id="exampleInputFile">
-      <p class="help-block">Upload a photo.</p>
-    </div>
-    <button ng-click="profile.submitChanges()" type="submit" class="btn btn-default">Submit</button>
-  </form>
   </div>
 </div>
