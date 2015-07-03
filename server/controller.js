@@ -187,7 +187,8 @@ module.exports = {
         console.log('---------------saving to database');
         return User.forge({
           username: username,
-          email: req.user.email
+          email: req.user.emails[0].value,
+          linkedin: 'true'
         });
       })
       .then(function (newUser) {
