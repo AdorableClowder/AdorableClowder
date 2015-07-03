@@ -11,7 +11,6 @@ angular.module('profileCtrl', [])
     //using Users factory from factories.js to do GET
     Users.getUser()
       .then(function (user) {
-        console.log('user sent back from profile request-------', user);
         vm.user = user;
       })
       .catch(function (err) {
@@ -26,7 +25,6 @@ angular.module('profileCtrl', [])
   vm.changesSaved = true;
   vm.submitChanges = function(){
     vm.changesSaved = false;
-    console.log("ProfileCtrl", vm.user);
     Users.saveChanges(vm.user);
   };
 
