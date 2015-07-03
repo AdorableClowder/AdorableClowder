@@ -229,6 +229,9 @@ module.exports = {
     }
     getRelatedUsernames(skill, type)
       .then(function (usernames) {
+          if (!usernames) {
+            return [];
+          }
           return Promise.all(
             usernames.map(function (name) {
               return buildUserObj(name);
