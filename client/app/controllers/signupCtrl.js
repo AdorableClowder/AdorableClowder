@@ -65,7 +65,6 @@ angular.module('signupCtrl', ['ui.bootstrap'])
           vm.offersSkills = vm.offers.map(function(item) {
             return item.skill;
           });
-          console.log(vm.user);
         })
         .catch(function (err) {
           console.log(err);
