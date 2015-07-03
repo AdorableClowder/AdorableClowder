@@ -17,6 +17,7 @@ node_modules/
 client/lib
 
 skillit.min.js
+client/build/**
 
 # Floobits
 .floo

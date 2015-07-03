@@ -3,7 +3,10 @@
 
   <!-- first groups stuff -->
   <div ng-controller="exploreController as explore">
-  <!-- <label>Search:<input ng-model="searchSkills"></label>
+     <div ng-controller="typeAheadController as taCtrl">
+       <label>Search:<input type="text" class="form-control" ng-model="taCtrl.selected" typeahead="language for language in taCtrl.languages | filter:$viewValue"></label>
+      </div>
+      <!--
      <ul ng-show="explore.shouldShow">
       <li class="list-unstyled" ng-repeat="skill in explore.userSkills | filter:searchSkills"><a ng-click="explore.showUsers(skill)" class="lead">{{skill}}</a></li>
     </ul>
@@ -26,8 +29,7 @@
     </div>  -->
 
    <!-- Jake's stuff -->
-
-    <input type="button" value="most common skills" ng-click="explore.getSkillStats()" />
+       <input type="button" value="most common skills" ng-click="explore.getSkillStats()" />
   <!--   <div class="graphDiv">
        <p>graph goes here</p>
        <canvas height="100" width: "100" id="myChart"></canvas>

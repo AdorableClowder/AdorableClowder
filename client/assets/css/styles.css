@@ -44,15 +44,14 @@
   text-align: center;
   margin-top: 50px;
 }
-
 /*masonry grid styling*/
-.grid{
+.grid {
   margin: 0 auto;
   margin-top: 20px;
   width: 600px;
 }
 .grid-item {
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.5);
   float: left;
   height: 200px;
   line-height: 200px;
