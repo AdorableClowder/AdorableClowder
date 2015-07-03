@@ -49,7 +49,7 @@ angular.module('subjectCtrl', [])
 
     vm.getUser();
 
-    vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
+    vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design', 'LinkedIn'];
 
     vm.sampleCategories = {
       'Language Learning': ['Spanish', 'Chinese', 'Esperanto'],
