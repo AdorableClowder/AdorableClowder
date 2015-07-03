@@ -23,9 +23,17 @@ angular.module('profileCtrl', [])
   
   // Send all changes to database
   vm.changesSaved = true;
-  vm.submitChanges = function(){
+  vm.submitChanges = function() {
     vm.changesSaved = false;
-    Users.saveChanges(vm.user);
+    console.log(vm.user);
+    Users.saveChanges(vm.user)
+      .then(function(responseToken) {
+        console.log(responseToken);
+      })
+      .catch(function(err) {
+        console.log(err);
+        $location.path('/login');
+      });
   };
 
 });

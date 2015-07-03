@@ -79,3 +79,6 @@
 .grid-item--height2 {
   height: 140px;
 }
+.person-panel {
+  padding: 8px;
+}

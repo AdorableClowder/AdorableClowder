@@ -118,7 +118,7 @@ angular.module('subjectCtrl', [])
         })
         .catch(function(err) {
           console.log(err);
-          $location.path('/login');
+          $location.path('/subjects');
         });
     };
 
