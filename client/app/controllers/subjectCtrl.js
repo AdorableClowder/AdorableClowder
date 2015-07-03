@@ -81,24 +81,31 @@ angular.module('subjectCtrl', [])
 
 	 vm.toggleWant = function(want, category) {
 	   var index = vm.wantsSkills.indexOf(want);
-	   if (index > -1) {
+	   var idx = vm.wantsObj[category].indexOf(want);
+	   if (index > -1 || idx > -1) {
 	     console.log('turning off');
 	     vm.wants.splice(index, 1);
 	     vm.wantsSkills.splice(index, 1);
+	     vm.wantsObj[category].splice(idx, 1);
 	   } else {
 	     vm.wants.push({skill: want, category: category});
 	     vm.wantsSkills.push(want);
+	     vm.wantsObj[category].push({skill: want, category: category});
 	   }
 	 };
 
 	 vm.toggleOffer = function(offer, category) {
 	   var index = vm.offersSkills.indexOf(offer);
-	   if (index > -1) {
+	   var idx = vm.offersObj[category].indexOf(offer);
+	   if (index > -1 || idx > -1) {
+	     console.log('turning off');
 	     vm.offers.splice(index, 1);
 	     vm.offersSkills.splice(index, 1);
+	     vm.offersObj[category].splice(idx, 1);
 	   } else {
 	     vm.offers.push({skill: offer, category: category});
 	     vm.offersSkills.push(offer);
+	     vm.offersObj[category].push({skill: offer, category: category});
 	   }
 	 };
 

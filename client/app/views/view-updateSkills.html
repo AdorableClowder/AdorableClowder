@@ -7,7 +7,7 @@
 			<h2>I want to learn:</h2>
         <div class="all-wantsandoffers" ng-repeat="category in subject.categories">
           <h4>{{ category }}:</h4>
-            <a href="#" ng-repeat="want in subject.wantsObj[category]" ng-click="subject.toggleWant(want)">{{ want.skill }}
+            <a href="#" ng-repeat="want in subject.wantsObj[category]" ng-click="subject.toggleWant(want, category)">{{ want.skill }}
               <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
@@ -17,7 +17,7 @@
       <h2>I'm offering to teach:</h2>
         <div class="all-wantsandoffers" ng-repeat="category in subject.categories">
           <h4>{{ category }}:</h4>
-            <a href="#" ng-repeat="offer in subject.offersObj[category]" ng-click="subject.toggleWant(offer)"> {{ offer.skill }}
+            <a href="#" ng-repeat="offer in subject.offersObj[category]" ng-click="subject.toggleWant(offer, category)"> {{ offer.skill }}
               <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
