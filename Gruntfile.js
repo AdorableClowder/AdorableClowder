@@ -63,10 +63,10 @@ module.exports = function (grunt) {
             files: 'client/assets/**/*.less',
               tasks: [ 'less:production' ]
         },
-        scripts: {
-          files: '<%= jshint.files %>',
-          tasks: [ 'build' ]
-        },
+        // scripts: {
+        //   files: '<%= jshint.files %>',
+        //   tasks: [ 'build' ]
+        // },
       jade: {
         files: 'client/app/**/*.jade',
         tasks: [ 'jade' ]

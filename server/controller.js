@@ -168,6 +168,29 @@ module.exports = {
         next(error);
       });
   },
+
+  saveUserInfo: function (req, res, next) {
+    var username = req.body.username;
+    var email = req.body.email;
+
+    User.forge({
+      username: username
+    })
+    .fetch()
+    .then(function (user){
+      if(!user){
+        throw new Error('save profile failed');
+      } 
+      user.set({email: email})
+      .save()
+      .then(function() {
+        res.send('user profile saved');
+      });
+    })
+    .catch(function (error) {
+      next(error);
+    });
+  },
   //turns linkedin information into user object
   //passes token back to be set in FE
   linkedin: function(req, res){

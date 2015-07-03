@@ -16,12 +16,12 @@
       console.log(err);
     });
   };
-  
+
   vm.action = function(){
     var action = $window.localStorage.getItem('action');
     return action === 'signup' ? 'You\'re all signed up!' : 'Welcome Back';
   };
-  
+
   vm.setToken = function(){
     var action = $window.localStorage.getItem('action');
     Auth.setToken()
@@ -101,16 +101,21 @@
     };
   })
 
-.controller('typeAheadController', function(){
-  var vm = this;
-  vm.test = "hotdog";
-  vm.subject = undefined;
-  // data for predictive text
-  vm.languages = ['Spanish', 'German', 'Japanese', 'Italian', 'Mandarin', 'Navajo', 'Cantonese', 'Esperanto', 'Korean', 'Thai', 'Dutch', 'Russian', 'French', 'Albanian', 'Greek', 'Catalan', 'Galician', 'Hebrew', 'Hungarian', 'Icelandic', 'Latin', 'Lithuanian', 'Polish', 'Portuguese', 'Romanian', 'Afrikaans', 'Arabic', 'Armenian', 'Basque', 'Bengali', 'Bulgarian', 'Burmese', 'Chechen', 'Cornish', 'Czech', 'Croatian', 'Danish', 'English', 'Estonian', 'Faroese', 'Fijian', 'Finnish', 'Georgian', 'Hindi', 'Indonesian', 'Lao'];
-  vm.knowledge = ['Art History', 'Philosophy', 'Linguistics', 'Anthropology', 'Biology', 'Physics', 'Chemistry'];
-  vm.craftAndDesign = ['Weaving', 'Pottery', 'Painting', 'Sketching', ''];
-  vm.technology = ['Python', 'Javascript', 'HTML', 'CSS', 'Ruby', 'C++', 'Java', 'Photography', 'Photoshop', 'Robotics', '3d Printing'];
-  vm.wildNWacky = ['Juggling', 'Busking', 'Moping', 'Dog Walking', 'Cat Sitting'];
-  vm.sports = ['Basketball', 'Disc Golf', 'Curling', 'Hockey', 'Dog Sledding', 'Baseball', 'Rugby'];
-  vm.business = ['Accounting', 'Investing', 'Sales', 'Entrepreneurship', 'Smooth Talking'];
-});
+   .controller('typeAheadController', function(){
+    var vm = this;
+    vm.subject = undefined;
+    // data for predictive text
+    vm.subjects = {
+      languages : ['Spanish', 'German', 'Japanese', 'Italian', 'Mandarin', 'Navajo', 'Cantonese', 'Esperanto', 'Korean', 'Thai', 'Dutch', 'Russian', 'French', 'Albanian', 'Greek', 'Catalan', 'Galician', 'Hebrew', 'Hungarian', 'Icelandic', 'Latin', 'Lithuanian', 'Polish', 'Portuguese', 'Romanian', 'Afrikaans', 'Arabic', 'Armenian', 'Basque', 'Bengali', 'Bulgarian', 'Burmese', 'Chechen', 'Cornish', 'Czech', 'Croatian', 'Danish', 'English', 'Estonian', 'Faroese', 'Fijian', 'Finnish', 'Georgian', 'Hindi', 'Indonesian', 'Lao'],
+      knowledge : ['Art History', 'Philosophy', 'Linguistics', 'Anthropology', 'Biology', 'Physics', 'Chemistry'],
+      craftAndDesign : ['Weaving', 'Pottery', 'Painting', 'Sketching', ''],
+      technology : ['Python', 'Javascript', 'HTML', 'CSS', 'Ruby', 'C++', 'Java', 'Photography', 'Photoshop', 'Robotics', '3d Printing'],
+      wildNWacky : ['Juggling', 'Busking', 'Moping', 'Dog Walking', 'Cat Sitting'],
+      sports : ['Basketball', 'Disc Golf', 'Curling', 'Hockey', 'Dog Sledding', 'Baseball', 'Rugby'],
+      business : ['Accounting', 'Investing', 'Sales', 'Entrepreneurship', 'Smooth Talking']
+    };
+    vm.allSubjects = _.reduce(vm.subjects, function(arr1, arr2){
+      arr1 = arr1.concat(arr2);
+      return arr1;
+    });
+   });

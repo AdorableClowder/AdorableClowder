@@ -20,7 +20,6 @@ angular.module('subjectCtrl', [])
             return item.skill;
           });
            vm.wants.forEach(function(item){
-          	console.log("wants", item);
           	if(vm.wantsObj[item.category]){
           		vm.wantsObj[item.category].push(item);
           	} else {
@@ -33,7 +32,6 @@ angular.module('subjectCtrl', [])
             return item.skill;
           });
           vm.offers.forEach(function(item){
-          	console.log("offers", item);
           	if(vm.offersObj[item.category]){
           		vm.offersObj[item.category].push(item);
           	} else {
@@ -41,9 +39,6 @@ angular.module('subjectCtrl', [])
           		vm.offersObj[item.category].push(item);
           	}
           });
-          console.log(vm.user);
-          console.log(vm.wantsObj);
-          console.log(vm.offersObj);
         })
         .catch(function (err) {
           console.log(err);
@@ -83,7 +78,6 @@ angular.module('subjectCtrl', [])
 	   var index = vm.wantsSkills.indexOf(want);
 	   var idx = vm.wantsObj[category].indexOf(want);
 	   if (index > -1 || idx > -1) {
-	     console.log('turning off');
 	     vm.wants.splice(index, 1);
 	     vm.wantsSkills.splice(index, 1);
 	     vm.wantsObj[category].splice(idx, 1);
@@ -98,7 +92,6 @@ angular.module('subjectCtrl', [])
 	   var index = vm.offersSkills.indexOf(offer);
 	   var idx = vm.offersObj[category].indexOf(offer);
 	   if (index > -1 || idx > -1) {
-	     console.log('turning off');
 	     vm.offers.splice(index, 1);
 	     vm.offersSkills.splice(index, 1);
 	     vm.offersObj[category].splice(idx, 1);

@@ -34,14 +34,6 @@ angular.module('peopleCtrl', [])
 
   vm.getUser();
 
-  vm.currentWant = {};
-  vm.currentOffer = {};
-
-
-  vm.isSelected = function(skill) {
-    return skill.skill === vm.currentWant.skill ||  skill.skill === vm.currentOffer.skill;
-  };
-
   vm.selectWant = function(want) {
     vm.currentWant = want;
     Users.getUsersBySkill(want, 'offer')
