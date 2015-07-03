@@ -11,7 +11,6 @@ angular.module('profileCtrl', [])
     //using Users factory from factories.js to do GET
     Users.getUser()
       .then(function (user) {
-        console.log('user sent back from profile request-------', user);
         vm.user = user;
       })
       .catch(function (err) {
@@ -34,7 +33,6 @@ angular.module('profileCtrl', [])
 
   // Removes or adds an offer
    vm.toggleOffer = function(offer){
-    console.log("toggleOffer called");
     var index = vm.user.offer.indexOf(offer);
     if(index > -1){
       vm.user.offer.splice(index, 1);
@@ -57,7 +55,6 @@ angular.module('profileCtrl', [])
   vm.changesSaved = true;
   vm.submitChanges = function(){
     vm.changesSaved = false;
-    console.log("ProfileCtrl", vm.user);
     Users.saveChanges(vm.user);
   };
 

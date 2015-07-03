@@ -17,18 +17,19 @@ angular.module('signupCtrl', ['ui.bootstrap'])
     });
   };
   
+  vm.action = function(){
+    return Auth.action;
+  };
+  
   vm.setToken = function(){
     Auth.setToken()
       .then(function(token){
-        console.log('user----------------------', token);
         $window.localStorage.setItem('skillitToken', token);
-        console.log('attempted choosesubjects');
         $location.path('/choosesubjects');
       });
   };
 
   vm.doSignup = function () {
-     console.log('dosignup called');
       Auth.signup(vm.user)
         .then(function (token) {
           console.log('signup success');
@@ -117,6 +118,7 @@ angular.module('signupCtrl', ['ui.bootstrap'])
       Users.saveChanges(vm.user)
         .then(function(responseToken) {
           console.log(responseToken);
+          $location.path('/explore');
         })
         .catch(function(err) {
           console.log(err);
