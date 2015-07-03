@@ -56,7 +56,6 @@ module.exports = {
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
-        // console.log(user);
         if (!user) {
           throw new Error('User creation failed');
         }
@@ -72,7 +71,6 @@ module.exports = {
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header if any
-    console.log('explore checkauth called');
     var token = req.headers['x-access-token'];
 
     if (!token) {
@@ -80,7 +78,6 @@ module.exports = {
     }
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
-    // console.log('checkauth user-------------', user);
     // check to see if that user exists in the database
     // "User.forge" is syntactic sugar for "new User"
     User.forge({
@@ -95,7 +92,7 @@ module.exports = {
         }
       })
       .catch(function (error) {
-        next(error);
+        console.log(error);
       });
 
   },
@@ -148,15 +145,12 @@ module.exports = {
 
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, secret);
-    console.log('------------------this is the user', user);
     //convert bookshelf user object to expected JSON format for send
     //TODO: use bookshelf format for send instead
     buildUserObj(user.username).then(function (builtUserObj) {
       res.json(builtUserObj);
     });
   },
-
-
 
   saveUserChanges: function (req, res, next) {
     saveUser(req.body, next)
@@ -165,6 +159,7 @@ module.exports = {
         if(!user){
           throw new Error('save changes failed');
         }
+        res.send('user saved');
       })
       .catch(function (error) {
         next(error);
@@ -174,6 +169,7 @@ module.exports = {
   //passes token back to be set in FE
   linkedin: function(req, res){
     var username = req.user.id;
+    console.log(req.user);
     console.log('reached linkedin');
     if(action === 'signup'){
       User.forge({
@@ -184,11 +180,11 @@ module.exports = {
         if (userExists) {
           throw new Error('User already exists!');
         }
-        console.log('---------------saving to database');
         return User.forge({
           username: username,
           email: req.user.emails[0].value,
-          linkedin: 'true'
+          linkedin: 'true',
+          url: req.user._json.publicProfileUrl
         });
       })
       .then(function (newUser) {
