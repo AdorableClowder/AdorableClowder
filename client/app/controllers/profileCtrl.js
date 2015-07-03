@@ -26,7 +26,7 @@ angular.module('profileCtrl', [])
   vm.submitChanges = function() {
     vm.changesSaved = false;
     console.log(vm.user);
-    Users.saveChanges(vm.user)
+    Users.saveUser(vm.user)
       .then(function(responseToken) {
         console.log(responseToken);
       })
