@@ -1,4 +1,4 @@
-# Skillit
+# Skillit [![Build Status](https://travis-ci.org/Opportunistic-House-sitter/AdorableClowder.svg?branch=master)](https://travis-ci.org/Opportunistic-House-sitter/AdorableClowder)
 
 Skillit is a skill-sharing platform that facilitates matchmaking between passionate learners and teachers. Come out of your shell and share your yolk with the world!
 

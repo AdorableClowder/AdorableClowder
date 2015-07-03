@@ -5,13 +5,17 @@ angular.module('loginCtrl', [])
   var vm = this;
 
   vm.user = {};
+  
+  vm.setAction = function(){
+    Auth.setAction('login');
+  };
 
   vm.doLogin = function () {
 
     // using Auth factory from factories.js to do POST
     Auth.login(vm.user)
       .then(function (token) {
-        console.log('login success');
+        console.log('login success!!');
         // store the token sent back from the server in local storage
         $window.localStorage.setItem('skillitToken', token);
         // redirect if succesful

@@ -1,0 +1,168 @@
+
+// Bootstrap dependency
+@import "bootstrap/bootstrap.less";
+
+
+@purple: #3F2860;
+@lime: #90C5A9;
+@seafoam: #7A9A95;
+@red: #EF6D3B;
+@orange: #FA8B60;
+
+
+header {
+  .navbar {
+    background-color: @lime;
+    .container li a {
+      color: #FFFFFF;
+      &:hover, &:focus {
+        background-color: darken(@lime, 12%);
+      }
+    }
+  }
+}
+
+.skillit-title {
+  font-family: "Chunk Five";
+  letter-spacing: 2px;
+  color: black;
+}
+
+// Home page styles
+
+
+
+.starter-text {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 20px;
+  .home-header {
+    color: @orange;
+    font-size: 60px;
+  }
+
+}
+
+
+.formMargin {
+  margin-top: 5px;
+};
+
+.buttonMargin {
+  margin-top: 10px;
+};
+
+.skillit-logo {
+  max-height: 50px;
+  float: left;
+  margin-top: -14px;
+};
+
+
+// Signup Choose Subjects Page
+
+.chosen-wants, .chosen-offers {
+  .row {
+    margin: 20px auto;
+    .col-md-4 {
+      @media screen and (max-width: 991px) {
+        padding: 15px;
+        clear: both;
+      }
+    }
+  }
+}
+
+.all-wantsandoffers {
+  a {
+    display: block;
+    float: left;
+    margin: 7px;
+    padding: 5px;
+    background-color: #50A871;
+    color: #FFFFFF;
+    &:hover {
+      background-color: #A8637B;
+      text-decoration: none;
+    }
+  }
+};
+
+.custom-form {
+  input.form-control {
+    width: 55%;
+    float: left;
+    margin-right: 3px;
+  }
+  input.btn {
+    float: left;
+  }
+}
+
+.btn-select-subject {
+  text-align: center;
+  margin-top: 50px
+}
+
+// Update Subjects Styles
+
+.saveUpdate {
+  margin-top: 20px;
+}
+
+
+/*masonry grid styling*/
+.grid {
+ margin: 0 auto;
+ margin-top: 20px;
+  width: 600px;
+}
+.grid-item {
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+  float: left;
+  height: 200px;
+  line-height: 200px;
+  width: 200px;
+  word-wrap: break-word;
+}
+.grid-item--width2 {
+  width: 160px;
+}
+.grid-item--height2 {
+  height: 140px;
+}
+
+
+//people exploration
+  .person-panel {
+    color: @gray-dark;
+    strong {
+      font-weight: bold;
+      color: @seafoam;
+    }
+  };
+
+  .emph-text {
+    color: @red;
+  }
+
+  .subjects-box {
+    .bootstrap-switch.bootstrap-switch-wrapper {
+      float: right;
+      margin-top: 29px;
+      @media screen and (max-width: 991px) {
+        margin-top: 0;
+      }
+    }
+  };
+
+  people-box {
+    .panel {
+      margin-top: 25px;
+    }
+  }
+
+  .modal#message-modal {
+    color: @gray;
+
+  }

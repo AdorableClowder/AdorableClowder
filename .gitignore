@@ -11,10 +11,14 @@ Icon
 ._*
 
 # Files that might appear on external disk
+client/build/**
 .Spotlight-V100
 .Trashes
 node_modules/
 client/lib
+
+skillit.min.js
+**/skillit.min.js
 
 # Floobits
 .floo

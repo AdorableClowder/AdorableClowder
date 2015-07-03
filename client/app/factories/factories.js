@@ -5,6 +5,19 @@ angular.module('skillitFactories', [])
 
   var authFactory = {};
 
+
+  authFactory.setAction = function(action){
+    $window.localStorage.setItem('action', action);
+    return $http({
+      method: 'POST',
+      url: '/setaction',
+      data: {action: action}
+    })
+    .then(function(resp){
+      return resp;
+    });
+  };
+
   authFactory.login = function (user) {
     return $http({
         method: 'POST',
@@ -28,6 +41,17 @@ angular.module('skillitFactories', [])
       });
   };
 
+  authFactory.setToken = function(){
+    return $http({
+      method: 'GET',
+      url: '/linkedinsuccess',
+      data: authFactory.action
+    })
+    .then(function(resp){
+      return resp.data;
+    });
+  };
+
   return authFactory;
 })
   .factory('Users', function ($http, $location, $window) {
@@ -44,6 +68,22 @@ angular.module('skillitFactories', [])
           return resp.data;
         });
     };
+
+    userFactory.getUsersBySkill = function (skill, type) {
+      return $http({
+          method: 'GET',
+          url: '/people',
+          headers: {
+            'x-access-token': $window.localStorage.getItem('skillitToken')
+          },
+          params: { skill: skill.skill, type: type }
+        })
+        .then(function (resp) {
+          return resp.data;
+        });
+    };
+
+
     // this method is called to get logged in user data on profile, retrieved from token
     userFactory.getUser = function () {
       return $http({
@@ -56,6 +96,33 @@ angular.module('skillitFactories', [])
         .then(function (resp) {
           return resp.data;
         });
+    };
+
+    userFactory.saveUser = function (user) {
+      return $http({
+        method: 'POST',
+        url: '/profile',
+        data: user,
+        headers: {
+          'x-access-token': $window.localStorage.getItem('skillitToken')
+        }
+      })
+      .then(function (resp) {
+        return resp.data.token;
+      });
+    };
+
+    userFactory.saveChanges = function(user){
+      return $http({
+        method: 'POST',
+        url: '/savesubjects',
+        data: user,
+        headers: {
+          'x-access-token': $window.localStorage.getItem('skillitToken')
+        }
+      }).then(function (resp) {
+        return resp.data.token;
+      });
     };
     return userFactory;
   });

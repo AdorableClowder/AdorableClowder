@@ -1,0 +1,47 @@
+div(ng-controller="peopleController as people")
+  
+  .modal.fade#message-modal(tabindex="-1" role="dialog" aria-labeledby="Send a message")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          button.close(type="button" data-dismiss="modal" aria-label="close")
+            span(aria-hidden="true") &times;
+          h4.modal-title#messageModalLabel Send a Message
+        .modal-body
+          form
+            .form-group
+              label.control-label(for="recipient-name") Recipient:
+              input.form-control#recipient-name(type="text")
+            .form-group
+              label.control-label(for="message-text") Message:
+              textarea.form-control#message-text       
+        .modal-footer
+          button.btn.btn-default(type="button" data-dismiss="modal") close
+          button.btn.btn-primary(type="button") Send Message
+  
+  
+  
+  
+  .row
+    .col-md-3.subjects-box
+      input(type="checkbox" name="switch-checkbox" data-on-text="wants" data-off-color="primary" data-off-text="offers" checked ng-click="showOffers = !showOffers")
+      h3 Choose Subject
+      .list-group.all-wants(ng-hide="showOffers")
+        a.list-group-item(href="#" ng-repeat="want in people.wants" ng-click="people.selectWant(want)" ng-class="{active: want.skill === people.currentWant.skill}") {{want.skill}} | {{want.category}}
+      .list-group.all-offers(ng-show="showOffers")
+        a.list-group-item(href="#" ng-repeat="offer in people.offers" ng-click="people.selectOffer(offer)" ng-class="{active: offer.skill === people.currentOffer.skill}") {{offer.skill}} | {{offer.category}}
+    .col-md-9
+      .row(ng-hide="showOffers")
+        .col-md-12 
+          h3(ng-show="people.currentWant") People Are Here To Help With
+            strong.animated.bounceIn.emph-text  {{people.currentWant.skill}}!
+          h4(ng-if="people.matchedOffers.length === 0") There is no one who can help you. You are screwed :(
+        .col-md-6(ng-repeat="person in people.matchedOffers")
+          people-box(person="person" skill="people.currentWant" skilltype="'offer'")
+      .row(ng-show="showOffers")
+        .col-md-12
+          h3(ng-show="people.currentOffer") Quick! These People Are In Dire Need to Learn
+            strong.animated.bounceIn.emph-text  {{people.currentOffer.skill}}!
+          h4(ng-if="people.matchedWants.length === 0") No one wants to learn your skill. It must be super cool and obscure :(
+        .col-md-6(ng-repeat="person in people.matchedWants")
+          people-box(person="person" skill="people.currentOffer" skilltype="'want'")

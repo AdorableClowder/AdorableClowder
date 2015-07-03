@@ -20,5 +20,20 @@ angular.module('profileCtrl', [])
       });
   };
   vm.getProfile();
+  
+  // Send all changes to database
+  vm.changesSaved = true;
+  vm.submitChanges = function() {
+    vm.changesSaved = false;
+    console.log(vm.user);
+    Users.saveUser(vm.user)
+      .then(function(responseToken) {
+        console.log(responseToken);
+      })
+      .catch(function(err) {
+        console.log(err);
+        $location.path('/login');
+      });
+  };
 
 });
