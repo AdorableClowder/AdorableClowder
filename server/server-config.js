@@ -88,7 +88,8 @@ app.get('/auth/linkedin/callback',
 // Express method chaining--calls methods in listed order
 app.get('/explore', controller.checkAuth, controller.getMatchingUsers);
 app.get('/profile', controller.checkAuth, controller.getCurrentUser);
-app.post('/profile', controller.checkAuth, controller.saveUserChanges);
+app.post('/profile', controller.checkAuth, controller.saveUserInfo);
+app.post('/savesubjects', controller.checkAuth, controller.saveUserChanges);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
 app.get('/linkedinsuccess', controller.linkedin);

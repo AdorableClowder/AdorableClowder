@@ -99,10 +99,24 @@ angular.module('skillitFactories', [])
         });
     };
 
-    userFactory.saveChanges = function(user){
+    userFactory.saveUser = function (user) {
       return $http({
         method: 'POST',
         url: '/profile',
+        data: user,
+        headers: {
+          'x-access-token': $window.localStorage.getItem('skillitToken')
+        }
+      })
+      .then(function (resp) {
+        return resp.data.token;
+      });
+    };
+
+    userFactory.saveChanges = function(user){
+      return $http({
+        method: 'POST',
+        url: '/savesubjects',
         data: user,
         headers: {
           'x-access-token': $window.localStorage.getItem('skillitToken')
