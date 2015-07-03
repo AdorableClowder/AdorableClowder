@@ -5,6 +5,8 @@ angular.module('subjectCtrl', [])
     vm.user = {};
     vm.wants = [];
     vm.offers = [];
+    vm.wantsSkills = [];
+    vm.offersSkills = [];
     vm.wantsObj = {};
     vm.offersObj = {};
 
@@ -12,21 +14,16 @@ angular.module('subjectCtrl', [])
       //using Users factory from factories.js to do GET
       Users.getUser()
         .then(function (user) {
-        	console.log(user);
           vm.user = user;
-          vm.wants = user.want;
-          vm.offers = user.offer;
-        })
-        .then(function (user){
-    	   	// Pushes all wants/offers into wants/offers object according to category type 
-    	   	if(vm.wants !== undefined && vm.offers !== undefined){
-    		    for(var j = 0; j < vm.wants.length; j++){
-    		    	vm.wantsObj[vm.wants[j].category].push(vm.wants[j]);
-    		    }
-    		    for(var k = 0; k < vm.offers.length; k++){
-    		    	vm.offersObj[vm.offers[k].category].push(vm.offers[k]);
-    		    }
-    		}
+          vm.wants = vm.user.want;
+          vm.wantsSkills = vm.wants.map(function(item) {
+            return item.skill;
+          });
+          vm.offers = vm.user.offer;
+          vm.offersSkills = vm.offers.map(function(item) {
+            return item.skill;
+          });
+          console.log(vm.user);
         })
         .catch(function (err) {
           console.log(err);
@@ -34,6 +31,7 @@ angular.module('subjectCtrl', [])
           $location.path('/login');
         });
     };
+
     vm.getUser();
 
     vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];

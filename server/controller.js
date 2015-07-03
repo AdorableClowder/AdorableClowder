@@ -5,15 +5,20 @@ var User = Models.User;
 var createUser = require('./db/queries/createUser.js');
 var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
-var getRelatedUserIds = require('./db/queries/getRelatedUserIds.js');
 var Promise = require('bluebird');
 var fs = require('fs');
+var getRelatedUsernames = require('./db/queries/getRelatedUsernames.js');
 
 
 
 var secret = 'INSERTWITTYSECRETHERE';
+var action = '';
 
 module.exports = {
+  setAction: function(req, res){
+    action = req.body.action;
+    res.send('action set');
+  },
 
   logo: function(req, res, next){
     res.sendfile('../../client/app/assets/frying.png');
@@ -48,23 +53,10 @@ module.exports = {
       });
   },
 
-  linkedinSignup: function(profile){
-    // console.log('linkedinsignup user--------------', req);
-    createUser(profile);
-      // .then(function (user) {
-      //   if (!user) {
-      //     throw new Error('User creation failed');
-      //   }
-      //   res.json({
-      //     token: jwt.encode(user, secret)
-      //   });
-      // })
-  },
-
   signup: function (req, res, next) {
     createUser(req.body, next)
       .then(function (user) {
-        console.log(user);
+        // console.log(user);
         if (!user) {
           throw new Error('User creation failed');
         }
@@ -80,6 +72,7 @@ module.exports = {
   checkAuth: function (req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header if any
+    console.log('explore checkauth called');
     var token = req.headers['x-access-token'];
 
     if (!token) {
@@ -87,6 +80,7 @@ module.exports = {
     }
     // then decode the token, which will end up being the user object
     var user = jwt.decode(token, secret);
+    // console.log('checkauth user-------------', user);
     // check to see if that user exists in the database
     // "User.forge" is syntactic sugar for "new User"
     User.forge({
@@ -97,7 +91,7 @@ module.exports = {
         if (foundUser) {
           next(); //if everything goes well, pass req to next handler (in server config)
         } else {
-          res.send(401);
+          res.sendStatus(401);
         }
       })
       .catch(function (error) {
@@ -127,23 +121,23 @@ module.exports = {
     // convert array of offers to array of user id's that want to learn what user has to offer
     .then(function (offers) {
       console.log('offers=', offers);
-      return getRelatedUserIds(offers);
+      // return getRelatedUserIds(offers);
     })
     // convert user_ids into user objects to send,
     // because JSON format for send different than JSON format from Bookshelf objects
     // TODO: change to send data from bookshelf in the same format it
     // comes out instead of converting to something else
-    .then(function (userIds) {
-      return Promise.all(
-        userIds.map(function (id) {
-          return buildUserObj(id);
-        })
-      );
-    })
-      .then(function (users) {
-        console.log(users);
-        res.json(users);
-      })
+    // .then(function (userIds) {
+    //   return Promise.all(
+    //     userIds.map(function (id) {
+    //       return buildUserObj(id);
+    //     })
+    //   );
+    // })
+    //   .then(function (users) {
+    //     console.log(users);
+    //     res.json(users);
+    //   })
       .catch(function (err) {
         next(err);
       });
@@ -157,7 +151,7 @@ module.exports = {
     console.log('------------------this is the user', user);
     //convert bookshelf user object to expected JSON format for send
     //TODO: use bookshelf format for send instead
-    buildUserObj(user.id).then(function (builtUserObj) {
+    buildUserObj(user.username).then(function (builtUserObj) {
       res.json(builtUserObj);
     });
   },
@@ -175,6 +169,79 @@ module.exports = {
       .catch(function (error) {
         next(error);
       });
+  },
+  //turns linkedin information into user object
+  //passes token back to be set in FE
+  linkedin: function(req, res){
+    var username = req.user.id;
+    console.log('reached linkedin');
+    if(action === 'signup'){
+      User.forge({
+        username: username
+      })
+      .fetch()
+      .then(function (userExists) {
+        if (userExists) {
+          throw new Error('User already exists!');
+        }
+        console.log('---------------saving to database');
+        return User.forge({
+          username: username,
+          email: req.user.email
+        });
+      })
+      .then(function (newUser) {
+        return newUser.hashPassword('anything');
+        })
+      .then(function(newUser){
+        buildUserObj(username).then(function(builtUserObj){
+          res.json(jwt.encode(builtUserObj, secret));
+        });
+      });
+    }
+    if(action === 'login'){
+      User.forge({
+        username: username
+      })
+        .fetch()
+        .then(function (user) {
+          if (!user) {
+            throw new Error('User does not exist');
+          }else{
+            buildUserObj(username).then(function(builtUserObj){
+              res.json(jwt.encode(builtUserObj, secret));
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  },
+
+  getUsersBySkill: function(req, res, next) {
+    //TODO: fix getRelatedUserIds to also accept only one skill instead of an array of skills;
+    var skill = [req.query.skill];
+    var type = req.query.type;
+    if (!type || !skill) {
+      throw new Error('No type or no skill specified');
+    }
+    getRelatedUsernames(skill, type)
+      .then(function (usernames) {
+          return Promise.all(
+            usernames.map(function (name) {
+              return buildUserObj(name);
+            })
+          );
+    })
+    .then(function (users) {
+      res.json(users);
+    })
+    .catch(function (err) {
+      next(err);
+    });
+
+
   }
 
 };

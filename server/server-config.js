@@ -42,32 +42,7 @@ passport.use(new LinkedInStrategy({
 
   function(token, tokenSecret, profile, done){
     process.nextTick(function () {
-      //RETURN THE TOKEN TO THE FE
-      //SAVE USER TO THE DATABASE USING PROFILE ATTRIBUTES
-      console.log(token);
-      User.forge({
-            username: profile.id
-          })
-          .fetch()
-          .then(function (userExists) {
-            if (userExists) {
-              throw new Error('User already exists!');
-            }
-            return User.forge({
-              username: profile.id,
-              email: "created@gmail.com",
-              linkedin: "true",
-              token: token
-            });
-          })
-          .then(function (newUser) {
-            return newUser.hashPassword('anything');
-          });
-      console.log('THIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSS ISSSSSSS----------------------------------------', profile);
-      // To keep the example simple, the user's LinkedIn profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the LinkedIn account with a user record in your database,
-      // and return that user instead.
+
       return done(null, profile);
     });
   }
@@ -80,7 +55,8 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    res.redirect('/#/choosesubjects');
+    // console.log('request passed into callback-------------', req);
+    res.redirect('/#/linkedinsuccess');
   });
 
 
@@ -91,5 +67,8 @@ app.get('/profile', controller.checkAuth, controller.getCurrentUser);
 app.post('/profile', controller.checkAuth, controller.saveUserChanges);
 app.post('/signup', controller.signup);
 app.post('/login', controller.login);
+app.get('/linkedinsuccess', controller.linkedin);
+app.get('/people', controller.checkAuth, controller.getUsersBySkill);
+app.post('/setaction', controller.setAction);
 
 module.exports = app;
