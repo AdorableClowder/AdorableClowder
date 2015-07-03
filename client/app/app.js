@@ -34,7 +34,7 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
       }
     })
     .state('update', {
-      url: '/updatesubjects',
+      url: '/subjects',
       templateUrl: 'app/views/view-updateSkills.html',
       data: {
         requirelogin: true
