@@ -16,26 +16,30 @@
   <script src="lib/underscore/underscore-min.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular-route/angular-route.js"></script>
-
-
   <!-- // <script src="lib/angular-animate/angular-animate.min.js"></script> -->
   <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="lib/Chart.js/Chart.js"></script>
+  <script src="lib/masonry/dist/masonry.pkgd.js"></script>
+  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/typeahead.js/dist/typeahead.bundle.js"></script>
 
   <!-- minified client code -->
-
+<!-- 
   <script src="build/skillit.min.js"></script>
+ -->
 
-<!--
   <script src="app/controllers/exploreCtrl.js"></script>
+  <script src="app/controllers/chartCtrl.js"></script>
   <script src="app/controllers/loginCtrl.js"></script>
   <script src="app/controllers/profileCtrl.js"></script>
+  <script src="app/controllers/peopleCtrl.js"></script>
   <script src="app/controllers/signupCtrl.js"></script>
   <script src="lib/underscore/underscore-min.js"></script>
   <script src="app/directives/directives.js"></script>
   <script src="app/factories/factories.js"></script>
   <script src="app/app.js"></script>
- -->
-</head>
 
 <body ng-app="skillitApp">
 <!-- navbar -->
@@ -51,7 +55,7 @@
         <li><a ui-sref="login" ng-hide="shouldShow">Login</a></li>
         <li><a ui-sref="profile" ng-show="shouldShow">Profile</a></li>
         <li><a ui-sref="explore" ng-show="shouldShow">Explore</a></li>
-        <li><a ui-sref="choose" ng-show="shouldShow">Choose Subjects</a></li>
+        <li><a ui-sref="update" ng-show="shouldShow"> Subjects</a></li>
         <!-- only show logout if user is logged in -->
         <li><a ui-sref="logout" ng-show="shouldShow">Logout</a></li>
       </ul>
@@ -63,7 +67,6 @@
     <!-- angular views: where all the angular views render -->
     <div ui-view></div>
   </div>
-  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src='lib/bootstrap-switch/dist/js/bootstrap-switch.min.js'></script>
   <script>

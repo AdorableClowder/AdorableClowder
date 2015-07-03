@@ -15,7 +15,15 @@ angular.module('peopleCtrl', [])
         vm.user = user;
         vm.wants = vm.user.want;
         vm.offers = vm.user.offer;
-        console.log(vm.user);
+
+        //set initial values
+        vm.currentWant = vm.wants[0];
+        vm.currentOffer = vm.offers[0];
+
+
+        //make initial selection
+        vm.selectWant(vm.currentWant);
+        vm.selectOffer(vm.currentOffer);
       })
       .catch(function (err) {
         console.log(err);
@@ -61,5 +69,23 @@ angular.module('peopleCtrl', [])
   };
 
 
+  //TODO: trash this jquery crap
+
+
+  //turn on bootstrap switch
   $("[name='switch-checkbox']").bootstrapSwitch();
+
+
+  //pass recipient name and email to modal
+  $('#message-modal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var recipient = button.data('username'); // Extract info from data-* attributes
+
+    var modal = $(this);
+      modal.find('.modal-title').text('Send a message to ' + recipient);
+      modal.find('.modal-body input').val(recipient);
+    });
+
+
+
 });

@@ -17,6 +17,9 @@ client/build/**
 node_modules/
 client/lib
 
+skillit.min.js
+**/skillit.min.js
+
 # Floobits
 .floo
 .floobit

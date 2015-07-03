@@ -7,6 +7,11 @@ var session = require('express-session');
 var cookie = require('cookie-parser');
 var cors = require('cors');
 
+//scraping modules
+var cheerio = require('cheerio');
+var request = require('request');
+
+
 var Models = require('./db/models.js');
 var User = Models.User;
 
@@ -55,9 +60,28 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    // console.log('request passed into callback-------------', req);
+    // var url = req.user._json.publicProfileUrl;
+    // request(url, function(err, response, html){
+    //   if(!err){
+    //     var $ = cheerio.load(html);
+    //     var skillset = [];
+    //     // //find the skills item in the html
+    //        //ul, li, span, span, a
+    //     $('#profile-skills').filter(function(){
+    //       var data = $(this);
+    //       var skills = data.children().first().children();
+    //       for(var i = 0; i<skills.length; i++){
+    //         var skill = $(skills[i]).children().find('a').text();
+    //         skillset.push(skill);
+    //       }
+    //     });
+    //   }
+    // });
+    
+    
     res.redirect('/#/linkedinsuccess');
-  });
+  }
+);
 
 
 // Router (routes to controller)
