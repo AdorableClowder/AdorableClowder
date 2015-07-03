@@ -206,7 +206,8 @@ module.exports = {
       .fetch()
       .then(function (userExists) {
         if (userExists) {
-          throw new Error('User already exists!');
+          res.status(400).send({error: 'User already exists! Please log in'});
+          throw new Error('User already exists! Please log in');
         }
         return User.forge({
           username: username,
@@ -255,7 +256,8 @@ module.exports = {
         .fetch()
         .then(function (user) {
           if (!user) {
-            throw new Error('User does not exist');
+            res.status(400).send({error: 'User does not exist! Please sign up'});
+            throw new Error('User does not exist! Please sign up');
           }else{
             buildUserObj(username).then(function(builtUserObj){
               res.json(jwt.encode(builtUserObj, secret));
