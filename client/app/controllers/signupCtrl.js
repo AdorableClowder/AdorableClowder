@@ -46,6 +46,50 @@ angular.module('signupCtrl', ['ui.bootstrap'])
   };
 })
 
+  .controller("subjectsController", function(Users, $location, $window) {
+    var vm = this;
+    vm.user = {};
+    vm.wants = [];
+    vm.offers = [];
+    vm.wantsSkills = [];
+    vm.offersSkills = [];
+
+    vm.getUser = function () {
+      //using Users factory from factories.js to do GET
+      Users.getUser()
+        .then(function (user) {
+          vm.user = user;
+          vm.wants = vm.user.want;
+          vm.wantsSkills = vm.wants.map(function(item) {
+            return item.skill;
+          });
+          vm.offers = vm.user.offer;
+          vm.offersSkills = vm.offers.map(function(item) {
+            return item.skill;
+          });
+        })
+        .catch(function (err) {
+          console.log(err);
+          //if can't get user, redirect to login
+          $location.path('/login');
+        });
+    };
+
+    vm.getUser();
+
+    vm.categories = ['Language Learning', 'Technology', 'Sports', 'Knowledge', 'Wild n Wacky', 'Business', 'Craft and Design'];
+
+    vm.sampleCategories = {
+      'Language Learning': ['Spanish', 'Chinese', 'Esperanto'],
+      'Technology': ['IoT', 'Hacking Facebook', 'Bitcoin'],
+      'Sports': ["Baseball", "Curling", "Cow-tipping"],
+      'Knowledge': ["Art History", "Art Garfunkel History", "History"],
+      'Wild n Wacky': ["Juggling", "Busking", "Moping"],
+      'Business': ["Money Laundering", "Accounting", "Financial Advice"],
+      'Craft and Design': ["Woodworking", "Clay Pottery", "Graphic Design"]
+    };
+  })
+
 .controller('typeAheadController', function(){
   var vm = this;
   vm.test = "hotdog";

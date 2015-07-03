@@ -38,7 +38,7 @@ db.knex.schema.hasTable('users').then(function (exists) {
       table.string('token', 100);
       table.string('linkedin', 100);
       table.string('url', 100);
-      table.string('skills', 100);
+      table.string('skills', 5000);
       table.timestamps();
     }).then(function (table) {
       console.log('Created USERS table');

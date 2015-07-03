@@ -60,51 +60,28 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/#/login' }),
   function(req, res) {
-    var url = req.user._json.publicProfileUrl;
-    request(url, function(err, response, html){
-      if(!err){
-        var $ = cheerio.load(html);
-        // //find the skills item in the html
-        // $('.category-items').filter(function(){
-        //   var data = $(this);
-        //   var items = data.children();
-        //   for (var i = 0; i < items.length; i++){
-        //     if($(items[i]).children().find('a').children('img').attr()){
-        //       var product = {category: 'jeweleryaccessories'};
-        //       product.links = $(items[i]).children().find('a').attr();
-        //       product.img = $(items[i]).children().find('a').children('img').attr()['data-original'];
-        //       product.name = $(items[i]).children('.item-description').children('a').text();
-        //       product.salePrice = $(items[i]).children('.item-description').children($('.item-price')).children().first().clone().children().remove().end().text();
-        //       product.originalPrice = $(items[i]).children('.item-description').children($('.item-price')).children().first().children('span').text();
-        //       product.originalPrice = product.originalPrice.substring(2, product.originalPrice.length -1);
-        //       products.push(product);
-              
-              
-        //       //create database object
-        //       var product = new Product({
-        //         productCategory: product.category,
-        //         productLink: "http://www.anthropologie.com"+product.links.href, 
-        //         imageLocation: product.img, 
-        //         itemName: product.name, 
-        //         salePrice: Number(product.salePrice.replace(/[^0-9\.]+/g,'')),
-        //         originalPrice: Number(product.originalPrice.replace(/[^0-9\.]+/g,''))
-        //       });
-
-        //       product.save(function(err){
-        //         if(err){
-        //           console.log(err);
-        //         }
-        //       });
-        //     }
-      
-        //   }
-        // });
-      }
-    });
+    // var url = req.user._json.publicProfileUrl;
+    // request(url, function(err, response, html){
+    //   if(!err){
+    //     var $ = cheerio.load(html);
+    //     var skillset = [];
+    //     // //find the skills item in the html
+    //        //ul, li, span, span, a
+    //     $('#profile-skills').filter(function(){
+    //       var data = $(this);
+    //       var skills = data.children().first().children();
+    //       for(var i = 0; i<skills.length; i++){
+    //         var skill = $(skills[i]).children().find('a').text();
+    //         skillset.push(skill);
+    //       }
+    //     });
+    //   }
+    // });
     
     
     res.redirect('/#/linkedinsuccess');
-  });
+  }
+);
 
 
 // Router (routes to controller)
