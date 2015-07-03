@@ -2,7 +2,6 @@ var utils = require('./userUtils.js');
 var Models = require('../models.js');
 var User = Models.User;
 module.exports = saveUser = function (user, next) {
-
  	return User.forge({
  		username: user.username
  	})
