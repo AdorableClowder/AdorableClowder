@@ -7,6 +7,8 @@ var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
 var Promise = require('bluebird');
 var fs = require('fs');
+var cheerio = require('cheerio');
+var request = require('request');
 var getRelatedUsernames = require('./db/queries/getRelatedUsernames.js');
 
 
@@ -168,9 +170,11 @@ module.exports = {
   //turns linkedin information into user object
   //passes token back to be set in FE
   linkedin: function(req, res){
+    //scraping for skills
+    var url = req.user._json.publicProfileUrl;
+    var skillset = [];
     var username = req.user.id;
-    console.log(req.user);
-    console.log('reached linkedin');
+
     if(action === 'signup'){
       User.forge({
         username: username
@@ -187,12 +191,29 @@ module.exports = {
           url: req.user._json.publicProfileUrl
         });
       })
-      .then(function (newUser) {
-        return newUser.hashPassword('anything');
-        })
       .then(function(newUser){
-        buildUserObj(username).then(function(builtUserObj){
-          res.json(jwt.encode(builtUserObj, secret));
+        request(url, function(err, response, html){
+          if(!err){
+            //scraping for skills
+            var $ = cheerio.load(html);
+            $('#profile-skills').filter(function(){
+              var data = $(this);
+              var skills = data.children().first().children();
+              for(var i = 0; i<skills.length; i++){
+                var skill = $(skills[i]).children().find('a').text();
+                skillset.push(skill);
+              }
+              newUser.save({skills: skillset.join(',')})
+              .then(function (newUser) {
+                return newUser.hashPassword('anything');
+              })
+              .then(function(){
+                buildUserObj(username).then(function(builtUserObj){
+                  res.json(jwt.encode(builtUserObj, secret));
+                });
+              });
+            });
+          }
         });
       });
     }
