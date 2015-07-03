@@ -41,8 +41,19 @@
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
+@font-face {
+              font-family: "Chunk Five";
+              src: url("../fonts/Chunkfive.otf");
+}
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-face {
+    font-family: "Raleway";
+    src: url("../fonts/Raleway-Regular.ttf")
+}
+
+
+
+@font-family-sans-serif:  Raleway, Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -396,7 +407,7 @@
 
 // Inverted navbar links
 @navbar-inverse-link-color:                 lighten(@gray-light, 15%);
-@navbar-inverse-link-hover-color:           #fff;
+@navbar-inverse-link-hover-color:           darken(@navbar-inverse-bg, 10%);
 @navbar-inverse-link-hover-bg:              transparent;
 @navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
 @navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 10%);
@@ -405,7 +416,7 @@
 
 // Inverted navbar brand label
 @navbar-inverse-brand-color:                @navbar-inverse-link-color;
-@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-color:          darken(@navbar-inverse-bg, 10%);
 @navbar-inverse-brand-hover-bg:             transparent;
 
 // Inverted navbar toggle

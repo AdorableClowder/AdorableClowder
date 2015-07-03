@@ -1,13 +1,16 @@
-.panel.panel-info.animated.fadeInDown
-  .person-panel(ng-if="skilltype === 'offer'") 
-    p {{person.username}} can teach you 
-      strong {{skill.skill}}!
-    p {{person.username}} also knows about
-     strong  {{person.offer[0].skill}} and {{person.offer[1].skill}}
-  .person-panel(ng-if="skilltype === 'want'") 
-    p {{person.username}} wants to learn 
-      strong {{skill.skill}}!
-    p {{person.username}} also wants to learn 
-     strong  {{person.want[0].skill}} and {{person.want[1].skill}}
+.panel.panel-danger.animated.flipInX
+  .panel-heading
+    .panel-title {{person.username}} Matched!
+  .panel-body
+    .person-panel(ng-if="skilltype === 'offer'")
+      p {{person.username}} can teach you 
+        strong {{skill.skill}}!
+      p {{person.username}} also knows about
+       strong  {{person.offer[0].skill}} and {{person.offer[1].skill}}.
+    .person-panel(ng-if="skilltype === 'want'") 
+      p {{person.username}} wants to learn 
+        strong {{skill.skill}}!
+      p {{person.username}} also wants to learn 
+       strong  {{person.want[0].skill}} and {{person.want[1].skill}}.
   .panel-footer
     a.btn.btn-block.btn-primary(data-toggle="modal" data-target="#message-modal" data-username="{{person.username}}" data-email="{{person.email}}") Send {{person.username}} a message
