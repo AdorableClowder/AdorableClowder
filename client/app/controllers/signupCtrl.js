@@ -18,22 +18,18 @@ angular.module('signupCtrl', [])
   };
   
   vm.action = function(){
-    console.log('authaction got called', Auth.action);
     return Auth.action;
   };
   
   vm.setToken = function(){
     Auth.setToken()
       .then(function(token){
-        console.log('user----------------------', token);
         $window.localStorage.setItem('skillitToken', token);
-        console.log('attempted choosesubjects');
         $location.path('/choosesubjects');
       });
   };
 
   vm.doSignup = function () {
-     console.log('dosignup called');
       Auth.signup(vm.user)
         .then(function (token) {
           console.log('signup success');

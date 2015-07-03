@@ -9,7 +9,6 @@ angular.module('skillitFactories', [])
 
   authFactory.setAction = function(action){
     authFactory.action = action;
-    console.log('authfactory action--------', authFactory.action);
     return $http({
       method: 'POST',
       url: '/setaction',
@@ -101,7 +100,6 @@ angular.module('skillitFactories', [])
     };
 
     userFactory.saveChanges = function(user){
-      console.log("Factories", user);
       return $http({
         method: 'POST',
         url: '/profile',
