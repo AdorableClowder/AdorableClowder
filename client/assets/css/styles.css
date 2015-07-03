@@ -44,6 +44,7 @@
   text-align: center;
   margin-top: 50px;
 }
+<<<<<<< HEAD
 .subjects-box {
   background-color: grey;
   color: #FFFFFF;
@@ -56,6 +57,8 @@
 .all-offers li.active {
   color: blue;
 }
+=======
+>>>>>>> 412089a6f264e09eae03207c7a5c55129fab5fa8
 /*masonry grid styling*/
 .grid {
   margin: 0 auto;
