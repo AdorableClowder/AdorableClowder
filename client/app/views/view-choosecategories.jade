@@ -4,7 +4,11 @@ div(ng-controller="subjectsController as subjects")
       .col-lg-12
         h2 I would like to learn about:
         .all-wantsandoffers
-          a.animated.bounceIn(href="#" ng-repeat="want in subjects.wants" ng-click="subjects.toggleWant(want.skill, want.category)") 
+
+          a.animated.bounceIn(href="#" ng-repeat="want in subjects.wants" ng-click="subjects.toggleWant(want)")
+
+          a.animated.bounceIn(href="#" ng-repeat="want in subjects.wants" ng-click="subjects.toggleWant(want.skill, want.category)")
+
             span.glyphicon.glyphicon-remove
             | {{want.skill}}
     .row(ng-controller="typeAheadController as taCtrl")
@@ -16,7 +20,7 @@ div(ng-controller="subjectsController as subjects")
             ng-click="subjects.toggleWant(subject, category)")
             | {{subject}}
         form.custom-form(ng-submit="subjects.toggleWant(subject, category)")
-          input.form-control(type="text" ng-model="subject"  typeahead="language for language in taCtrl.languages | filter:$viewValue" placeholder="Add Something Else")
+          input.form-control(type="text" ng-model="subject"  typeahead="language for language in taCtrl.allSubjects | filter:$viewValue" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-8
         .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="subjects.chooseOffers = true") Submit Selections
@@ -28,10 +32,13 @@ div(ng-controller="subjectsController as subjects")
       .col-lg-12
         h2 I know a lot about:
         .all-wantsandoffers
-          a.animated.bounceIn(href="#" ng-repeat="offer in subjects.offers" ng-click="subjects.toggleOffer(offer.skill, offer.category)") 
+          a.animated.bounceIn(href="#" ng-repeat="offer in subjects.offers" ng-click="subjects.toggleOffer(offer)")
+
+          a.animated.bounceIn(href="#" ng-repeat="offer in subjects.offers" ng-click="subjects.toggleOffer(offer.skill, offer.category)")
+
             span.glyphicon.glyphicon-remove
             | {{offer.skill}}
-    .row
+    .row(ng-controller="typeAheadController as taCtrl2")
       .col-md-4(ng-repeat="category in subjects.categories")
         h4 {{category}}
         .checkbox(ng-repeat="subject in subjects.sampleCategories[category]")
@@ -39,8 +46,8 @@ div(ng-controller="subjectsController as subjects")
             input(type="checkbox" value="{{subject}}" ng-checked="subjects.offersSkills.indexOf(subject) > -1"
             ng-click="subjects.toggleOffer(subject, category)")
             | {{subject}}
-        form.custom-form(ng-submit="subjects.toggleOffer(customOffer1, category)")
-          input.form-control(ng-model="customOffer1" type="text" placeholder="Add Something Else")
+        form.custom-form(ng-submit="subjects.toggleOffer(subject, category)")
+          input.form-control(type="text" ng-model="subject"  typeahead="language for language in taCtrl2.allSubjects | filter:$viewValue" placeholder="Add Something Else")
           input.btn.btn-primary(type="submit" value="add")
       .col-md-8
         .btn.btn-lg.btn-primary.btn-block.btn-select-subject(ng-click="subjects.changePreferences()") Submit and Get Started
