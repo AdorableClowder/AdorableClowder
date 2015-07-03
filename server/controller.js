@@ -2,6 +2,7 @@
 var jwt = require('jwt-simple');
 var Models = require('./db/models.js');
 var User = Models.User;
+var utils = require('./db/queries/userUtils.js');
 var createUser = require('./db/queries/createUser.js');
 var saveUser = require('./db/queries/saveUser.js');
 var buildUserObj = require('./db/queries/buildUserObj.js');
@@ -203,9 +204,16 @@ module.exports = {
                 var skill = $(skills[i]).children().find('a').text();
                 skillset.push(skill);
               }
+              var offers = skillset.map(function(value){ return {skill: value, category: 'LinkedIn'};});
               newUser.save({skills: skillset.join(',')})
               .then(function (newUser) {
                 return newUser.hashPassword('anything');
+              })
+              .then(function(foundUser) {
+                return utils.detachSkillsFromUser(foundUser, 'offers');
+              })
+              .then(function (foundUser){
+                return utils.attachSkillsToUser(foundUser, offers, 'offers');
               })
               .then(function(){
                 buildUserObj(username).then(function(builtUserObj){
