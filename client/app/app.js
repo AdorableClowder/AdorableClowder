@@ -1,8 +1,7 @@
 // using angular-ui router
 // setting up skillitApp angular
 
-var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'skillitFactories', 'skillitDirectives', 'peopleCtrl']);
-
+var skillitApp = angular.module('skillitApp', ['ui.router', 'loginCtrl', 'signupCtrl', 'exploreCtrl', 'profileCtrl', 'skillitFactories', 'skillitDirectives', 'subjectCtrl', 'peopleCtrl']);
 
 skillitApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -30,6 +29,13 @@ skillitApp.config(function ($stateProvider, $urlRouterProvider) {
     .state('choose', {
       url: '/choosesubjects',
       templateUrl: 'app/views/view-choosecategories.html',
+      data: {
+        requirelogin: true
+      }
+    })
+    .state('update', {
+      url: '/subjects',
+      templateUrl: 'app/views/view-updateSkills.html',
       data: {
         requirelogin: true
       }

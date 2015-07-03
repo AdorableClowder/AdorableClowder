@@ -1,4 +1,4 @@
-<div class="jumbotron text-center">
+<div class="jumbotron">
   <div ng-controller="profileController as profile">
     <div>
       <h5 ng-hide="profile.changesSaved">Profile changes saved.</h5>
@@ -8,11 +8,11 @@
   
 <div class="row">
  <div class="col-md-4">  
-    <h5>What you want to teach:</h5>
-      <a href="#" ng-repeat="offer in profile.user.offer" ng-click="profile.toggleOffer(offer)">{{ offer }}<span class="glyphicon glyphicon-remove"></span></a>
+    <h5>Your skills:</h5>
+      <!-- <a href="#" ng-repeat="offer in profile.user.offer" ng-click="profile.toggleOffer(offer)">{{ offer }}<span class="glyphicon glyphicon-remove"></span></a> -->
   </div>
 </div>
-  <form ng-submit="profile.toggleOffer(customOffer); customerOffer = ''">
+ <!--  <form ng-submit="profile.toggleOffer(customOffer)">
     <input type="text" ng-model="customOffer" placeholder="Add something else">
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
@@ -21,15 +21,15 @@
       </ul>
     </div>
     <button type="submit">Add</button>
-  </form>
+  </form> -->
 
 <div class="row">
   <div class="col-md-4">
-    <h5>What you want to learn:</h5>
-      <a href="#" ng-repeat="want in profile.user.want" ng-click="profile.toggleWant(want)">{{ want }}<span class="glyphicon glyphicon-remove"></span></a>
+    <h5>Skills you want to learn:</h5>
+    <!--   <a href="#" ng-repeat="want in profile.user.want" ng-click="profile.toggleWant(want)">{{ want }}<span class="glyphicon glyphicon-remove"></span></a> -->
   </div>
 </div>
-<div>
+<!-- <div>
   <form ng-submit="profile.toggleWant(customWant)">
     <input type="text" ng-model="customWant" placeholder="Add something else">
     <div class="btn-group">
@@ -40,13 +40,27 @@
     </div>
     <button type="submit">Add</button>
   </form>
-</div>
+</div> -->
     
-    <h5>Your email address:</h5>
+  <!--   <h5>Your email address:</h5>
     <li>{{profile.user.email}}</li>
+
 
     <div>
       <button ng-click="profile.submitChanges()">Save Changes</button>
+    </div> -->
+
+    <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input ng-model="profile.user.email" type="email" class="form-control" id="exampleInputEmail1">
     </div>
+    <div class="form-group">
+      <label for="exampleInputFile">File input</label>
+      <input type="file" id="exampleInputFile">
+      <p class="help-block">Upload a photo.</p>
+    </div>
+    <button ng-click="profile.submitChanges()" type="submit" class="btn btn-default">Submit</button>
+  </form>
   </div>
 </div>
