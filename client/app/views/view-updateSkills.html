@@ -1,0 +1,73 @@
+<div class="container" ng-controller="subjectsController as subject">
+
+  <h4 ng-hide="subject.changesSaved">Subject preferences saved.</h4>
+  <div class="row">
+		
+    <div class="wants col-md-6">
+			<h2>I want to learn:</h2>
+        <div ng-repeat="category in subject.categories">
+          <h4>{{ category }}:</h4>
+            <a href="#" ng-repeat="want in subject.wantsObj[category]" ng-click="subject.toggleWant(want, category)">{{ want.skill }}
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="offers col-md-6">
+      <h2>I'm offering to teach:</h2>
+        <div ng-repeat="category in subject.categories">
+          <h4>{{ category }}:</h4>
+            <a href="#" ng-repeat="offer in subject.offersObj[category]" ng-click="subject.toggleWant(offer, category)"> {{ offer.skill }}
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+    </div>
+
+  </div> <!-- row -->
+		
+		
+  <div class="row">	
+
+    <div class="col-md-6">
+  		<form class="form-inline" ng-submit="subject.toggleWant(customWant, subject.selectedWantCategory)">
+  		  <div class="form-group">
+        <input type="text" ng-model="customWant" placeholder="Add skill to learn">
+        </div>
+  		  <div class="form-group btn-group">
+  		    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ subject.selectedWantCategory }}<span class="caret"></span></button>
+  		    <ul class="dropdown-menu">
+  		      <li><a href="#" ng-repeat="category in subject.categories" ng-click="subject.selectWantCategory(category)">{{ category }}</a></li>
+  		    </ul>
+  		  </div>
+  		  <button class="btn btn-primary" type="submit">Add</button>
+  		</form>
+    </div>
+
+    <div class="col-md-6">
+      <form class="form-inline" ng-submit="subject.toggleOffer(customOffer, subject.selectedOfferCategory)">
+        <div class="form-group">
+        <input type="text" ng-model="customOffer" placeholder="Add skill to teach">
+        </div>
+        <div class="form-group btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ subject.selectedOfferCategory }}<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#" ng-repeat="category in subject.categories" ng-click="subject.selectOfferCategory(category)">{{ category }}</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" type="submit">Add</button>
+      </form>
+    </div>
+
+  </div> <!-- row -->
+
+  <div class="row text-center">
+    <div class="col-md-4 col-md-offset-8">
+      <button class="saveUpdate btn btn-primary btn-block" ng-click="subject.changePreferences()">Save Updates</button>
+    </div>
+  </div>
+
+</div> <!-- container -->
+	
+
+
+  
