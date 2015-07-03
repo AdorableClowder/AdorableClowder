@@ -1,4 +1,4 @@
-angular.module('signupCtrl', ['ui.bootstrap'])
+  angular.module('signupCtrl', ['ui.bootstrap'])
 
 .controller('signupController', function (Auth, $location, $window) {
   //vm stands for view model, will be signup in html
@@ -18,14 +18,25 @@ angular.module('signupCtrl', ['ui.bootstrap'])
   };
   
   vm.action = function(){
-    return Auth.action;
+    var action = $window.localStorage.getItem('action');
+    return action === 'signup' ? 'You\'re all signed up!' : 'Welcome Back';
   };
   
   vm.setToken = function(){
+    var action = $window.localStorage.getItem('action');
     Auth.setToken()
       .then(function(token){
         $window.localStorage.setItem('skillitToken', token);
-        $location.path('/choosesubjects');
+        if(action === 'signup'){
+          $location.path('/choosesubjects');
+        }
+        if(action === 'login'){
+          $location.path('/people');
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+        vm.err = err.data.error;
       });
   };
 

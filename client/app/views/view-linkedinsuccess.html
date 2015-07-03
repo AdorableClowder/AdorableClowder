@@ -1,7 +1,8 @@
 <div ng-controller="signupController as signup" class="jumbotron text-center">
-  <h1>Great! You're {{signup.action()}}</h1>
+  <h1 ng-hide="signup.err">{{signup.action()}}</h1>
 
   <div>
-    <button class="btn btn-default" ng-click="signup.setToken()">PROCEED</button>
+    <button ng-hide="signup.err" class="btn btn-default" ng-click="signup.setToken()">PROCEED</button>
   </div>
+  <h1>{{signup.err}}</h1>
 </div>

@@ -5,10 +5,9 @@ angular.module('skillitFactories', [])
 
   var authFactory = {};
 
-  authFactory.action = '';
 
   authFactory.setAction = function(action){
-    authFactory.action = action;
+    $window.localStorage.setItem('action', action);
     return $http({
       method: 'POST',
       url: '/setaction',
